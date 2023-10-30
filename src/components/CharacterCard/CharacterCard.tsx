@@ -3,9 +3,7 @@ import { Box } from '@mui/system';
 import Container from 'components/Container';
 import { useTheme } from '@mui/material/styles';
 
-type Props = {};
-
-const CharacterCard = (props: Props) => {
+const CharacterCard = () => {
   const theme = useTheme();
 
   return (
