@@ -1,18 +1,22 @@
 import React, { Suspense } from 'react';
+import { Box } from '@mui/system';
 import { Outlet } from 'react-router';
+import Header from 'components/Header';
+import Footer from 'components/Footer/Footer';
+import { CircularProgress } from '@mui/material';
 
 const Layout = () => {
   return (
     <>
-      <header>This is shared header</header>
+      <Header />
 
-      <main>
-        <Suspense fallback={<p>....loading</p>}>
+      <Box component="main">
+        <Suspense fallback={<CircularProgress color="success" />}>
           <Outlet />
         </Suspense>
-      </main>
+      </Box>
 
-      <footer>This is shared footer</footer>
+      <Footer />
     </>
   );
 };
