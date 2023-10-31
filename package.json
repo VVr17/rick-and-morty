@@ -1,5 +1,5 @@
 {
-  "name": "my-app",
+  "name": "rick-and-morty",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -11,9 +11,6 @@
     "@mui/styled-engine-sc": "^6.0.0-alpha.3",
     "@mui/system": "^5.14.15",
     "@reduxjs/toolkit": "^1.9.7",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.59",
     "@types/react": "^18.2.33",
@@ -28,7 +25,6 @@
     "react-scripts": "5.0.1",
     "redux": "^4.2.1",
     "redux-thunk": "^2.4.2",
-    "reselect": "^4.1.8",
     "styled-components": "^6.1.0",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
@@ -36,7 +32,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "schema:download": "npx apollo service:download --endpoint=https://rickandmortyapi.com/graphql ./src/app/graphql/graphql-schema.json"
+    "schema:download": "npx apollo service:download --endpoint=https://rickandmortyapi.com/graphql ./src/app/graphql/graphql-schema.json",
+    "schema:generate-watch": "npx apollo codegen:generate --localSchemaFile=./src/app/graphql/graphql-schema.json --target=typescript --tagName=gql --watch"
   },
   "eslintConfig": {
     "extends": [
