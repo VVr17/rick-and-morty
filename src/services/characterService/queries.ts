@@ -8,6 +8,7 @@ export const FETCH_CHARACTER_LIST = gql`
         pages
       }
       results {
+        id
         name
         status
         location {
@@ -15,6 +16,7 @@ export const FETCH_CHARACTER_LIST = gql`
           name
         }
         image
+        species
         episode {
           id
           name

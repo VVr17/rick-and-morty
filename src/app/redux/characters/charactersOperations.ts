@@ -6,7 +6,7 @@ import { apolloClient } from 'app/graphql';
 import { FETCH_CHARACTER_LIST } from 'services/characterService/queries';
 
 export const fetchCharacters = createAsyncThunk(
-  'characters/fetchAll',
+  'characters/fetch',
   async (
     query: ICharacterQuery,
     { rejectWithValue }

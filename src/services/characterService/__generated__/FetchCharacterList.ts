@@ -46,6 +46,10 @@ export interface FetchCharacterList_characters_results_episode {
 export interface FetchCharacterList_characters_results {
   __typename: "Character";
   /**
+   * The id of the character.
+   */
+  id: string | null;
+  /**
    * The name of the character.
    */
   name: string | null;
@@ -62,6 +66,10 @@ export interface FetchCharacterList_characters_results {
    * All images are 300x300px and most are medium shots or portraits since they are intended to be used as avatars.
    */
   image: string | null;
+  /**
+   * The species of the character.
+   */
+  species: string | null;
   /**
    * Episodes in which this character appeared.
    */
