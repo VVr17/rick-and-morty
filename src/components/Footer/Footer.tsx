@@ -17,7 +17,7 @@ const Footer = () => {
       pt={6}
       pb={10.25}
       sx={{
-        backgroundColor: theme.palette.secondary.main,
+        backgroundColor: theme.palette.primary.dark,
         color: theme.palette.text.secondary,
       }}
     >

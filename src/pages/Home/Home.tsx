@@ -1,22 +1,22 @@
-import React from 'react';
-import CharacterList from 'components/CharacterList';
+import React, { useEffect } from 'react';
 import Hero from 'components/Hero';
 
 import { useAppDispatch } from 'app/redux/hooks';
 import { fetchCharacters } from 'app/redux/characters/charactersOperations';
 
+import Characters from 'components/Characters';
+
 const Home = () => {
   const dispatch = useAppDispatch();
 
-  const handleSearch = () => {
-    dispatch(fetchCharacters({ page: 1, name: 'rick' }));
-  };
+  useEffect(() => {
+    dispatch(fetchCharacters({ page: 1, name: '' }));
+  }, []);
 
   return (
     <>
       <Hero />
-      <button onClick={handleSearch}>Fetch data</button>
-      <CharacterList />
+      <Characters />
     </>
   );
 };
