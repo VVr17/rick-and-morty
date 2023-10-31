@@ -10,7 +10,7 @@ const Home = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchCharacters({ page: 1, name: '' }));
+    dispatch(fetchCharacters({ page: 1, name: 'rick' }));
   }, []);
 
   return (

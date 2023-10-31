@@ -25,3 +25,24 @@ export const FETCH_CHARACTER_LIST = gql`
     }
   }
 `;
+
+export const FETCH_SINGLE_CHARACTER = gql`
+  query FetchCharacterById($id: ID!) {
+    character(id: $id) {
+      id
+      name
+      status
+      species
+      location {
+        id
+        name
+      }
+      image
+      gender
+      episode {
+        id
+        name
+      }
+    }
+  }
+`;
