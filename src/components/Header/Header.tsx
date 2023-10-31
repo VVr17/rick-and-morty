@@ -1,8 +1,9 @@
 import React from 'react';
 import { Box } from '@mui/system';
+
 import LogoIcon from 'assets/icons/logo.svg';
-import { LogoStyled } from './Header.styled';
 import Container from 'components/Container';
+import { LogoStyled } from './Header.styled';
 
 const Header = () => {
   return (

@@ -1,11 +1,12 @@
 import React from 'react';
 import { Box } from '@mui/system';
+import { useTheme } from '@mui/material/styles';
+
 import Container from 'components/Container';
 import InCodeIcon from 'assets/icons/incode.svg';
 import { DescStyled, LogoStyled } from './Footer.styled';
-import { AiFillGithub, AiFillHeart } from 'react-icons/ai';
-import { FaTwitter } from 'react-icons/fa6';
-import { useTheme } from '@mui/material/styles';
+
+import { GitHub, Twitter, Favorite } from '@mui/icons-material';
 
 const Footer = () => {
   const theme = useTheme();
@@ -27,9 +28,9 @@ const Footer = () => {
         <LogoStyled src={InCodeIcon} alt="logo" width={40} height={40} />
 
         <Box mb={3}>
-          <AiFillGithub width={40} height={40} />
-          <FaTwitter width={40} height={40} />
-          <AiFillHeart width={40} height={40} />
+          <GitHub />
+          <Twitter />
+          <Favorite />
         </Box>
         <span>2023</span>
       </Container>

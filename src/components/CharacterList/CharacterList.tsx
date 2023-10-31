@@ -1,12 +1,17 @@
 import React from 'react';
 import { Box } from '@mui/system';
 import { useTheme } from '@mui/material/styles';
+
 import Container from 'components/Container';
+import { useAppSelector } from 'app/redux/hooks';
+import { selectCharacters } from 'app/redux/characters/selectors';
 
-type Props = {};
-
-const CharacterList = (props: Props) => {
+const CharacterList = () => {
   const theme = useTheme();
+  const { characters, isLoading } = useAppSelector(selectCharacters);
+
+  console.log('characters in a list component', characters);
+  console.log('isLoading', isLoading);
 
   return (
     <Box
