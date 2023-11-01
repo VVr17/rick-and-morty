@@ -1,8 +1,24 @@
 import { gql } from '@apollo/client';
 
 export const FETCH_CHARACTER_LIST = gql`
-  query FetchCharacterList($page: Int!, $name: String!, $status: String!) {
-    characters(page: $page, filter: { name: $name, status: $status }) {
+  query FetchCharacterList(
+    $page: Int!
+    $name: String!
+    $status: String!
+    $type: String!
+    $gender: String!
+    $species: String!
+  ) {
+    characters(
+      page: $page
+      filter: {
+        name: $name
+        status: $status
+        species: $species
+        type: $type
+        gender: $gender
+      }
+    ) {
       info {
         count
         pages
@@ -14,12 +30,15 @@ export const FETCH_CHARACTER_LIST = gql`
         location {
           id
           name
+          type
+          dimension
         }
         image
         species
         episode {
           id
           name
+          episode
         }
       }
     }
@@ -36,12 +55,15 @@ export const FETCH_SINGLE_CHARACTER = gql`
       location {
         id
         name
+        type
+        dimension
       }
       image
       gender
       episode {
         id
         name
+        episode
       }
     }
   }

@@ -7,10 +7,13 @@ import { useForm } from 'react-hook-form';
 
 /**
  * select 1=> type : Character, Location, Episode.
+ *
  * select 2:
- * type = Character: name, status,species,type,gender
-
+ * type = Character: name, status, species, type, gender
+ * type = Location: name, type, dimension
+ * type = Episode:name, episode (episode code)
  */
+
 const Filter = () => {
   const [filterIsOpen, setFilterIsOpen] = useState<boolean>(false);
   const dispatch = useAppDispatch();

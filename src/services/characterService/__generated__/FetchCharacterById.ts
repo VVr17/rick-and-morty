@@ -17,6 +17,14 @@ export interface FetchCharacterById_character_location {
    * The name of the location.
    */
   name: string | null;
+  /**
+   * The type of the location.
+   */
+  type: string | null;
+  /**
+   * The dimension in which the location is located.
+   */
+  dimension: string | null;
 }
 
 export interface FetchCharacterById_character_episode {
@@ -29,6 +37,10 @@ export interface FetchCharacterById_character_episode {
    * The name of the episode.
    */
   name: string | null;
+  /**
+   * The code of the episode.
+   */
+  episode: string | null;
 }
 
 export interface FetchCharacterById_character {
@@ -76,5 +88,5 @@ export interface FetchCharacterById {
 }
 
 export interface FetchCharacterByIdVariables {
-  id: number;
+  id: string;
 }
