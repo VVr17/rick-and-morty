@@ -32,7 +32,8 @@ const charactersSlice = createSlice({
       })
       .addCase(fetchCharacters.pending, handlePending)
       .addCase(fetchCharacters.rejected, (state, { payload }) => {
-        if (typeof payload === 'string') state.error = payload;
+        state.error = 'Error during fetch data';
+        state.isLoading = false;
       });
   },
 });

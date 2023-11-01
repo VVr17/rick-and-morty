@@ -1,48 +1,30 @@
+import React from 'react';
 import { Avatar, Grid } from '@mui/material';
 import { Box } from '@mui/system';
-import React from 'react';
-import { useTheme } from '@mui/material/styles';
+
 import { FetchCharacterList_characters_results } from 'services/characterService/__generated__/FetchCharacterList';
-import { Link } from 'react-router-dom';
+import Description from './Description';
 
 interface IProps {
   character: FetchCharacterList_characters_results;
 }
 
-const Card: React.FC<IProps> = ({ character }) => {
-  const { id, name, image, episode, species, location, status } = character;
-  const theme = useTheme();
+const Item: React.FC<IProps> = ({ character }) => {
+  const { image } = character;
 
   return (
     <Grid component="li" item xs={6}>
-      <Box
-        bgcolor={'white'}
-        display="flex"
-        sx={{
-          backgroundColor: theme.palette.background.default,
-          color: theme.palette.text.primary,
-        }}
-      >
+      <Box bgcolor="background.default" display="flex">
         <Avatar
           alt="name"
-          src={image ? image : ''}
+          src={image ? image : '/assets/images/fallback.jpeg'}
           variant="square"
           sx={{ width: 229, height: 220 }}
         />
-        <Box pt={1.5} pl={1.5}>
-          <Link to={`${id}`}>{name}</Link>
-
-          <p>
-            {status} {species}
-          </p>
-          <p>Last known location:</p>
-          <p>{location?.name}</p>
-          <p>First seen in:</p>
-          <p>{episode[0]?.name}</p>
-        </Box>
+        <Description character={character} />
       </Box>
     </Grid>
   );
 };
 
-export default Card;
+export default Item;

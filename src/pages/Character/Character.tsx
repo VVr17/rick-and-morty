@@ -1,11 +1,11 @@
 import React from 'react';
 import { useParams } from 'react-router';
 import { useQuery } from '@apollo/client';
-import { CircularProgress } from '@mui/material';
 import { FETCH_SINGLE_CHARACTER } from 'services/characterService/queries';
 
 import CharacterDetails from 'components/CharacterDetails';
 import Hero from 'components/Hero';
+import Loader from 'components/common/Loader';
 
 const Character = () => {
   const { characterId } = useParams();
@@ -15,8 +15,8 @@ const Character = () => {
 
   return (
     <>
+      <Loader isLoading={loading} />
       <Hero />
-      {loading && <CircularProgress color="success" />}
       {data && <CharacterDetails character={data.character} />}
     </>
   );

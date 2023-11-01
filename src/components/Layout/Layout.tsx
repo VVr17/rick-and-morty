@@ -1,10 +1,10 @@
 import React, { Suspense } from 'react';
 import { Box } from '@mui/system';
-import { CircularProgress } from '@mui/material';
 import { Outlet } from 'react-router';
 
 import Header from 'components/Header';
 import Footer from 'components/Footer/Footer';
+import Loader from 'components/common/Loader';
 
 const Layout = () => {
   return (
@@ -12,7 +12,7 @@ const Layout = () => {
       <Header />
 
       <Box component="main">
-        <Suspense fallback={<CircularProgress color="success" />}>
+        <Suspense fallback={<Loader isLoading={true} />}>
           <Outlet />
         </Suspense>
       </Box>

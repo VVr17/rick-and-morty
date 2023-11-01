@@ -15,7 +15,7 @@ API документація: https://rickandmortyapi.com/documentation/
 
 ⚡️ Робота із запитами: GraphQL
 
-⚡️ Обробка форм (на вибір): Formik, React Hook Form
+⚡️ Обробка форм: React Hook Form
 
 ⚡️ UI бібліотеки: Material UI
 

@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const FETCH_CHARACTER_LIST = gql`
-  query FetchCharacterList($page: Int!, $name: String!) {
-    characters(page: $page, filter: { name: $name }) {
+  query FetchCharacterList($page: Int!, $name: String!, $status: String!) {
+    characters(page: $page, filter: { name: $name, status: $status }) {
       info {
         count
         pages

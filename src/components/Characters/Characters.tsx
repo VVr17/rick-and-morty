@@ -1,28 +1,37 @@
 import React from 'react';
-import CharacterList from 'components/Characters/CharacterList';
-import { useTheme } from '@mui/material/styles';
-
-import Filter from 'components/Characters/Filter';
 import { Box } from '@mui/system';
+import { Typography } from '@mui/material';
+
+import { FIRST_PAGE } from 'constants/listConstants';
+import { selectCharacters } from 'app/redux/characters/selectors';
+import { useAppSelector } from 'app/redux/hooks';
+
+import CharacterList from 'components/Characters/CharacterList';
 import Container from 'components/Container';
+import Filter from 'components/Characters/Filter';
 import ListPagination from './ListPagination';
 
 const Characters = () => {
-  const theme = useTheme();
+  const { totalPages, isLoading, characterList } =
+    useAppSelector(selectCharacters);
 
   return (
-    <Box
-      component="section"
-      py={3}
-      sx={{
-        backgroundColor: theme.palette.primary.main,
-        color: theme.palette.text.secondary,
-      }}
-    >
+    <Box component="section" py={3} bgcolor="primary.main">
       <Container>
-        <Filter />
-        <CharacterList />
-        <ListPagination />
+        {!isLoading && !characterList.length && (
+          <Typography component="p" variant="h3">
+            There are no characters found on your request
+          </Typography>
+        )}
+
+        {!!characterList.length && (
+          <>
+            <Filter />
+            <CharacterList />
+          </>
+        )}
+
+        {totalPages && totalPages > FIRST_PAGE && <ListPagination />}
       </Container>
     </Box>
   );

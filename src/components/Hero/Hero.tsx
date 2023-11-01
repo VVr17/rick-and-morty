@@ -1,14 +1,24 @@
 import React from 'react';
-import { Box } from '@mui/system';
+import { Typography } from '@mui/material';
+
 import Container from 'components/Container';
+import { HeroStyled } from './Hero.styled';
 
 const Hero = () => {
   return (
-    <Box component="section" py="113px">
+    <HeroStyled>
       <Container>
-        <h1>The Rick and Morty API</h1>
+        <Typography
+          variant="h1"
+          component="h1"
+          align="center"
+          color="primary.dark"
+          fontWeight={900}
+        >
+          The Rick and Morty API
+        </Typography>
       </Container>
-    </Box>
+    </HeroStyled>
   );
 };
 

@@ -11,12 +11,12 @@ export const fetchCharacters = createAsyncThunk(
     query: ICharacterQuery,
     { rejectWithValue }
   ): Promise<FetchCharacterList['characters']> => {
-    const { page, name } = query;
+    const { page, name, status } = query;
 
     try {
       const response = await apolloClient.query({
         query: FETCH_CHARACTER_LIST,
-        variables: { page, name },
+        variables: { page, name, status },
       });
 
       if (!response || !response.data) {

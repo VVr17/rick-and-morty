@@ -1,11 +1,11 @@
 import React, { Suspense } from 'react';
 import { Route, Routes } from 'react-router';
-import { CircularProgress } from '@mui/material';
 import { Character, Home, Layout } from './lazyexports';
+import Loader from 'components/common/Loader';
 
 const App = () => {
   return (
-    <Suspense fallback={<CircularProgress color="success" />}>
+    <Suspense fallback={<Loader isLoading={true} />}>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
