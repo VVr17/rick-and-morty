@@ -2,14 +2,15 @@ import React from 'react';
 import { Box } from '@mui/system';
 import Container from 'components/Container';
 import { useTheme } from '@mui/material/styles';
-import { useAppSelector } from 'app/redux/hooks';
-import { selectCurrentCharacter } from 'app/redux/currentCharacter/selectors';
-import CharacterCard from 'components/CharacterDetails/CharacterCard';
-import { CircularProgress } from '@mui/material';
+import { FetchCharacterById_character } from 'services/characterService/__generated__/FetchCharacterById';
+import CharacterCard from './CharacterCard';
 
-const CharacterDetails = () => {
+interface IProps {
+  character: FetchCharacterById_character;
+}
+
+const CharacterDetails: React.FC<IProps> = ({ character }) => {
   const theme = useTheme();
-  const { isLoading, data } = useAppSelector(selectCurrentCharacter);
 
   return (
     <Box
@@ -22,8 +23,7 @@ const CharacterDetails = () => {
       }}
     >
       <Container>
-        {isLoading && <CircularProgress color="success" />}
-        {data && <CharacterCard />}
+        <CharacterCard character={character} />
       </Container>
     </Box>
   );

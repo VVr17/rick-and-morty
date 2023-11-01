@@ -1,20 +1,17 @@
-import { Box } from '@mui/system';
-import { selectCurrentCharacter } from 'app/redux/currentCharacter/selectors';
-import { useAppSelector } from 'app/redux/hooks';
 import React from 'react';
+import { Box } from '@mui/system';
+
 import { useTheme } from '@mui/material/styles';
 import { Avatar } from '@mui/material';
+import { FetchCharacterById_character } from 'services/characterService/__generated__/FetchCharacterById';
 
-const CharacterCard = () => {
-  const { data: currentCharacter } = useAppSelector(selectCurrentCharacter);
+interface IProps {
+  character: FetchCharacterById_character;
+}
+
+const CharacterCard: React.FC<IProps> = ({ character }) => {
   const theme = useTheme();
-
-  if (!currentCharacter) {
-    return <p> Nothing found</p>;
-  }
-
-  const { id, name, image, episode, species, location, status } =
-    currentCharacter;
+  const { id, name, image, episode, species, location, status } = character;
 
   return (
     <Box
