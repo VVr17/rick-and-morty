@@ -5,16 +5,19 @@ import { Grid } from '@mui/material';
 import Item from './Item';
 
 const CharacterList = () => {
-  const { characters, isLoading } = useAppSelector(selectCharacters);
+  const { characterList, totalPages } = useAppSelector(selectCharacters);
 
   return (
-    <Grid component="ul" container spacing={2} mb={3.25}>
-      {characters &&
-        characters.map(character => {
-          if (character)
-            return <Item key={character.id} character={character} />;
-        })}
-    </Grid>
+    <>
+      {!!characterList?.length && (
+        <Grid component="ul" container spacing={2} mb={3.25}>
+          {characterList.map(character => {
+            if (character)
+              return <Item key={character.id} character={character} />;
+          })}
+        </Grid>
+      )}
+    </>
   );
 };
 

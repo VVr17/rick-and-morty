@@ -5,7 +5,6 @@ import { useTheme } from '@mui/material/styles';
 import Filter from 'components/Characters/Filter';
 import { Box } from '@mui/system';
 import Container from 'components/Container';
-import { Pagination } from '@mui/material';
 import ListPagination from './ListPagination';
 
 const Characters = () => {
