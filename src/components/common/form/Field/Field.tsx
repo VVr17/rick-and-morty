@@ -20,7 +20,6 @@ const Field: React.FC<IProp> = ({ control, name, placeholder }) => {
           variant="outlined"
           sx={{
             width: '100%',
-            // backgroundColor: 'secondary.main',
             '& input': {
               color: 'primary.dark',
               backgroundColor: 'secondary.main',

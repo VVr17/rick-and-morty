@@ -20,7 +20,7 @@ const MenuProps = {
   },
 };
 
-const FormSelect: React.FC<IProp> = ({
+const MultipleSelect: React.FC<IProp> = ({
   control,
   name,
   placeholder,
@@ -30,7 +30,6 @@ const FormSelect: React.FC<IProp> = ({
     <Controller
       name={name}
       control={control}
-      defaultValue={[]}
       render={({ field }) => (
         <Select
           {...field}
@@ -61,4 +60,4 @@ const FormSelect: React.FC<IProp> = ({
   );
 };
 
-export default FormSelect;
+export default MultipleSelect;

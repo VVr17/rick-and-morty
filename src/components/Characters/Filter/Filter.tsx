@@ -7,49 +7,24 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { filterSchema } from 'utils/validation/filterValidationSchema';
 import Field from 'components/common/form/Field';
-import FormSelect from 'components/common/form/FormSelect';
+import MultipleSelect from 'components/common/form/MultipleSelect';
+import { FormValues } from 'types/filterForm';
+import { filterDefaultValues } from 'constants/filter/filterDefaultValues';
 
-const properties = ['character', 'location', 'episode'];
-
-export type FormValues = {
-  search: string; // search by key word --> search by character - by name, species, type
-  property: Array<'character' | 'location' | 'episode'>;
-  name: string;
-  status: 'alive' | 'dead' | 'unknown' | string;
-  species: string;
-  type: string;
-  gender: 'female' | 'male' | 'genderless' | 'unknown' | string;
-
-  locationName: string;
-  locationType: string;
-  dimension: string;
-
-  episodeName: string;
-  episode: string; // (episode code) validation "S01E01" -> from S01E01-S01E11 / S02E01-S02E10 / S03E01-S03E10 / S04E01-S04E10 / S05E01-S05E10
-};
+import CharacterFields from './CharacterFields';
+import LocationFields from './LocationFields';
+import EpisodeFields from './EpisodeFields';
+import { resetFields } from 'utils/filter/getResetFields';
+import { properties } from 'constants/filter/filterSelectValues';
 
 const Filter = () => {
   const [filterIsOpen, setFilterIsOpen] = useState<boolean>(false);
-  const dispatch = useAppDispatch();
 
   // Form control using React Hook Form
   const formConfig = {
     // resolver: yupResolver(filterSchema),
     // mode: 'onSubmit', // Set your desired mode here ('onBlur', 'onChange', or 'onSubmit')
-    defaultValues: {
-      search: '',
-      property: [],
-      name: '',
-      status: '',
-      species: '',
-      type: '',
-      gender: '',
-      locationName: '',
-      locationType: '',
-      dimension: '',
-      episodeName: '',
-      episode: '',
-    },
+    defaultValues: filterDefaultValues,
   };
 
   const {
@@ -57,29 +32,41 @@ const Filter = () => {
     control,
     reset,
     setValue,
-    register,
     watch,
-    formState: { defaultValues },
+    formState: { errors },
   } = useForm<FormValues>(formConfig);
 
-  const onSubmit: SubmitHandler<FormValues> = data => {
-    // Handle form submission
-    console.log(data);
-  };
+  // Properties select status
+  const chosenProperties = watch('property');
+  const propertyIsChosen = !!chosenProperties.length;
+  const characterChosen = chosenProperties.includes('character');
+  const locationChosen = chosenProperties.includes('location');
+  const episodeChosen = chosenProperties.includes('episode');
+  const [menuIsOpen, setMenuIsOpen] = useState<boolean>(propertyIsChosen);
 
+  useEffect(() => {
+    // Open / close menu with filter fields according to chosen properties
+    setMenuIsOpen(propertyIsChosen);
+
+    //Reset fields for unchecked property to default empty values
+    if (propertyIsChosen) {
+      resetFields(chosenProperties, setValue);
+    }
+  }, [chosenProperties]);
+
+  // Open / close filter. Reset filter if it is closed
   const toggleFilter = () => {
-    // TODO: add reset filter when it is removed
+    if (filterIsOpen) {
+      reset();
+    }
+
     setFilterIsOpen(prevState => !prevState);
   };
 
-  const chosenProperties = watch('property');
-  const [menuIsOpen, setMenuIsOpen] = useState<boolean>(
-    !!chosenProperties.length
-  );
-
-  useEffect(() => {
-    setMenuIsOpen(!!chosenProperties.length);
-  }, [chosenProperties]);
+  // Handle form submission
+  const onSubmit: SubmitHandler<FormValues> = data => {
+    console.log(data);
+  };
 
   return (
     <Box mb={2.5} display="flex">
@@ -103,7 +90,7 @@ const Filter = () => {
             flexDirection: 'row',
           }}
         >
-          <FormSelect
+          <MultipleSelect
             control={control}
             name="property"
             placeholder="Select item"
@@ -118,68 +105,9 @@ const Filter = () => {
 
             {menuIsOpen && (
               <Box position="absolute" top={0} left={0} zIndex={50}>
-                <Field
-                  name="name"
-                  control={control}
-                  placeholder="Character name"
-                  // chosenProperties.includes('character')
-                />
-                <Field
-                  name="status"
-                  control={control}
-                  placeholder="Character status"
-                  // chosenProperties.includes('character')
-                />
-                <Field
-                  name="species"
-                  control={control}
-                  placeholder="Character species"
-                  // chosenProperties.includes('character')
-                />
-                <Field
-                  name="type"
-                  control={control}
-                  placeholder="Character type"
-                  // chosenProperties.includes('character')
-                />
-                <Field
-                  name="gender"
-                  control={control}
-                  placeholder="Character gender"
-                  // chosenProperties.includes('character')
-                />
-
-                <Field
-                  name="locationName"
-                  control={control}
-                  placeholder="Location name"
-                  // chosenProperties.includes('location')
-                />
-                <Field
-                  name="locationType"
-                  control={control}
-                  placeholder="Location type"
-                  // chosenProperties.includes('location')
-                />
-                <Field
-                  name="dimension"
-                  control={control}
-                  placeholder="Dimension"
-                  // chosenProperties.includes('location')
-                />
-
-                <Field
-                  name="episodeName"
-                  control={control}
-                  placeholder="Episode name"
-                  // chosenProperties.includes('episode')
-                />
-                <Field
-                  name="episode"
-                  control={control}
-                  placeholder="Episode code"
-                  // chosenProperties.includes('episode')
-                />
+                {characterChosen && <CharacterFields control={control} />}
+                {locationChosen && <LocationFields control={control} />}
+                {episodeChosen && <EpisodeFields control={control} />}
               </Box>
             )}
           </Box>
