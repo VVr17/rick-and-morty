@@ -9,8 +9,6 @@ import { selectCharacters } from 'app/redux/characters/selectors';
 import Loader from 'components/common/Loader';
 import { useSearchParams } from 'react-router-dom';
 import { retrieveSearchParams } from 'utils/retrieveSearchParams';
-import { useQuery } from '@apollo/client';
-import { FETCH_EPISODES } from 'services/episodeService/queries';
 
 const Home = () => {
   const dispatch = useAppDispatch();
