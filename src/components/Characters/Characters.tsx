@@ -18,18 +18,14 @@ const Characters = () => {
   return (
     <Box component="section" py={3} bgcolor="primary.main">
       <Container>
+        {!isLoading && <Filter />}
+
         {!isLoading && !characterList.length && (
           <Typography component="p" variant="h3">
             There are no characters found on your request
           </Typography>
         )}
-
-        {!!characterList.length && (
-          <>
-            <Filter />
-            <CharacterList />
-          </>
-        )}
+        {!!characterList.length && <CharacterList />}
 
         {totalPages && totalPages > FIRST_PAGE && <ListPagination />}
       </Container>

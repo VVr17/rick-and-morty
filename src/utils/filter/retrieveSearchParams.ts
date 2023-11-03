@@ -1,25 +1,24 @@
+import { filterFields } from 'constants/filter/filterFields';
 import { FIRST_PAGE } from 'constants/listConstants';
-
-interface SearchQuery {
-  page: number;
-  name: string;
-  status: string;
-  type: string;
-  gender: string;
-  species: string;
-}
+import { ISearchQuery } from 'types/searchQuery';
+import { filterDefaultValues } from 'constants/filter/filterDefaultValues';
 
 export const retrieveSearchParams = (
   searchParams: URLSearchParams
-): SearchQuery => {
-  const searchQuery: SearchQuery = {
+): ISearchQuery => {
+  const searchQuery: ISearchQuery = {
     page: +(searchParams?.get('page') || FIRST_PAGE),
-    name: searchParams.get('name') || '',
-    status: searchParams.get('status') || '',
-    type: searchParams.get('type') || '',
-    gender: searchParams.get('gender') || '',
-    species: searchParams.get('species') || '',
+    ...filterDefaultValues,
+    property: searchParams.getAll('property') as (
+      | 'episode'
+      | 'character'
+      | 'location'
+    )[],
   };
+
+  filterFields.forEach(key => {
+    searchQuery[key] = searchParams.get(key) || '';
+  });
 
   return searchQuery;
 };

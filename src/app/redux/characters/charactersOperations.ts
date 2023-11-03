@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { FetchCharacterList } from 'services/characterService/__generated__/FetchCharacterList';
-import { ICharacterQuery } from 'types/characterQuery';
 
 import { apolloClient } from 'app/graphql';
 import { FETCH_CHARACTER_LIST } from 'services/characterService/queries';
+import { ICharacterQuery } from 'types/searchQuery';
 
 export const fetchCharacters = createAsyncThunk(
   'characters/fetch',

@@ -1,36 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Alert,
-  Button,
-  Fade,
-  FormControl,
-  SelectChangeEvent,
-} from '@mui/material';
-import { Box } from '@mui/system';
-import { useAppDispatch } from 'app/redux/hooks';
-
-import {
   useForm,
   Resolver,
   SubmitHandler,
   ValidationMode,
 } from 'react-hook-form';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
-import Field from 'components/common/form/Field';
-import MultipleSelect from 'components/common/form/MultipleSelect';
-import { IFormFields } from 'types/filterForm';
+
+import { Box } from '@mui/system';
+import { Button, Fade } from '@mui/material';
+
 import { filterDefaultValues } from 'constants/filter/filterDefaultValues';
+import { filterSchema } from 'utils/validation/filterValidationSchema';
+import { IFormFields } from 'types/filterForm';
+import { properties } from 'constants/filter/filterSelectValues';
+import { resetFields } from 'utils/filter/resetFields';
+import { updateSearchParams } from 'utils/filter/updateSearchParams';
 
 import CharacterFields from './CharacterFields';
-import LocationFields from './LocationFields';
 import EpisodeFields from './EpisodeFields';
-import { resetFields } from 'utils/filter/resetFields';
-import { properties } from 'constants/filter/filterSelectValues';
-
-import { filterSchema } from 'utils/validation/filterValidationSchema';
+import Field from 'components/common/form/Field';
+import LocationFields from './LocationFields';
+import MultipleSelect from 'components/common/form/MultipleSelect';
 import ToastMessage from 'components/common/ToastMessage/ToastMessage';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { updateSearchParams } from 'utils/filter/updateSeacrhParams';
+import { retrieveSearchParams } from 'utils/filter/retrieveSearchParams';
 
 const Filter = () => {
   const [filterIsOpen, setFilterIsOpen] = useState<boolean>(false);
@@ -57,6 +51,12 @@ const Filter = () => {
   const episodeChosen = chosenProperties.includes('episode');
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(propertyIsChosen);
 
+  // Get current URL search params and set to Filter default values
+  useEffect(() => {
+    const { page, ...filterFields } = retrieveSearchParams(searchParams);
+    reset(filterFields);
+  }, [searchParams]);
+
   useEffect(() => {
     // Open / close menu with filter fields according to chosen properties
     setMenuIsOpen(propertyIsChosen);
@@ -80,7 +80,6 @@ const Filter = () => {
   // Handle form submission
   const onSubmit: SubmitHandler<IFormFields> = data => {
     const { property, ...fields } = data;
-
     // Check if any field is not null or an empty array
     const hasValue = Object.values(fields).some(value => value && value.length);
 
@@ -91,10 +90,16 @@ const Filter = () => {
     }
 
     // Update query params according to the chosen filter fields
-    const updatedSearchParams = updateSearchParams(searchParams, data);
+    const updatedSearchQuery = updateSearchParams({
+      searchParams,
+      searchType: 'filter',
+      dataToUpdate: data,
+    });
 
     // Apply the updated search parameters to the URL
-    navigate(updatedSearchParams);
+    navigate(updatedSearchQuery);
+
+    setFilterIsOpen(false);
   };
 
   return (

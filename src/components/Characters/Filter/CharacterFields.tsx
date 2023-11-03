@@ -1,8 +1,9 @@
-import Field from 'components/common/form/Field';
-import SingleSelect from 'components/common/form/SingleSelect';
-import { gender, status } from 'constants/filter/filterSelectValues';
 import React from 'react';
 import { Control } from 'react-hook-form';
+
+import { gender, status } from 'constants/filter/filterSelectValues';
+import Field from 'components/common/form/Field';
+import SingleSelect from 'components/common/form/SingleSelect';
 
 interface IProp {
   control: Control<any>;
