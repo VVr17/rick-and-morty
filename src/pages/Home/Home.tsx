@@ -8,19 +8,19 @@ import Characters from 'components/Characters';
 import { selectCharacters } from 'app/redux/characters/selectors';
 import Loader from 'components/common/Loader';
 import { useSearchParams } from 'react-router-dom';
-import { retrieveSearchParams } from 'utils/retrieveSearchParams';
+import { retrieveSearchParams } from 'utils/filter/retrieveSearchParams';
 
 const Home = () => {
   const dispatch = useAppDispatch();
   const { isLoading, characterList } = useAppSelector(selectCharacters);
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
     const query = retrieveSearchParams(searchParams);
 
     dispatch(fetchCharacters(query));
-  }, []);
+  }, [searchParams]);
 
   return (
     <>

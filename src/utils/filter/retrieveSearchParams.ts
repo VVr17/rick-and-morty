@@ -1,5 +1,4 @@
 import { FIRST_PAGE } from 'constants/listConstants';
-import { URLSearchParams } from 'url';
 
 interface SearchQuery {
   page: number;

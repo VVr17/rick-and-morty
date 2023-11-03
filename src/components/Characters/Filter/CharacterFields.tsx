@@ -11,19 +11,23 @@ interface IProp {
 const CharacterFields: React.FC<IProp> = ({ control }) => {
   return (
     <>
-      <Field name="name" control={control} placeholder="Character name" />
+      <Field name="name" control={control} placeholder="Add character name" />
       <SingleSelect
         control={control}
         name="status"
-        placeholder="Character status"
+        placeholder="Add character status"
         options={status}
       />
-      <Field name="species" control={control} placeholder="Character species" />
-      <Field name="type" control={control} placeholder="Character type" />
+      <Field
+        name="species"
+        control={control}
+        placeholder="Add character species"
+      />
+      <Field name="type" control={control} placeholder="Add character type" />
       <SingleSelect
         control={control}
         name="gender"
-        placeholder="Character gender"
+        placeholder="Add character gender"
         options={gender}
       />
     </>

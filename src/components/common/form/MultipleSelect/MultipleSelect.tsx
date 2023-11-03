@@ -1,6 +1,12 @@
 import React from 'react';
 import { Control, Controller } from 'react-hook-form';
-import { Checkbox, ListItemText, MenuItem, Select } from '@mui/material';
+import {
+  Checkbox,
+  FormControl,
+  ListItemText,
+  MenuItem,
+  Select,
+} from '@mui/material';
 
 interface IProp {
   control: Control<any>;
@@ -31,30 +37,28 @@ const MultipleSelect: React.FC<IProp> = ({
       name={name}
       control={control}
       render={({ field }) => (
-        <Select
-          {...field}
-          multiple
-          displayEmpty
-          renderValue={selected => {
-            if (selected.length === 0) {
-              return <span>{placeholder}</span>;
+        <FormControl component="label" sx={{ width: '220px' }}>
+          <Select
+            {...field}
+            multiple
+            displayEmpty
+            renderValue={selected =>
+              !selected.length ? placeholder : selected.join(', ')
             }
-            return selected.join(', ');
-          }}
-          MenuProps={MenuProps}
-          sx={{
-            backgroundColor: 'secondary.main',
-            color: 'primary.dark',
-            width: '220px',
-          }}
-        >
-          {options.map(option => (
-            <MenuItem key={option} value={option}>
-              <Checkbox checked={field.value.indexOf(option) > -1} />
-              <ListItemText primary={option} sx={{ color: 'primary.dark' }} />
-            </MenuItem>
-          ))}
-        </Select>
+            MenuProps={MenuProps}
+            sx={{
+              backgroundColor: 'secondary.main',
+              color: 'primary.dark',
+            }}
+          >
+            {options.map(option => (
+              <MenuItem key={option} value={option}>
+                <Checkbox checked={field.value.indexOf(option) > -1} />
+                <ListItemText primary={option} sx={{ color: 'primary.dark' }} />
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       )}
     />
   );

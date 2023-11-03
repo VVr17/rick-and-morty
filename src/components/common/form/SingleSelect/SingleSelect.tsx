@@ -7,6 +7,7 @@ import {
   Radio,
   Select,
 } from '@mui/material';
+import ErrorMessage from '../ErrorMessage';
 
 interface IProp {
   control: Control<any>;
@@ -36,22 +37,20 @@ const SingleSelect: React.FC<IProp> = ({
     <Controller
       name={name}
       control={control}
-      render={({ field }) => (
-        <FormControl component="label" sx={{ width: '100%' }}>
+      render={({ field, fieldState }) => (
+        <FormControl
+          error={!!fieldState.error}
+          component="label"
+          sx={{ width: '100%', position: 'relative' }}
+        >
           <Select
             {...field}
             displayEmpty
-            renderValue={selected => {
-              if (!selected) {
-                return <span>{placeholder}</span>;
-              }
-              return selected;
-            }}
+            renderValue={selected => (!selected ? placeholder : selected)}
             MenuProps={MenuProps}
             sx={{
               backgroundColor: 'secondary.main',
               color: 'primary.dark',
-              width: '100%',
             }}
           >
             <MenuItem value="">
@@ -64,6 +63,9 @@ const SingleSelect: React.FC<IProp> = ({
               </MenuItem>
             ))}
           </Select>
+          {fieldState.error?.message && (
+            <ErrorMessage message={fieldState.error.message} />
+          )}
         </FormControl>
       )}
     />

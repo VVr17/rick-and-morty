@@ -9,8 +9,12 @@ interface IProp {
 const EpisodeFields: React.FC<IProp> = ({ control }) => {
   return (
     <>
-      <Field name="episodeName" control={control} placeholder="Episode name" />
-      <Field name="episode" control={control} placeholder="Episode code" />
+      <Field
+        name="episodeName"
+        control={control}
+        placeholder="Add episode name"
+      />
+      <Field name="episode" control={control} placeholder="Add episode code" />
     </>
   );
 };

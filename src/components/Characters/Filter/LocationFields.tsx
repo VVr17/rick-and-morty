@@ -11,14 +11,14 @@ const LocationFields: React.FC<IProp> = ({ control }) => {
       <Field
         name="locationName"
         control={control}
-        placeholder="Location name"
+        placeholder="Add location name"
       />
       <Field
         name="locationType"
         control={control}
-        placeholder="Location type"
+        placeholder="Add location type"
       />
-      <Field name="dimension" control={control} placeholder="Dimension" />
+      <Field name="dimension" control={control} placeholder="Add dimension" />
     </>
   );
 };
