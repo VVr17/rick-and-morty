@@ -1,10 +1,10 @@
 import { filterFields } from 'constants/filter/filterFields';
-import { IFormFields } from 'types/filterForm';
+import { IFilterFields } from 'types/filterForm';
 
 interface ISearchParams {
   searchParams: URLSearchParams;
   searchType: 'pagination' | 'filter';
-  dataToUpdate?: IFormFields;
+  dataToUpdate?: IFilterFields;
   page?: number;
 }
 

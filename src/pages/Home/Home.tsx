@@ -1,23 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import Hero from 'components/Hero';
+import { useSearchParams } from 'react-router-dom';
 
+import {
+  fetchCharacters,
+  fetchCharactersByEpisode,
+} from 'app/redux/characters/charactersOperations';
+import { retrieveSearchParams } from 'utils/filter/retrieveSearchParams';
+import { selectCharacters } from 'app/redux/characters/selectors';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
-import { fetchCharacters } from 'app/redux/characters/charactersOperations';
 
 import Characters from 'components/Characters';
-import { selectCharacters } from 'app/redux/characters/selectors';
+import Hero from 'components/Hero';
 import Loader from 'components/common/Loader';
-import { useSearchParams } from 'react-router-dom';
-import { retrieveSearchParams } from 'utils/filter/retrieveSearchParams';
-import { FIRST_PAGE } from 'constants/listConstants';
+import { getQueriesByProperty } from 'utils/getQueriesByProperty';
 
 const Home = () => {
   const dispatch = useAppDispatch();
-  const { isLoading, characterList } = useAppSelector(selectCharacters);
+  const { isLoading } = useAppSelector(selectCharacters);
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    const query = retrieveSearchParams(searchParams);
+    const searchQuery = retrieveSearchParams(searchParams);
+    const { properties, ...query } = getQueriesByProperty(searchQuery);
+
+    if (properties.includes('episode') && query.episodeQuery.episode) {
+      dispatch(fetchCharactersByEpisode(query));
+      return;
+    }
 
     dispatch(fetchCharacters(query));
   }, [searchParams]);

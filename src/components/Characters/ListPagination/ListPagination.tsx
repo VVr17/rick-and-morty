@@ -1,30 +1,27 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Box } from '@mui/system';
 import { Pagination, PaginationItem } from '@mui/material';
 
 import { FIRST_PAGE } from 'constants/listConstants';
 import { selectCharacters } from 'app/redux/characters/selectors';
-import { useAppSelector } from 'app/redux/hooks';
-import { buttonStyles, navButtonStyles } from './styles';
 import { updateSearchParams } from 'utils/filter/updateSearchParams';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { retrieveSearchParams } from 'utils/filter/retrieveSearchParams';
+import { useAppSelector } from 'app/redux/hooks';
 
-interface IProp {
-  // currentPage: number;
-}
+import { buttonStyles, navButtonStyles } from './styles';
 
-const ListPagination: React.FC<IProp> = () => {
+const ListPagination = () => {
   const { totalPages } = useAppSelector(selectCharacters);
   const [currentPage, setCurrentPage] = useState<number>(FIRST_PAGE);
 
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  // Get current page from URL
+  // Get current page from URL if it is exists
   useEffect(() => {
-    const { page } = retrieveSearchParams(searchParams);
-    setCurrentPage(page);
+    const page = searchParams?.get('page');
+
+    if (page) setCurrentPage(+page);
   }, [searchParams]);
 
   // Update page in URL search params on page change

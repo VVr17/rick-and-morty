@@ -1,11 +1,13 @@
-export interface IFormFields {
+import { GenderType, PropertyType, StatusType } from './filterFields';
+
+export interface IFilterFields {
   search: string;
-  property: Array<'character' | 'location' | 'episode'>;
+  property: Array<PropertyType>;
   name: string;
-  status: 'alive' | 'dead' | 'unknown' | string;
+  status: StatusType | string;
   species: string;
   type: string;
-  gender: 'female' | 'male' | 'genderless' | 'unknown' | string;
+  gender: GenderType | string;
 
   locationName: string;
   locationType: string;

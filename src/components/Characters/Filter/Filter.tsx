@@ -13,9 +13,10 @@ import { Button, Fade } from '@mui/material';
 
 import { filterDefaultValues } from 'constants/filter/filterDefaultValues';
 import { filterSchema } from 'utils/validation/filterValidationSchema';
-import { IFormFields } from 'types/filterForm';
+import { IFilterFields } from 'types/filterForm';
 import { properties } from 'constants/filter/filterSelectValues';
 import { resetFields } from 'utils/filter/resetFields';
+import { retrieveSearchParams } from 'utils/filter/retrieveSearchParams';
 import { updateSearchParams } from 'utils/filter/updateSearchParams';
 
 import CharacterFields from './CharacterFields';
@@ -24,7 +25,6 @@ import Field from 'components/common/form/Field';
 import LocationFields from './LocationFields';
 import MultipleSelect from 'components/common/form/MultipleSelect';
 import ToastMessage from 'components/common/ToastMessage/ToastMessage';
-import { retrieveSearchParams } from 'utils/filter/retrieveSearchParams';
 
 const Filter = () => {
   const [filterIsOpen, setFilterIsOpen] = useState<boolean>(false);
@@ -35,13 +35,13 @@ const Filter = () => {
 
   // Form control using React Hook Form
   const formConfig = {
-    resolver: yupResolver(filterSchema) as Resolver<IFormFields>,
+    resolver: yupResolver(filterSchema) as Resolver<IFilterFields>,
     mode: 'all' as keyof ValidationMode,
     defaultValues: filterDefaultValues,
   };
 
   const { handleSubmit, control, reset, setValue, watch } =
-    useForm<IFormFields>(formConfig);
+    useForm<IFilterFields>(formConfig);
 
   // Properties select status
   const chosenProperties = watch('property');
@@ -78,7 +78,7 @@ const Filter = () => {
   };
 
   // Handle form submission
-  const onSubmit: SubmitHandler<IFormFields> = data => {
+  const onSubmit: SubmitHandler<IFilterFields> = data => {
     const { property, ...fields } = data;
     // Check if any field is not null or an empty array
     const hasValue = Object.values(fields).some(value => value && value.length);

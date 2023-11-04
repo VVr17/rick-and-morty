@@ -1,11 +1,11 @@
-import { IFormFields } from './filterForm';
+import { PropertyType } from './filterFields';
+import { IFilterFields } from './filterForm';
 
-export interface ISearchQuery extends IFormFields {
+export interface ISearchQuery extends IFilterFields {
   page: number;
   [key: string]: string | number | string[];
 }
 
-// TODO: check if I need to API request
 export interface ICharacterQuery {
   page: number;
   name: string;
@@ -15,15 +15,31 @@ export interface ICharacterQuery {
   species: string;
 }
 
-// TODO: check if I need to API request
 export interface ILocationQuery {
-  name: string;
-  type: string;
+  locationName: string;
+  locationType: string;
   dimension: string;
 }
 
-// TODO: check if I need to API request
 export interface IEpisodeQuery {
-  name: string;
+  episodeName: string;
   episode: string;
+}
+
+export interface IKeyQuery {
+  page: number;
+  name: string;
+  type: string;
+  species: string;
+}
+
+export interface IQuery {
+  characterQuery: ICharacterQuery;
+  locationQuery: ILocationQuery;
+  episodeQuery: IEpisodeQuery;
+  searchByKeyQuery: IKeyQuery;
+}
+
+export interface IQueryByProperty extends IQuery {
+  properties: Array<PropertyType>;
 }

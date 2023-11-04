@@ -1,5 +1,4 @@
-import * as React from 'react';
-
+import React from 'react';
 import { Box, Alert, IconButton, Collapse } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 

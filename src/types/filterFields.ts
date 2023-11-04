@@ -10,3 +10,7 @@ export type FilterField =
   | 'dimension'
   | 'episodeName'
   | 'episode';
+
+export type PropertyType = 'character' | 'location' | 'episode';
+export type GenderType = 'female' | 'male' | 'genderless' | 'unknown';
+export type StatusType = 'alive' | 'dead' | 'unknown';

@@ -16,11 +16,18 @@ export const FETCH_EPISODES = gql`
           status
           image
           species
+          gender
+          type
           location {
             id
             type
             name
             dimension
+          }
+          episode {
+            id
+            name
+            episode
           }
         }
       }

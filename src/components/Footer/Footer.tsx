@@ -1,10 +1,10 @@
 import React from 'react';
 import { Box, Container } from '@mui/system';
+import { Typography } from '@mui/material';
 
 import InCodeIcon from 'assets/icons/incode.svg';
 import Socials from './Socials';
 import { DescStyled, LogoStyled } from './Footer.styled';
-import { Typography } from '@mui/material';
 
 const Footer = () => {
   return (

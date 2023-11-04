@@ -39,6 +39,22 @@ export interface FetchEpisodes_episodes_results_characters_location {
   dimension: string | null;
 }
 
+export interface FetchEpisodes_episodes_results_characters_episode {
+  __typename: "Episode";
+  /**
+   * The id of the episode.
+   */
+  id: string | null;
+  /**
+   * The name of the episode.
+   */
+  name: string | null;
+  /**
+   * The code of the episode.
+   */
+  episode: string | null;
+}
+
 export interface FetchEpisodes_episodes_results_characters {
   __typename: "Character";
   /**
@@ -63,9 +79,21 @@ export interface FetchEpisodes_episodes_results_characters {
    */
   species: string | null;
   /**
+   * The gender of the character ('Female', 'Male', 'Genderless' or 'unknown').
+   */
+  gender: string | null;
+  /**
+   * The type or subspecies of the character.
+   */
+  type: string | null;
+  /**
    * The character's last known location
    */
   location: FetchEpisodes_episodes_results_characters_location | null;
+  /**
+   * Episodes in which this character appeared.
+   */
+  episode: (FetchEpisodes_episodes_results_characters_episode | null)[];
 }
 
 export interface FetchEpisodes_episodes_results {

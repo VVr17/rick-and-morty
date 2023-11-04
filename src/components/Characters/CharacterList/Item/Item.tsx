@@ -4,9 +4,10 @@ import { Box } from '@mui/system';
 
 import { FetchCharacterList_characters_results } from 'services/characterService/__generated__/FetchCharacterList';
 import Description from './Description';
+import { CharacterType } from 'types/characterListState';
 
 interface IProps {
-  character: FetchCharacterList_characters_results;
+  character: CharacterType;
 }
 
 const Item: React.FC<IProps> = ({ character }) => {

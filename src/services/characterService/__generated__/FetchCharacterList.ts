@@ -70,6 +70,14 @@ export interface FetchCharacterList_characters_results {
    */
   status: string | null;
   /**
+   * The gender of the character ('Female', 'Male', 'Genderless' or 'unknown').
+   */
+  gender: string | null;
+  /**
+   * The type or subspecies of the character.
+   */
+  type: string | null;
+  /**
    * The character's last known location
    */
   location: FetchCharacterList_characters_results_location | null;
@@ -105,4 +113,7 @@ export interface FetchCharacterListVariables {
   page: number;
   name: string;
   status: string;
+  type: string;
+  gender: string;
+  species: string;
 }

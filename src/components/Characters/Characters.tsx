@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box } from '@mui/system';
 import { Typography } from '@mui/material';
 
@@ -10,6 +10,7 @@ import CharacterList from 'components/Characters/CharacterList';
 import Container from 'components/Container';
 import Filter from 'components/Characters/Filter';
 import ListPagination from './ListPagination';
+import ToastMessage from 'components/common/ToastMessage';
 
 const Characters = () => {
   const { totalPages, isLoading, characterList } =
@@ -25,6 +26,7 @@ const Characters = () => {
             There are no characters found on your request
           </Typography>
         )}
+
         {!!characterList.length && <CharacterList />}
 
         {totalPages && totalPages > FIRST_PAGE && <ListPagination />}

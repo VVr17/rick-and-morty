@@ -27,6 +27,8 @@ export const FETCH_CHARACTER_LIST = gql`
         id
         name
         status
+        gender
+        type
         location {
           id
           name
@@ -52,6 +54,8 @@ export const FETCH_SINGLE_CHARACTER = gql`
       name
       status
       species
+      gender
+      type
       location {
         id
         name

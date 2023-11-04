@@ -1,14 +1,14 @@
-import { IFormFields } from 'types/filterForm';
 import { UseFormSetValue } from 'react-hook-form';
+import { IFilterFields } from 'types/filterForm';
 
 export const resetFields = (
   chosenProperties: string[],
-  setValue: UseFormSetValue<IFormFields>
+  setValue: UseFormSetValue<IFilterFields>
 ): void => {
   const characterChosen = chosenProperties.includes('character');
   const locationChosen = chosenProperties.includes('location');
   const episodeChosen = chosenProperties.includes('episode');
-  const fieldsToReset: (keyof IFormFields)[] = [];
+  const fieldsToReset: (keyof IFilterFields)[] = [];
 
   if (chosenProperties.length) {
     fieldsToReset.push('search');

@@ -35,6 +35,26 @@ export interface FetchLocations_locations_results_residents_episode {
   episode: string | null;
 }
 
+export interface FetchLocations_locations_results_residents_location {
+  __typename: "Location";
+  /**
+   * The id of the location.
+   */
+  id: string | null;
+  /**
+   * The name of the location.
+   */
+  name: string | null;
+  /**
+   * The type of the location.
+   */
+  type: string | null;
+  /**
+   * The dimension in which the location is located.
+   */
+  dimension: string | null;
+}
+
 export interface FetchLocations_locations_results_residents {
   __typename: "Character";
   /**
@@ -59,9 +79,21 @@ export interface FetchLocations_locations_results_residents {
    */
   species: string | null;
   /**
+   * The gender of the character ('Female', 'Male', 'Genderless' or 'unknown').
+   */
+  gender: string | null;
+  /**
+   * The type or subspecies of the character.
+   */
+  type: string | null;
+  /**
    * Episodes in which this character appeared.
    */
   episode: (FetchLocations_locations_results_residents_episode | null)[];
+  /**
+   * The character's last known location
+   */
+  location: FetchLocations_locations_results_residents_location | null;
 }
 
 export interface FetchLocations_locations_results {
