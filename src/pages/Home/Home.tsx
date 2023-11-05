@@ -4,6 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import {
   fetchCharacters,
   fetchCharactersByEpisode,
+  fetchCharactersByLocation,
 } from 'app/redux/characters/charactersOperations';
 import { retrieveSearchParams } from 'utils/filter/retrieveSearchParams';
 import { selectCharacters } from 'app/redux/characters/selectors';
@@ -12,7 +13,6 @@ import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
 import Characters from 'components/Characters';
 import Hero from 'components/Hero';
 import Loader from 'components/common/Loader';
-import { getQueriesByProperty } from 'utils/getQueriesByProperty';
 
 const Home = () => {
   const dispatch = useAppDispatch();
@@ -20,11 +20,15 @@ const Home = () => {
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    const searchQuery = retrieveSearchParams(searchParams);
-    const { properties, ...query } = getQueriesByProperty(searchQuery);
+    const query = retrieveSearchParams(searchParams);
 
-    if (properties.includes('episode') && query.episodeQuery.episode) {
+    if (query.property.includes('episode')) {
       dispatch(fetchCharactersByEpisode(query));
+      return;
+    }
+
+    if (query.property.includes('location')) {
+      dispatch(fetchCharactersByLocation(query));
       return;
     }
 

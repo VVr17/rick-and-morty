@@ -1,49 +1,45 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { FetchCharacterList_characters_results } from 'services/characterService/__generated__/FetchCharacterList';
 
 import { apolloClient } from 'app/graphql';
+import { CharacterType } from 'types/character';
 import { FETCH_CHARACTER_LIST } from 'services/characterService/queries';
-import { IQuery } from 'types/searchQuery';
 import { FETCH_EPISODES } from 'services/episodeService/queries';
-import { FetchEpisodes_episodes_results_characters } from 'services/episodeService/__generated__/FetchEpisodes';
+import { FETCH_LOCATIONS } from 'services/locationService/queries';
+import { ISearchQuery } from 'types/searchQuery';
+import { getGraphqlVariables } from 'utils/fetchUtils/getGraphqlVariables';
+import { filterCharacters } from 'utils/fetchUtils/filterByProperty';
+import { FetchEpisodes_episodes_results } from 'services/episodeService/__generated__/FetchEpisodes';
+import { FIRST_PAGE } from 'constants/listConstants';
+import { getCharactersByEpisodes } from 'utils/fetchUtils/getCharactersByEpisodes';
+import { getCharactersByPage } from 'utils/fetchUtils/getCharactersByPage';
+import { getTotalPages } from 'utils/fetchUtils/getTotalPages';
+import { getCharactersByLocations } from 'utils/fetchUtils/getCharactersBylocations';
+
+interface ICharactersResponse {
+  characters: CharacterType[];
+  totalPages: number;
+}
 
 export const fetchCharacters = createAsyncThunk(
-  'charactersByLocation/fetch',
+  'characters/fetch',
   async (
-    query: IQuery,
+    query: ISearchQuery,
     { rejectWithValue }
-  ): Promise<{
-    characters: FetchCharacterList_characters_results[];
-    totalPages: number;
-  }> => {
+  ): Promise<ICharactersResponse> => {
     try {
+      const variables = getGraphqlVariables(query, 'character');
+
       const response = await apolloClient.query({
         query: FETCH_CHARACTER_LIST,
-        variables: query.characterQuery,
+        variables,
       });
 
       if (!response || !response.data) {
         throw new Error('Something went wrong');
       }
 
-      const characters = response.data.characters
-        .results as FetchCharacterList_characters_results[];
-
-      const { locationName, locationType, dimension } = query.locationQuery;
-
-      const filterByLocation = characters
-        .filter(({ location }) =>
-          location?.name?.toLowerCase().includes(locationName.toLowerCase())
-        )
-        .filter(({ location }) =>
-          location?.type?.toLowerCase().includes(locationType.toLowerCase())
-        )
-        .filter(({ location }) =>
-          location?.dimension?.toLowerCase().includes(dimension.toLowerCase())
-        );
-
       return {
-        characters: filterByLocation,
+        characters: response.data.characters.results,
         totalPages: response.data.characters.info.pages,
       };
     } catch (error) {
@@ -56,74 +52,90 @@ export const fetchCharacters = createAsyncThunk(
 export const fetchCharactersByEpisode = createAsyncThunk(
   'charactersByEpisode/fetch',
   async (
-    query: IQuery,
+    query: ISearchQuery,
     { rejectWithValue }
-  ): Promise<{
-    characters: FetchEpisodes_episodes_results_characters[];
-    totalPages: number;
-  }> => {
+  ): Promise<ICharactersResponse> => {
     try {
+      const { page } = query;
+      const variables = getGraphqlVariables(query, 'episode');
+
       const response = await apolloClient.query({
         query: FETCH_EPISODES,
-        variables: {
-          episode: query.episodeQuery.episode,
-          name: query.episodeQuery.episodeName,
-        },
+        variables,
       });
 
       if (!response || !response.data) {
         throw new Error('Something went wrong');
       }
 
-      const characters = response.data.episodes.results[0]
-        .characters as FetchEpisodes_episodes_results_characters[];
+      const episodes = response.data.episodes
+        .results as FetchEpisodes_episodes_results[];
 
-      const { locationName, locationType, dimension } = query.locationQuery;
-      const { name, type, gender, status, species } = query.characterQuery;
+      if (!episodes || !episodes.length) {
+        return {
+          characters: [],
+          totalPages: FIRST_PAGE,
+        };
+      }
 
-      const filteredCharacters = characters.filter(character => {
-        const locationMatch =
-          (!locationName ||
-            character.location?.name
-              ?.toLowerCase()
-              .includes(locationName.toLowerCase())) &&
-          (!locationType ||
-            character.location?.type
-              ?.toLowerCase()
-              .includes(locationType.toLowerCase())) &&
-          (!dimension ||
-            character.location?.dimension
-              ?.toLowerCase()
-              .includes(dimension.toLowerCase()));
-
-        const nameMatch =
-          !name || character.name?.toLowerCase().includes(name.toLowerCase());
-        const statusMatch =
-          !status || character.status?.toLowerCase() === status.toLowerCase();
-        const genderMatch =
-          !gender || character.gender?.toLowerCase() === gender.toLowerCase();
-        const speciesMatch =
-          !species ||
-          character.species?.toLowerCase().includes(species.toLowerCase());
-        const typeMatch =
-          !type || character.type?.toLowerCase().includes(type.toLowerCase());
-
-        return (
-          locationMatch &&
-          nameMatch &&
-          statusMatch &&
-          genderMatch &&
-          speciesMatch &&
-          typeMatch
-        );
-      });
+      const characters = getCharactersByEpisodes(episodes);
+      const filteredCharacters = filterCharacters(characters, query, 'episode');
+      const totalPages = getTotalPages(filteredCharacters);
+      const currentCharacters = getCharactersByPage(filteredCharacters, page);
 
       return {
-        characters: filteredCharacters,
-        totalPages: response.data.episodes.info.pages,
+        characters: currentCharacters,
+        totalPages,
       };
     } catch (error) {
       console.log('Error during fetch', error);
+      throw error;
+    }
+  }
+);
+
+export const fetchCharactersByLocation = createAsyncThunk(
+  'charactersByLocation/fetch',
+  async (
+    query: ISearchQuery,
+    { rejectWithValue }
+  ): Promise<ICharactersResponse> => {
+    try {
+      const { page } = query;
+      const variables = getGraphqlVariables(query, 'location');
+
+      const response = await apolloClient.query({
+        query: FETCH_LOCATIONS,
+        variables,
+      });
+
+      if (!response || !response.data) {
+        throw new Error('Something went wrong');
+      }
+
+      if (!response.data.locations.results) {
+        return {
+          totalPages: 1,
+          characters: [],
+        };
+      }
+
+      const characters = getCharactersByLocations(
+        response.data.locations.results
+      );
+      const filteredCharacters = filterCharacters(
+        characters,
+        query,
+        'location'
+      );
+      const totalPages = getTotalPages(filteredCharacters);
+      const currentCharacters = getCharactersByPage(filteredCharacters, page);
+
+      return {
+        characters: currentCharacters,
+        totalPages,
+      };
+    } catch (error) {
       throw error;
     }
   }

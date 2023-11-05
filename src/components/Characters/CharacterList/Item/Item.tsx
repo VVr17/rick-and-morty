@@ -4,7 +4,7 @@ import { Box } from '@mui/system';
 
 import { FetchCharacterList_characters_results } from 'services/characterService/__generated__/FetchCharacterList';
 import Description from './Description';
-import { CharacterType } from 'types/characterListState';
+import { CharacterType } from 'types/character';
 
 interface IProps {
   character: CharacterType;

@@ -5,7 +5,7 @@ import CircleIcon from '@mui/icons-material/Circle';
 
 import { FetchCharacterList_characters_results } from 'services/characterService/__generated__/FetchCharacterList';
 import { LinkStyled } from './Item.styled';
-import { CharacterType } from 'types/characterListState';
+import { CharacterType } from 'types/character';
 
 interface IProps {
   character: CharacterType;

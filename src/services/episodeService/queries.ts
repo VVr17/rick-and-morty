@@ -1,7 +1,8 @@
 import { gql } from '@apollo/client';
+import { characterFragment } from 'services/characterFragment';
 
 export const FETCH_EPISODES = gql`
-  query FetchEpisodes($name: String!, $episode: String!) {
+  query FetchEpisodes($name: String, $episode: String) {
     episodes(page: 1, filter: { name: $name, episode: $episode }) {
       info {
         count
@@ -11,26 +12,10 @@ export const FETCH_EPISODES = gql`
         id
         name
         characters {
-          id
-          name
-          status
-          image
-          species
-          gender
-          type
-          location {
-            id
-            type
-            name
-            dimension
-          }
-          episode {
-            id
-            name
-            episode
-          }
+          ...CharacterParts
         }
       }
     }
   }
+  ${characterFragment}
 `;

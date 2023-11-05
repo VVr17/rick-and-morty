@@ -1,7 +1,8 @@
 import { gql } from '@apollo/client';
+import { characterFragment } from 'services/characterFragment';
 
 export const FETCH_LOCATIONS = gql`
-  query FetchLocations($name: String!, $type: String!, $dimension: String!) {
+  query FetchLocations($name: String, $type: String, $dimension: String) {
     locations(
       page: 1
       filter: { name: $name, type: $type, dimension: $dimension }
@@ -16,26 +17,10 @@ export const FETCH_LOCATIONS = gql`
         type
         dimension
         residents {
-          id
-          name
-          status
-          image
-          species
-          gender
-          type
-          episode {
-            id
-            name
-            episode
-          }
-          location {
-            id
-            name
-            type
-            dimension
-          }
+          ...CharacterParts
         }
       }
     }
   }
+  ${characterFragment}
 `;

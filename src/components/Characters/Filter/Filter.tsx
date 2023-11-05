@@ -24,11 +24,9 @@ import EpisodeFields from './EpisodeFields';
 import Field from 'components/common/form/Field';
 import LocationFields from './LocationFields';
 import MultipleSelect from 'components/common/form/MultipleSelect';
-import ToastMessage from 'components/common/ToastMessage/ToastMessage';
 
 const Filter = () => {
   const [filterIsOpen, setFilterIsOpen] = useState<boolean>(false);
-  const [toastIsOpen, setToastIsOpen] = useState<boolean>(false);
 
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -46,9 +44,9 @@ const Filter = () => {
   // Properties select status
   const chosenProperties = watch('property');
   const propertyIsChosen = !!chosenProperties.length;
-  const characterChosen = chosenProperties.includes('character');
-  const locationChosen = chosenProperties.includes('location');
-  const episodeChosen = chosenProperties.includes('episode');
+  const characterChosen = chosenProperties.includes(properties[0]);
+  const locationChosen = chosenProperties.includes(properties[1]);
+  const episodeChosen = chosenProperties.includes(properties[2]);
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(propertyIsChosen);
 
   // Get current URL search params and set to Filter default values
@@ -67,8 +65,9 @@ const Filter = () => {
     }
   }, [chosenProperties]);
 
-  // Open / close filter. Reset filter if it is closed
+  // Open / close filter.
   const toggleFilter = () => {
+    // Reset filter if it is closed
     if (filterIsOpen) {
       reset(filterDefaultValues);
       navigate('/');
@@ -78,22 +77,12 @@ const Filter = () => {
   };
 
   // Handle form submission
-  const onSubmit: SubmitHandler<IFilterFields> = data => {
-    const { property, ...fields } = data;
-    // Check if any field is not null or an empty array
-    const hasValue = Object.values(fields).some(value => value && value.length);
-
-    // If there is value for at least one filter field, send info message
-    if (!hasValue) {
-      setToastIsOpen(true);
-      return;
-    }
-
+  const onSubmit: SubmitHandler<IFilterFields> = dataToUpdate => {
     // Update query params according to the chosen filter fields
     const updatedSearchQuery = updateSearchParams({
       searchParams,
       searchType: 'filter',
-      dataToUpdate: data,
+      dataToUpdate,
     });
 
     // Apply the updated search parameters to the URL
@@ -104,12 +93,6 @@ const Filter = () => {
 
   return (
     <>
-      <ToastMessage
-        isOpen={toastIsOpen}
-        setIsOpen={setToastIsOpen}
-        message="At least one field should be filled in"
-      />
-
       <Box mb={2.5} display="flex">
         <Button
           variant="contained"
@@ -138,7 +121,7 @@ const Filter = () => {
               options={properties}
             />
 
-            <Box position="relative" width="260px">
+            <Box position="relative" width="300px">
               <Field
                 name="search"
                 control={control}

@@ -1,13 +1,14 @@
 import { gql } from '@apollo/client';
+import { characterFragment } from 'services/characterFragment';
 
 export const FETCH_CHARACTER_LIST = gql`
   query FetchCharacterList(
     $page: Int!
-    $name: String!
-    $status: String!
-    $type: String!
-    $gender: String!
-    $species: String!
+    $name: String
+    $status: String
+    $type: String
+    $gender: String
+    $species: String
   ) {
     characters(
       page: $page
@@ -24,51 +25,18 @@ export const FETCH_CHARACTER_LIST = gql`
         pages
       }
       results {
-        id
-        name
-        status
-        gender
-        type
-        location {
-          id
-          name
-          type
-          dimension
-        }
-        image
-        species
-        episode {
-          id
-          name
-          episode
-        }
+        ...CharacterParts
       }
     }
   }
+  ${characterFragment}
 `;
 
 export const FETCH_SINGLE_CHARACTER = gql`
   query FetchCharacterById($id: ID!) {
     character(id: $id) {
-      id
-      name
-      status
-      species
-      gender
-      type
-      location {
-        id
-        name
-        type
-        dimension
-      }
-      image
-      gender
-      episode {
-        id
-        name
-        episode
-      }
+      ...CharacterParts
     }
   }
+  ${characterFragment}
 `;
