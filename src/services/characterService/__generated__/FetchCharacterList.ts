@@ -29,6 +29,14 @@ export interface FetchCharacterList_characters_results_location {
    * The name of the location.
    */
   name: string | null;
+  /**
+   * The type of the location.
+   */
+  type: string | null;
+  /**
+   * The dimension in which the location is located.
+   */
+  dimension: string | null;
 }
 
 export interface FetchCharacterList_characters_results_episode {
@@ -41,6 +49,10 @@ export interface FetchCharacterList_characters_results_episode {
    * The name of the episode.
    */
   name: string | null;
+  /**
+   * The code of the episode.
+   */
+  episode: string | null;
 }
 
 export interface FetchCharacterList_characters_results {
@@ -57,6 +69,14 @@ export interface FetchCharacterList_characters_results {
    * The status of the character ('Alive', 'Dead' or 'unknown').
    */
   status: string | null;
+  /**
+   * The gender of the character ('Female', 'Male', 'Genderless' or 'unknown').
+   */
+  gender: string | null;
+  /**
+   * The type or subspecies of the character.
+   */
+  type: string | null;
   /**
    * The character's last known location
    */
@@ -92,4 +112,8 @@ export interface FetchCharacterList {
 export interface FetchCharacterListVariables {
   page: number;
   name: string;
+  status: string;
+  type: string;
+  gender: string;
+  species: string;
 }

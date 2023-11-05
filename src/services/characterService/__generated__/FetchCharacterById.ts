@@ -17,6 +17,14 @@ export interface FetchCharacterById_character_location {
    * The name of the location.
    */
   name: string | null;
+  /**
+   * The type of the location.
+   */
+  type: string | null;
+  /**
+   * The dimension in which the location is located.
+   */
+  dimension: string | null;
 }
 
 export interface FetchCharacterById_character_episode {
@@ -29,6 +37,10 @@ export interface FetchCharacterById_character_episode {
    * The name of the episode.
    */
   name: string | null;
+  /**
+   * The code of the episode.
+   */
+  episode: string | null;
 }
 
 export interface FetchCharacterById_character {
@@ -50,6 +62,14 @@ export interface FetchCharacterById_character {
    */
   species: string | null;
   /**
+   * The gender of the character ('Female', 'Male', 'Genderless' or 'unknown').
+   */
+  gender: string | null;
+  /**
+   * The type or subspecies of the character.
+   */
+  type: string | null;
+  /**
    * The character's last known location
    */
   location: FetchCharacterById_character_location | null;
@@ -58,10 +78,6 @@ export interface FetchCharacterById_character {
    * All images are 300x300px and most are medium shots or portraits since they are intended to be used as avatars.
    */
   image: string | null;
-  /**
-   * The gender of the character ('Female', 'Male', 'Genderless' or 'unknown').
-   */
-  gender: string | null;
   /**
    * Episodes in which this character appeared.
    */
@@ -76,5 +92,5 @@ export interface FetchCharacterById {
 }
 
 export interface FetchCharacterByIdVariables {
-  id: number;
+  id: string;
 }

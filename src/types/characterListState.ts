@@ -1,7 +1,7 @@
-import { FetchCharacterList_characters_results } from 'services/characterService/__generated__/FetchCharacterList';
+import { CharacterType } from './character';
 
 export interface ICharactersState {
-  characterList: (FetchCharacterList_characters_results | null)[];
+  characterList: (CharacterType | null)[];
   totalPages: number;
   isLoading: boolean;
   error: string | null;

@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import { Route, Routes } from 'react-router';
+
 import { Character, Home, Layout } from './lazyexports';
 import Loader from 'components/common/Loader';
 
