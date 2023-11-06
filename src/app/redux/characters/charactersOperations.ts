@@ -2,18 +2,21 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { apolloClient } from 'app/graphql';
 import { CharacterType } from 'types/character';
-import { FETCH_CHARACTER_LIST } from 'services/characterService/queries';
+import {
+  FETCH_CHARACTERS_BY_IDS,
+  FETCH_CHARACTER_LIST,
+} from 'services/characterService/queries';
 import { FETCH_EPISODES } from 'services/episodeService/queries';
-import { FETCH_LOCATIONS } from 'services/locationService/queries';
-import { ISearchQuery } from 'types/searchQuery';
-import { getGraphqlVariables } from 'utils/fetchUtils/getGraphqlVariables';
-import { filterCharacters } from 'utils/fetchUtils/filterByProperty';
 import { FetchEpisodes_episodes_results } from 'services/episodeService/__generated__/FetchEpisodes';
+import { FETCH_LOCATIONS } from 'services/locationService/queries';
 import { FIRST_PAGE } from 'constants/listConstants';
-import { getCharactersByEpisodes } from 'utils/fetchUtils/getCharactersByEpisodes';
-import { getCharactersByPage } from 'utils/fetchUtils/getCharactersByPage';
-import { getTotalPages } from 'utils/fetchUtils/getTotalPages';
-import { getCharactersByLocations } from 'utils/fetchUtils/getCharactersBylocations';
+import {
+  getCharactersByEpisodes,
+  getCharacterIdsByPage,
+  getCharactersByLocations,
+  getGraphqlVariables,
+} from 'utils/fetchUtils';
+import { ISearchQuery } from 'types/searchQuery';
 
 interface ICharactersResponse {
   characters: CharacterType[];
@@ -79,12 +82,27 @@ export const fetchCharactersByEpisode = createAsyncThunk(
       }
 
       const characters = getCharactersByEpisodes(episodes);
-      const filteredCharacters = filterCharacters(characters, query, 'episode');
-      const totalPages = getTotalPages(filteredCharacters);
-      const currentCharacters = getCharactersByPage(filteredCharacters, page);
+      const { currentCharacterIds, totalPages } = getCharacterIdsByPage(
+        characters,
+        query,
+        'episode',
+        page
+      );
+
+      if (!currentCharacterIds.length) {
+        return {
+          characters: [],
+          totalPages,
+        };
+      }
+
+      const responseByIds = await apolloClient.query({
+        query: FETCH_CHARACTERS_BY_IDS,
+        variables: { ids: currentCharacterIds },
+      });
 
       return {
-        characters: currentCharacters,
+        characters: responseByIds.data.charactersByIds,
         totalPages,
       };
     } catch (error) {
@@ -123,16 +141,27 @@ export const fetchCharactersByLocation = createAsyncThunk(
       const characters = getCharactersByLocations(
         response.data.locations.results
       );
-      const filteredCharacters = filterCharacters(
+      const { currentCharacterIds, totalPages } = getCharacterIdsByPage(
         characters,
         query,
-        'location'
+        'location',
+        page
       );
-      const totalPages = getTotalPages(filteredCharacters);
-      const currentCharacters = getCharactersByPage(filteredCharacters, page);
+
+      if (!currentCharacterIds.length) {
+        return {
+          characters: [],
+          totalPages,
+        };
+      }
+
+      const responseByIds = await apolloClient.query({
+        query: FETCH_CHARACTERS_BY_IDS,
+        variables: { ids: currentCharacterIds },
+      });
 
       return {
-        characters: currentCharacters,
+        characters: responseByIds.data.charactersByIds,
         totalPages,
       };
     } catch (error) {

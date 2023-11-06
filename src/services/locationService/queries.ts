@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
-import { characterFragment } from 'services/characterFragment';
+import { characterFragment } from 'services/fragments/characterFragment';
+import { locationFragment } from 'services/fragments/locationFragment';
 
 export const FETCH_LOCATIONS = gql`
   query FetchLocations($name: String, $type: String, $dimension: String) {
@@ -12,15 +13,13 @@ export const FETCH_LOCATIONS = gql`
         pages
       }
       results {
-        id
-        name
-        type
-        dimension
+        ...LocationParts
         residents {
-          ...CharacterParts
+          ...CharacterNameParts
         }
       }
     }
   }
   ${characterFragment}
+  ${locationFragment}
 `;

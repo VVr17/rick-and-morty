@@ -7,17 +7,20 @@ export const filterCharacters = (
   characters: CharacterType[],
   query: ISearchQuery,
   propertyType: PropertyType
-): CharacterType[] => {
-  const filteredCharacters = characters.filter(character => {
-    if (propertyType === 'location') {
-      return getCharacterMatch(character, query);
-    }
+): number[] => {
+  const filteredCharacters = characters
+    .filter(character => {
+      if (propertyType === 'location') {
+        return getCharacterMatch(character, query);
+      }
 
-    return (
-      getLocationMatch(character.location, query) &&
-      getCharacterMatch(character, query)
-    );
-  });
+      return (
+        getLocationMatch(character.location, query) &&
+        getCharacterMatch(character, query)
+      );
+    })
+    .map(({ id }) => Number(id))
+    .filter(id => !isNaN(id));
 
   return filteredCharacters;
 };

@@ -19,22 +19,6 @@ export interface FetchLocations_locations_info {
   pages: number | null;
 }
 
-export interface FetchLocations_locations_results_residents_episode {
-  __typename: "Episode";
-  /**
-   * The id of the episode.
-   */
-  id: string | null;
-  /**
-   * The name of the episode.
-   */
-  name: string | null;
-  /**
-   * The code of the episode.
-   */
-  episode: string | null;
-}
-
 export interface FetchLocations_locations_results_residents_location {
   __typename: "Location";
   /**
@@ -55,8 +39,29 @@ export interface FetchLocations_locations_results_residents_location {
   dimension: string | null;
 }
 
+export interface FetchLocations_locations_results_residents_episode {
+  __typename: "Episode";
+  /**
+   * The id of the episode.
+   */
+  id: string | null;
+  /**
+   * The name of the episode.
+   */
+  name: string | null;
+  /**
+   * The code of the episode.
+   */
+  episode: string | null;
+}
+
 export interface FetchLocations_locations_results_residents {
   __typename: "Character";
+  /**
+   * Link to the character's image.
+   * All images are 300x300px and most are medium shots or portraits since they are intended to be used as avatars.
+   */
+  image: string | null;
   /**
    * The id of the character.
    */
@@ -70,15 +75,6 @@ export interface FetchLocations_locations_results_residents {
    */
   status: string | null;
   /**
-   * Link to the character's image.
-   * All images are 300x300px and most are medium shots or portraits since they are intended to be used as avatars.
-   */
-  image: string | null;
-  /**
-   * The species of the character.
-   */
-  species: string | null;
-  /**
    * The gender of the character ('Female', 'Male', 'Genderless' or 'unknown').
    */
   gender: string | null;
@@ -87,13 +83,17 @@ export interface FetchLocations_locations_results_residents {
    */
   type: string | null;
   /**
-   * Episodes in which this character appeared.
+   * The species of the character.
    */
-  episode: (FetchLocations_locations_results_residents_episode | null)[];
+  species: string | null;
   /**
    * The character's last known location
    */
   location: FetchLocations_locations_results_residents_location | null;
+  /**
+   * Episodes in which this character appeared.
+   */
+  episode: (FetchLocations_locations_results_residents_episode | null)[];
 }
 
 export interface FetchLocations_locations_results {
@@ -134,7 +134,7 @@ export interface FetchLocations {
 }
 
 export interface FetchLocationsVariables {
-  name: string;
-  type: string;
-  dimension: string;
+  name?: string | null;
+  type?: string | null;
+  dimension?: string | null;
 }

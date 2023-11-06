@@ -4,11 +4,11 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: FetchCharacterById
+// GraphQL fragment: CharacterParts
 // ====================================================
 
-export interface FetchCharacterById_character_location {
-  __typename: 'Location';
+export interface CharacterParts_location {
+  __typename: "Location";
   /**
    * The id of the location.
    */
@@ -27,8 +27,8 @@ export interface FetchCharacterById_character_location {
   dimension: string | null;
 }
 
-export interface FetchCharacterById_character_episode {
-  __typename: 'Episode';
+export interface CharacterParts_episode {
+  __typename: "Episode";
   /**
    * The id of the episode.
    */
@@ -43,8 +43,8 @@ export interface FetchCharacterById_character_episode {
   episode: string | null;
 }
 
-export interface FetchCharacterById_character {
-  __typename: 'Character';
+export interface CharacterParts {
+  __typename: "Character";
   /**
    * Link to the character's image.
    * All images are 300x300px and most are medium shots or portraits since they are intended to be used as avatars.
@@ -77,20 +77,9 @@ export interface FetchCharacterById_character {
   /**
    * The character's last known location
    */
-  location: FetchCharacterById_character_location | null;
+  location: CharacterParts_location | null;
   /**
    * Episodes in which this character appeared.
    */
-  episode: (FetchCharacterById_character_episode | null)[];
-}
-
-export interface FetchCharacterById {
-  /**
-   * Get a specific character by ID
-   */
-  character: FetchCharacterById_character | null;
-}
-
-export interface FetchCharacterByIdVariables {
-  id: string;
+  episode: (CharacterParts_episode | null)[];
 }

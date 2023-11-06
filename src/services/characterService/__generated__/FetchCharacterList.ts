@@ -8,7 +8,7 @@
 // ====================================================
 
 export interface FetchCharacterList_characters_info {
-  __typename: "Info";
+  __typename: 'Info';
   /**
    * The length of the response.
    */
@@ -20,7 +20,7 @@ export interface FetchCharacterList_characters_info {
 }
 
 export interface FetchCharacterList_characters_results_location {
-  __typename: "Location";
+  __typename: 'Location';
   /**
    * The id of the location.
    */
@@ -40,7 +40,7 @@ export interface FetchCharacterList_characters_results_location {
 }
 
 export interface FetchCharacterList_characters_results_episode {
-  __typename: "Episode";
+  __typename: 'Episode';
   /**
    * The id of the episode.
    */
@@ -56,7 +56,12 @@ export interface FetchCharacterList_characters_results_episode {
 }
 
 export interface FetchCharacterList_characters_results {
-  __typename: "Character";
+  __typename: 'Character';
+  /**
+   * Link to the character's image.
+   * All images are 300x300px and most are medium shots or portraits since they are intended to be used as avatars.
+   */
+  image: string | null;
   /**
    * The id of the character.
    */
@@ -78,18 +83,13 @@ export interface FetchCharacterList_characters_results {
    */
   type: string | null;
   /**
-   * The character's last known location
-   */
-  location: FetchCharacterList_characters_results_location | null;
-  /**
-   * Link to the character's image.
-   * All images are 300x300px and most are medium shots or portraits since they are intended to be used as avatars.
-   */
-  image: string | null;
-  /**
    * The species of the character.
    */
   species: string | null;
+  /**
+   * The character's last known location
+   */
+  location: FetchCharacterList_characters_results_location | null;
   /**
    * Episodes in which this character appeared.
    */
@@ -97,7 +97,7 @@ export interface FetchCharacterList_characters_results {
 }
 
 export interface FetchCharacterList_characters {
-  __typename: "Characters";
+  __typename: 'Characters';
   info: FetchCharacterList_characters_info | null;
   results: (FetchCharacterList_characters_results | null)[] | null;
 }
@@ -111,9 +111,9 @@ export interface FetchCharacterList {
 
 export interface FetchCharacterListVariables {
   page: number;
-  name: string;
-  status: string;
-  type: string;
-  gender: string;
-  species: string;
+  name?: string | null;
+  status?: string | null;
+  type?: string | null;
+  gender?: string | null;
+  species?: string | null;
 }

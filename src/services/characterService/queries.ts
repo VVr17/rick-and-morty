@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { characterFragment } from 'services/characterFragment';
+import { characterFragment } from 'services/fragments/characterFragment';
 
 export const FETCH_CHARACTER_LIST = gql`
   query FetchCharacterList(
@@ -35,6 +35,15 @@ export const FETCH_CHARACTER_LIST = gql`
 export const FETCH_SINGLE_CHARACTER = gql`
   query FetchCharacterById($id: ID!) {
     character(id: $id) {
+      ...CharacterParts
+    }
+  }
+  ${characterFragment}
+`;
+
+export const FETCH_CHARACTERS_BY_IDS = gql`
+  query FetchCharactersById($ids: [ID!]!) {
+    charactersByIds(ids: $ids) {
       ...CharacterParts
     }
   }

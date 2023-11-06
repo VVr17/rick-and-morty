@@ -19,9 +19,8 @@ const ListPagination = () => {
 
   // Get current page from URL if it is exists
   useEffect(() => {
-    const page = searchParams?.get('page');
-
-    if (page) setCurrentPage(+page);
+    const page = searchParams?.get('page') || FIRST_PAGE;
+    setCurrentPage(+page);
   }, [searchParams]);
 
   // Update page in URL search params on page change

@@ -4,10 +4,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: FetchCharacterById
+// GraphQL query operation: FetchCharactersById
 // ====================================================
 
-export interface FetchCharacterById_character_location {
+export interface FetchCharactersById_charactersByIds_location {
   __typename: 'Location';
   /**
    * The id of the location.
@@ -27,7 +27,7 @@ export interface FetchCharacterById_character_location {
   dimension: string | null;
 }
 
-export interface FetchCharacterById_character_episode {
+export interface FetchCharactersById_charactersByIds_episode {
   __typename: 'Episode';
   /**
    * The id of the episode.
@@ -43,7 +43,7 @@ export interface FetchCharacterById_character_episode {
   episode: string | null;
 }
 
-export interface FetchCharacterById_character {
+export interface FetchCharactersById_charactersByIds {
   __typename: 'Character';
   /**
    * Link to the character's image.
@@ -77,20 +77,20 @@ export interface FetchCharacterById_character {
   /**
    * The character's last known location
    */
-  location: FetchCharacterById_character_location | null;
+  location: FetchCharactersById_charactersByIds_location | null;
   /**
    * Episodes in which this character appeared.
    */
-  episode: (FetchCharacterById_character_episode | null)[];
+  episode: (FetchCharactersById_charactersByIds_episode | null)[];
 }
 
-export interface FetchCharacterById {
+export interface FetchCharactersById {
   /**
-   * Get a specific character by ID
+   * Get a list of characters selected by ids
    */
-  character: FetchCharacterById_character | null;
+  charactersByIds: (FetchCharactersById_charactersByIds | null)[] | null;
 }
 
-export interface FetchCharacterByIdVariables {
-  id: string;
+export interface FetchCharactersByIdVariables {
+  ids: string[];
 }
