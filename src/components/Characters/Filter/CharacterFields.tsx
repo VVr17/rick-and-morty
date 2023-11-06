@@ -1,7 +1,7 @@
 import React from 'react';
 import { Control } from 'react-hook-form';
 
-import { gender, status } from 'constants/filter/filterSelectValues';
+import { genders, statuses } from 'constants/filter/filterSelectValues';
 import Field from 'components/common/form/Field';
 import SingleSelect from 'components/common/form/SingleSelect';
 
@@ -17,7 +17,7 @@ const CharacterFields: React.FC<IProp> = ({ control }) => {
         control={control}
         name="status"
         placeholder="Add character status"
-        options={status}
+        options={statuses}
       />
       <Field
         name="species"
@@ -29,7 +29,7 @@ const CharacterFields: React.FC<IProp> = ({ control }) => {
         control={control}
         name="gender"
         placeholder="Add character gender"
-        options={gender}
+        options={genders}
       />
     </>
   );
