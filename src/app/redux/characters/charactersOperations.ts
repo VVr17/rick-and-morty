@@ -30,7 +30,9 @@ export const fetchCharacters = createAsyncThunk(
     { rejectWithValue }
   ): Promise<ICharactersResponse> => {
     try {
-      const variables = getGraphqlVariables(query, 'character');
+      const variables = query.property.includes('character')
+        ? getGraphqlVariables(query, 'character')
+        : getGraphqlVariables(query);
 
       const response = await apolloClient.query({
         query: FETCH_CHARACTER_LIST,

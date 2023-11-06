@@ -7,7 +7,7 @@ interface IVariables {
 
 export const getGraphqlVariables = (
   query: ISearchQuery,
-  propertyType: PropertyType
+  propertyType?: PropertyType
 ): IVariables => {
   const {
     page,
@@ -52,8 +52,6 @@ export const getGraphqlVariables = (
 
   return {
     page,
-    ...(name && { name: search }),
-    // ...(type && { type: search }),
-    // ...(species && { species: search }),
+    name: search,
   };
 };
