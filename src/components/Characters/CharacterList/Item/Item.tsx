@@ -2,9 +2,8 @@ import React from 'react';
 import { Avatar, Grid } from '@mui/material';
 import { Box } from '@mui/system';
 
-import { FetchCharacterList_characters_results } from 'services/characterService/__generated__/FetchCharacterList';
-import Description from './Description';
 import { CharacterType } from 'types/character';
+import Description from './Description';
 
 interface IProps {
   character: CharacterType;

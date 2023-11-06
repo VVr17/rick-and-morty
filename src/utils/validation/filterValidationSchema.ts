@@ -2,9 +2,9 @@ import * as yup from 'yup';
 import { episodeRegEx } from './RegEx';
 import { filterFields } from 'constants/filter/filterFields';
 import {
-  gender,
+  genders,
   properties,
-  status,
+  statuses,
 } from 'constants/filter/filterSelectValues';
 
 export const filterSchema = yup
@@ -24,7 +24,7 @@ export const filterSchema = yup
       .nullable(),
     status: yup
       .string()
-      .oneOf(status)
+      .oneOf(statuses)
       .transform(value => (value ? value : null))
       .nullable(),
     species: yup
@@ -39,7 +39,7 @@ export const filterSchema = yup
       .nullable(),
     gender: yup
       .string()
-      .oneOf(gender)
+      .oneOf(genders)
       .transform(value => (value ? value : null))
       .nullable(),
 
