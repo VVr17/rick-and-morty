@@ -4,7 +4,7 @@ import { Box } from '@mui/system';
 
 import { FetchCharacterById_character } from 'services/characterService/__generated__/FetchCharacterById';
 
-import BackButton from 'components/common/BackButton';
+import BackButton from 'components/common/buttons/BackButton';
 import CharacterCard from './CharacterCard';
 import Container from 'components/Container';
 
