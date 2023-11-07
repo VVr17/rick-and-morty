@@ -4,9 +4,11 @@ import { Typography } from '@mui/material';
 
 import { FetchCharacterById_character } from 'services/characterService/__generated__/FetchCharacterById';
 import Episodes from './Episodes';
-import CharacterStatus from 'components/common/CharacterStatus/CharacterStatus';
-import DescriptionTitle from 'components/common/typography/DescriptionTitle';
-import Details from 'components/common/typography/Details';
+import {
+  CharacterStatus,
+  DescriptionTitle,
+  Details,
+} from 'components/common/character';
 
 interface IProps {
   character: FetchCharacterById_character;

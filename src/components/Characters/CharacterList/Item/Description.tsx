@@ -2,9 +2,14 @@ import React from 'react';
 import { Box } from '@mui/system';
 
 import { CharacterType } from 'types/character';
-import CharacterStatus from 'components/common/CharacterStatus/CharacterStatus';
-import DescriptionTitle from 'components/common/typography/DescriptionTitle';
-import Details from 'components/common/typography/Details';
+import { setHistoryItem } from 'app/redux/history/historySlice';
+import { useAppDispatch } from 'app/redux/hooks';
+
+import {
+  CharacterStatus,
+  DescriptionTitle,
+  Details,
+} from 'components/common/character';
 import { LinkStyled } from './Item.styled';
 
 interface IProps {
@@ -12,11 +17,19 @@ interface IProps {
 }
 
 const Description: React.FC<IProps> = ({ character }) => {
+  const dispatch = useAppDispatch();
   const { id, name, episode, species, location, status, gender } = character;
+
+  // Add character page visit to history
+  const addToHistory = () => {
+    dispatch(setHistoryItem(`Передивився інформацію що до ${name}`));
+  };
 
   return (
     <Box pt={1.5} pl={1.5}>
-      <LinkStyled to={`${id}`}>{name}</LinkStyled>
+      <LinkStyled to={`${id}`} onClick={addToHistory}>
+        {name}
+      </LinkStyled>
 
       {species && status && gender && (
         <CharacterStatus

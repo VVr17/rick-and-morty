@@ -4,23 +4,24 @@ import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import Fab from 'components/common/buttons/Fab';
 import MenuIconButton from 'components/common/buttons/MenuIconButton';
 
 interface IProps {
+  type: 'filter' | 'details';
   anchorEl: HTMLElement | null;
   handleClose: () => void;
   handleHistory: MouseEventHandler<HTMLButtonElement>;
-  upload: MouseEventHandler<HTMLButtonElement>;
+  download: MouseEventHandler<HTMLButtonElement>;
   isOpen: boolean;
 }
 
 const ActionMenu: React.FC<IProps> = ({
+  type,
   anchorEl,
   isOpen,
   handleClose,
   handleHistory,
-  upload,
+  download,
 }) => {
   return (
     <Menu
@@ -45,15 +46,19 @@ const ActionMenu: React.FC<IProps> = ({
       }}
     >
       <MenuItem sx={{ mb: '16px', borderRadius: '50%', width: 40, padding: 0 }}>
-        <MenuIconButton handleClick={handleHistory}>
+        <MenuIconButton handleClick={handleHistory} disabled={false}>
           <ErrorOutlineIcon />
         </MenuIconButton>
       </MenuItem>
       <MenuItem
-        // onClick={handleClose}
-        sx={{ borderRadius: '50%', width: 40, padding: 0 }}
+        sx={{
+          borderRadius: '50%',
+          width: 40,
+          padding: 0,
+          cursor: type === 'details' ? 'default' : 'pointer',
+        }}
       >
-        <MenuIconButton handleClick={upload}>
+        <MenuIconButton handleClick={download} disabled={type === 'details'}>
           <SaveAltIcon />
         </MenuIconButton>
       </MenuItem>

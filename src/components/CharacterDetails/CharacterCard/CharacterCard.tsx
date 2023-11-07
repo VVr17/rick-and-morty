@@ -3,8 +3,8 @@ import { Box } from '@mui/system';
 import { Avatar } from '@mui/material';
 
 import { FetchCharacterById_character } from 'services/characterService/__generated__/FetchCharacterById';
-import Description from './Description';
 import Actions from 'components/Actions';
+import Description from './Description';
 
 interface IProps {
   character: FetchCharacterById_character;
@@ -22,7 +22,7 @@ const CharacterCard: React.FC<IProps> = ({ character }) => {
         sx={{ width: 595, height: 572 }}
       />
       <Description character={character} />
-      <Actions />
+      <Actions type="details" />
     </Box>
   );
 };

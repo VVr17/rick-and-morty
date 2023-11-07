@@ -15,7 +15,7 @@ const CharacterList = () => {
         character =>
           character && <Item key={character.id} character={character} />
       )}
-      <Actions />
+      <Actions type="filter" />
     </Grid>
   );
 };

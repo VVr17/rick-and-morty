@@ -32,6 +32,7 @@ const Field: React.FC<IProp> = ({ control, name, placeholder }) => {
               },
               '& input::placeholder': {
                 color: 'primary.main',
+                opacity: 0.8,
               },
             }}
           />
