@@ -15,17 +15,6 @@ interface IProp {
   options: string[];
 }
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 220,
-    },
-  },
-};
-
 const MultipleSelect: React.FC<IProp> = ({
   control,
   name,
@@ -45,7 +34,6 @@ const MultipleSelect: React.FC<IProp> = ({
             renderValue={selected =>
               !selected.length ? placeholder : selected.join(', ')
             }
-            MenuProps={MenuProps}
             sx={{
               backgroundColor: 'secondary.main',
               color: 'primary.dark',

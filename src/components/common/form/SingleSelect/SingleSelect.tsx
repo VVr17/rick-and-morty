@@ -8,6 +8,7 @@ import {
   Select,
 } from '@mui/material';
 import ErrorMessage from '../ErrorMessage';
+import SelectValue from './SelectValue';
 
 interface IProp {
   control: Control<any>;
@@ -15,17 +16,6 @@ interface IProp {
   placeholder: string;
   options: string[];
 }
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 220,
-    },
-  },
-};
 
 const SingleSelect: React.FC<IProp> = ({
   control,
@@ -46,20 +36,21 @@ const SingleSelect: React.FC<IProp> = ({
           <Select
             {...field}
             displayEmpty
-            renderValue={selected => (!selected ? placeholder : selected)}
-            MenuProps={MenuProps}
+            renderValue={selected => (
+              <SelectValue selected={selected} placeholder={placeholder} />
+            )}
             sx={{
               backgroundColor: 'secondary.main',
-              color: 'primary.dark',
+              color: 'primary.main',
             }}
           >
-            <MenuItem value="">
-              <em>{placeholder}</em>
-            </MenuItem>
-            {options.map(option => (
+            {['', ...options].map(option => (
               <MenuItem key={option} value={option}>
                 <Radio checked={field.value === option} color="primary" />
-                <ListItemText primary={option} sx={{ color: 'primary.dark' }} />
+                <ListItemText
+                  primary={option ? option : 'none'}
+                  sx={{ color: 'primary.dark', textTransform: 'capitalize' }}
+                />
               </MenuItem>
             ))}
           </Select>

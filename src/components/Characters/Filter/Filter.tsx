@@ -24,8 +24,12 @@ import EpisodeFields from './EpisodeFields';
 import Field from 'components/common/form/Field';
 import LocationFields from './LocationFields';
 import MultipleSelect from 'components/common/form/MultipleSelect';
+import { useAppDispatch } from 'app/redux/hooks';
+import { setHistoryItem } from 'app/redux/history/historySlice';
+import { getHistoryMessage } from 'utils/getHistoryMessage';
 
 const Filter = () => {
+  const dispatch = useAppDispatch();
   const [filterIsOpen, setFilterIsOpen] = useState<boolean>(false);
 
   const [searchParams] = useSearchParams();
@@ -85,10 +89,9 @@ const Filter = () => {
       dataToUpdate,
     });
 
-    // Apply the updated search parameters to the URL
-    navigate(updatedSearchQuery);
-
-    setFilterIsOpen(false);
+    navigate(updatedSearchQuery); // Apply the updated search parameters to the URL
+    dispatch(setHistoryItem(getHistoryMessage(dataToUpdate))); // Add filter to history
+    setFilterIsOpen(false); // Close filter
   };
 
   return (

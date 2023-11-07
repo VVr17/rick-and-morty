@@ -10,7 +10,6 @@ import CharacterList from 'components/Characters/CharacterList';
 import Container from 'components/Container';
 import Filter from 'components/Characters/Filter';
 import ListPagination from './ListPagination';
-import ToastMessage from 'components/common/ToastMessage';
 
 const Characters = () => {
   const { totalPages, isLoading, characterList } =

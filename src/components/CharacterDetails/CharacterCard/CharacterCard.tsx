@@ -3,6 +3,7 @@ import { Box } from '@mui/system';
 import { Avatar } from '@mui/material';
 
 import { FetchCharacterById_character } from 'services/characterService/__generated__/FetchCharacterById';
+import Actions from 'components/Actions';
 import Description from './Description';
 
 interface IProps {
@@ -13,7 +14,7 @@ const CharacterCard: React.FC<IProps> = ({ character }) => {
   const { image } = character;
 
   return (
-    <Box bgcolor="background.default" display="flex">
+    <Box bgcolor="background.default" display="flex" position="relative">
       <Avatar
         alt="name"
         src={image ? image : '/assets/images/fallback.jpeg'}
@@ -21,6 +22,7 @@ const CharacterCard: React.FC<IProps> = ({ character }) => {
         sx={{ width: 595, height: 572 }}
       />
       <Description character={character} />
+      <Actions type="details" />
     </Box>
   );
 };
