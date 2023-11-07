@@ -1,6 +1,6 @@
 import React from 'react';
 import { Control } from 'react-hook-form';
-import Field from 'components/common/form/Field';
+import { Field } from 'components/common/form';
 
 interface IProp {
   control: Control<any>;

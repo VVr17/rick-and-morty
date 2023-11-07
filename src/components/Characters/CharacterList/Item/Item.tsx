@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, Grid } from '@mui/material';
+import { Avatar, Grid, useMediaQuery, useTheme } from '@mui/material';
 import { Box } from '@mui/system';
 
 import { CharacterType } from 'types/character';
@@ -10,16 +10,32 @@ interface IProps {
 }
 
 const Item: React.FC<IProps> = ({ character }) => {
-  const { image } = character;
+  const { image, name } = character;
+
+  // Styles
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <Grid component="li" item xs={6}>
-      <Box bgcolor="background.default" display="flex">
+    <Grid component="li" item xs={12} md={6}>
+      <Box
+        bgcolor="background.default"
+        display="flex"
+        height="100%"
+        borderRadius={3}
+      >
         <Avatar
-          alt="name"
           src={image ? image : '/assets/images/fallback.jpeg'}
+          alt={name || 'Avatar'}
           variant="square"
-          sx={{ width: 229, height: 220 }}
+          sx={{
+            width: isMobile ? 180 : 229,
+            height: 'auto',
+            marginTop: 'auto',
+            marginBottom: 'auto',
+            borderBottomLeftRadius: 14,
+            borderTopLeftRadius: 14,
+          }}
         />
         <Description character={character} />
       </Box>

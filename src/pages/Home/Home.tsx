@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import {
   fetchCharacters,
   fetchCharactersByEpisode,
   fetchCharactersByLocation,
-} from 'app/redux/characters/charactersOperations';
-import { retrieveSearchParams } from 'utils/filter/retrieveSearchParams';
-import { selectCharacters } from 'app/redux/characters/selectors';
+  selectCharacters,
+} from 'app/redux/characters';
+import { retrieveSearchParams } from 'utils/filter';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
 
 import Characters from 'components/Characters';
 import Hero from 'components/Hero';
 import Loader from 'components/common/Loader';
+import { topScroll } from 'utils/topScroll';
 
 const Home = () => {
   const dispatch = useAppDispatch();
@@ -33,6 +34,7 @@ const Home = () => {
     }
 
     dispatch(fetchCharacters(query));
+    topScroll();
   }, [searchParams]);
 
   return (

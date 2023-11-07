@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from '@mui/material';
 import UndoIcon from '@mui/icons-material/Undo';
+import { styles } from './styles';
 
 interface IProps {
   goBack: () => void;
@@ -9,16 +10,11 @@ interface IProps {
 const BackButton: React.FC<IProps> = ({ goBack }) => {
   return (
     <Button
+      variant="contained"
+      color="secondary"
       aria-label="back"
       onClick={goBack}
-      color="secondary"
-      variant="contained"
-      sx={{
-        marginBottom: '30px',
-        padding: '12px',
-        display: 'flex',
-        gap: '8px',
-      }}
+      sx={styles}
     >
       <UndoIcon />
       <span>Go back</span>

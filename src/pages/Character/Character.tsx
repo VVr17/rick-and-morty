@@ -6,12 +6,14 @@ import { FETCH_SINGLE_CHARACTER } from 'services/characterService/queries';
 import CharacterDetails from 'components/CharacterDetails';
 import Hero from 'components/Hero';
 import Loader from 'components/common/Loader';
+import { topScroll } from 'utils/topScroll';
 
 const Character = () => {
   const { characterId } = useParams();
   const { loading, error, data } = useQuery(FETCH_SINGLE_CHARACTER, {
     variables: { id: characterId },
   });
+  topScroll();
 
   return (
     <>

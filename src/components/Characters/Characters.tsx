@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box } from '@mui/system';
 import { Typography } from '@mui/material';
 
 import { FIRST_PAGE } from 'constants/listConstants';
-import { selectCharacters } from 'app/redux/characters/selectors';
+import { selectCharacters } from 'app/redux/characters';
 import { useAppSelector } from 'app/redux/hooks';
 
-import CharacterList from 'components/Characters/CharacterList';
+import CharacterList from './CharacterList';
 import Container from 'components/Container';
-import Filter from 'components/Characters/Filter';
+import Filter from './Filter';
 import ListPagination from './ListPagination';
 
 const Characters = () => {

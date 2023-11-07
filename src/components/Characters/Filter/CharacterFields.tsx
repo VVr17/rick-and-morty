@@ -1,9 +1,8 @@
 import React from 'react';
 import { Control } from 'react-hook-form';
 
-import { genders, statuses } from 'constants/filter/filterSelectValues';
-import Field from 'components/common/form/Field';
-import SingleSelect from 'components/common/form/SingleSelect';
+import { genders, statuses } from 'constants/filter';
+import { Field, SingleSelect } from 'components/common/form';
 
 interface IProp {
   control: Control<any>;

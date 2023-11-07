@@ -1,6 +1,6 @@
-import { createTheme } from '@mui/material';
+import { createTheme, responsiveFontSizes } from '@mui/material';
 
-export const theme = createTheme({
+let theme = createTheme({
   palette: {
     primary: {
       light: '#FFFFFF', //  white color
@@ -24,6 +24,16 @@ export const theme = createTheme({
     error: {
       main: '#D63D2E',
     },
+
+    action: {
+      hover: '#4cb5c3',
+      focus: '#4cb5c3',
+      disabledOpacity: 0.8,
+
+      // selected: '#a9f3fd',
+      // active: '#87d1db', light
+      active: '#02afc5',
+    },
   },
   breakpoints: {
     values: {
@@ -35,3 +45,7 @@ export const theme = createTheme({
     },
   },
 });
+
+theme = responsiveFontSizes(theme);
+
+export { theme };

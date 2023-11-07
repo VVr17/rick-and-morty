@@ -1,7 +1,9 @@
 import React from 'react';
 import { Box } from '@mui/system';
-import { GitHub, Twitter, Favorite } from '@mui/icons-material';
-import { SocialLinkStyled } from '../Footer.styled';
+import { Link } from '@mui/material';
+
+import { socialLinks } from 'constants/socials';
+import { styles } from './styles';
 
 const Socials = () => {
   return (
@@ -13,30 +15,18 @@ const Socials = () => {
       color="text.secondary"
       gap={3.5}
     >
-      <SocialLinkStyled
-        href="https://github.com/VVr17/rick-and-morty"
-        target="_blank"
-        rel="noreferrer"
-        aria-label="github"
-      >
-        <GitHub />
-      </SocialLinkStyled>
-      <SocialLinkStyled
-        href="https://twitter.com/"
-        target="_blank"
-        rel="noreferrer"
-        aria-label="twitter"
-      >
-        <Twitter />
-      </SocialLinkStyled>
-      <SocialLinkStyled
-        href="https://www.facebook.com/"
-        target="_blank"
-        rel="noreferrer"
-        aria-label="facebook"
-      >
-        <Favorite />
-      </SocialLinkStyled>
+      {socialLinks.map(({ href, label, Icon }) => (
+        <Link
+          key={href}
+          href={href}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={label}
+          sx={styles}
+        >
+          <Icon />
+        </Link>
+      ))}
     </Box>
   );
 };

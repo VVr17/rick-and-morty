@@ -1,20 +1,6 @@
-import { theme } from 'constants/theme';
 import styled from 'styled-components';
 
-export const DescStyled = styled.p`
-  max-width: 212px;
-  margin-bottom: 34px;
-
-  color: ${theme.palette.text.secondary};
-
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.6;
-  text-align: center;
-  text-transform: uppercase;
-`;
-
-export const LogoStyled = styled.div`
+export const LogoStyled = styled.a`
   position: relative;
 
   display: flex;
@@ -52,20 +38,5 @@ export const LogoStyled = styled.div`
 
     width: 50px;
     height: 50px;
-  }
-`;
-
-export const SocialLinkStyled = styled.a`
-  display: block;
-  font-size: 0;
-
-  :hover,
-  :focus {
-    color: ${theme.palette.success.main};
-  }
-
-  svg {
-    width: 18px;
-    height: 18px;
   }
 `;

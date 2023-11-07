@@ -11,7 +11,7 @@ import ActionMenu from './ActionMenu';
 import History from './History';
 
 import { useAppSelector } from 'app/redux/hooks';
-import { selectCharacters } from 'app/redux/characters/selectors';
+import { selectCharacters } from 'app/redux/characters';
 import { downloadCharacters } from 'utils/downloadCharacters';
 
 interface IProps {

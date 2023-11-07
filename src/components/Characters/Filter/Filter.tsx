@@ -9,24 +9,29 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { Box } from '@mui/system';
-import { Button, Fade } from '@mui/material';
+import { Fade, useMediaQuery, useTheme } from '@mui/material';
 
-import { filterDefaultValues } from 'constants/filter/filterDefaultValues';
-import { filterSchema } from 'utils/validation/filterValidationSchema';
+import { filterDefaultValues, properties } from 'constants/filter';
+import { filterSchema } from 'utils/validation';
+import { getHistoryMessage } from 'utils/getHistoryMessage';
 import { IFilterFields } from 'types/filterForm';
-import { properties } from 'constants/filter/filterSelectValues';
-import { resetFields } from 'utils/filter/resetFields';
-import { retrieveSearchParams } from 'utils/filter/retrieveSearchParams';
-import { updateSearchParams } from 'utils/filter/updateSearchParams';
 
+import {
+  formConfig,
+  resetFields,
+  retrieveSearchParams,
+  updateSearchParams,
+} from 'utils/filter';
+import { setHistoryItem } from 'app/redux/history';
+import { useAppDispatch } from 'app/redux/hooks';
+
+import { ButtonMain } from 'components/common/buttons';
+import { Field, MultipleSelect } from 'components/common/form';
 import CharacterFields from './CharacterFields';
 import EpisodeFields from './EpisodeFields';
-import Field from 'components/common/form/Field';
 import LocationFields from './LocationFields';
-import MultipleSelect from 'components/common/form/MultipleSelect';
-import { useAppDispatch } from 'app/redux/hooks';
-import { setHistoryItem } from 'app/redux/history/historySlice';
-import { getHistoryMessage } from 'utils/getHistoryMessage';
+import { getPropertyState } from 'utils/filter/getPropertyState';
+import { formStyles } from './styles';
 
 const Filter = () => {
   const dispatch = useAppDispatch();
@@ -35,22 +40,18 @@ const Filter = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  // Form control using React Hook Form
-  const formConfig = {
-    resolver: yupResolver(filterSchema) as Resolver<IFilterFields>,
-    mode: 'all' as keyof ValidationMode,
-    defaultValues: filterDefaultValues,
-  };
+  // Styles
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 
+  // Form control using React Hook Form
   const { handleSubmit, control, reset, setValue, watch } =
     useForm<IFilterFields>(formConfig);
 
   // Properties select status
   const chosenProperties = watch('property');
-  const propertyIsChosen = !!chosenProperties.length;
-  const characterChosen = chosenProperties.includes(properties[0]);
-  const locationChosen = chosenProperties.includes(properties[1]);
-  const episodeChosen = chosenProperties.includes(properties[2]);
+  const { propertyIsChosen, characterChosen, locationChosen, episodeChosen } =
+    getPropertyState(chosenProperties);
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(propertyIsChosen);
 
   // Get current URL search params and set to Filter default values
@@ -96,60 +97,52 @@ const Filter = () => {
 
   return (
     <>
-      <Box mb={2.5} display="flex">
-        <Button
-          variant="contained"
-          color={'secondary'}
-          onClick={toggleFilter}
-          sx={{ marginRight: '160px', minWidth: '142px', padding: '16px' }}
-        >
-          {!filterIsOpen ? 'Filter' : 'Remove filter'}
-        </Button>
+      <Box
+        mb={2.5}
+        display="flex"
+        position="relative"
+        zIndex={50}
+        flexDirection={isDesktop ? 'row' : 'column'}
+        gap={isDesktop ? 20 : 4}
+      >
+        <ButtonMain
+          handleClick={toggleFilter}
+          label={!filterIsOpen ? 'Filter' : 'Remove filter'}
+          minWidth="142px"
+        />
 
-        <Fade in={filterIsOpen}>
-          <Box
-            component="form"
-            onSubmit={handleSubmit(onSubmit)}
-            sx={{
-              width: '100%',
-              display: 'flex',
-              gap: '16px',
-              flexDirection: 'row',
-            }}
-          >
-            <MultipleSelect
-              control={control}
-              name="property"
-              placeholder="Select item"
-              options={properties}
-            />
-
-            <Box position="relative" width="300px">
-              <Field
-                name="search"
+        {filterIsOpen && (
+          <Fade in={filterIsOpen}>
+            <Box
+              component="form"
+              onSubmit={handleSubmit(onSubmit)}
+              sx={formStyles}
+            >
+              <MultipleSelect
                 control={control}
-                placeholder="Add key word to find"
+                name="property"
+                placeholder="Select item"
+                options={properties}
               />
 
-              <Fade in={menuIsOpen}>
-                <Box position="absolute" top={0} left={0} zIndex={50}>
-                  {characterChosen && <CharacterFields control={control} />}
-                  {locationChosen && <LocationFields control={control} />}
-                  {episodeChosen && <EpisodeFields control={control} />}
-                </Box>
-              </Fade>
+              <Box position="relative" width="300px">
+                <Field
+                  name="search"
+                  control={control}
+                  placeholder="Add key word to find"
+                />
+                <Fade in={menuIsOpen}>
+                  <Box position="absolute" top={0} left={0} zIndex={50}>
+                    {characterChosen && <CharacterFields control={control} />}
+                    {locationChosen && <LocationFields control={control} />}
+                    {episodeChosen && <EpisodeFields control={control} />}
+                  </Box>
+                </Fade>
+              </Box>
+              <ButtonMain type="submit" minWidth="112px" label="Find" />
             </Box>
-
-            <Button
-              type="submit"
-              variant="contained"
-              color={'secondary'}
-              sx={{ minWidth: '112px', padding: '16px' }}
-            >
-              Find
-            </Button>
-          </Box>
-        </Fade>
+          </Fade>
+        )}
       </Box>
     </>
   );

@@ -1,12 +1,13 @@
 import React from 'react';
+import { Box } from '@mui/system';
 import { Typography } from '@mui/material';
 
 import Container from 'components/Container';
-import { HeroStyled } from './Hero.styled';
+import { styles } from './styles';
 
 const Hero = () => {
   return (
-    <HeroStyled>
+    <Box component="section" sx={styles}>
       <Container>
         <Typography
           variant="h1"
@@ -18,7 +19,7 @@ const Hero = () => {
           The Rick and Morty API
         </Typography>
       </Container>
-    </HeroStyled>
+    </Box>
   );
 };
 

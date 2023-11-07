@@ -1,17 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import LogoIcon from 'assets/icons/logo.svg';
+import { Link as RouterLink } from 'react-router-dom';
+import { Link } from '@mui/material';
+import { ReactComponent as LogoIcon } from 'assets/icons/logo.svg';
+import { styles } from './styles';
 
 const Logo = () => {
   return (
-    <Link to="/">
-      <img
-        src={LogoIcon}
-        alt="logo"
-        width={40}
-        height={40}
-        style={{ width: 40, height: 40 }}
-      />
+    <Link component={RouterLink} to="/" sx={styles}>
+      <LogoIcon fill="currentColor" />
     </Link>
   );
 };

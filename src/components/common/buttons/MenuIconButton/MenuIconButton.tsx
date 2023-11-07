@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import { IconButton } from '@mui/material';
+import { styles } from './styles';
 
 interface IProps {
   children: ReactNode;
@@ -19,22 +20,7 @@ const MenuIconButton: React.FC<IProps> = ({
       edge="end"
       color="primary"
       disabled={disabled}
-      sx={{
-        backgroundColor: 'primary.light',
-        width: 40,
-        height: 40,
-        '&:hover': {
-          backgroundColor: 'text.secondary',
-        },
-        '&:focus': {
-          backgroundColor: 'text.secondary',
-        },
-        '&:disabled': {
-          backgroundColor: 'text.secondary',
-          opacity: 0.8,
-          cursor: 'default',
-        },
-      }}
+      sx={styles}
     >
       {children}
     </IconButton>

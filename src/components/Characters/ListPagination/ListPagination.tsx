@@ -1,14 +1,15 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+
 import { Box } from '@mui/system';
-import { Pagination, PaginationItem } from '@mui/material';
+import { Pagination } from '@mui/material';
 
 import { FIRST_PAGE } from 'constants/listConstants';
-import { selectCharacters } from 'app/redux/characters/selectors';
-import { updateSearchParams } from 'utils/filter/updateSearchParams';
+import { selectCharacters } from 'app/redux/characters';
+import { updateSearchParams } from 'utils/filter';
 import { useAppSelector } from 'app/redux/hooks';
 
-import { buttonStyles, navButtonStyles } from './styles';
+import PaginationButton from './PaginationButton';
 
 const ListPagination = () => {
   const { totalPages } = useAppSelector(selectCharacters);
@@ -41,15 +42,7 @@ const ListPagination = () => {
         shape="rounded"
         page={currentPage}
         onChange={handleChange}
-        renderItem={item => {
-          const isNavButton = item.type === 'next' || item.type === 'previous';
-          return (
-            <PaginationItem
-              sx={isNavButton ? navButtonStyles : buttonStyles}
-              {...item}
-            />
-          );
-        }}
+        renderItem={item => <PaginationButton item={item} />}
       />
     </Box>
   );

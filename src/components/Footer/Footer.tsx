@@ -2,9 +2,8 @@ import React from 'react';
 import { Box, Container } from '@mui/system';
 import { Typography } from '@mui/material';
 
-import InCodeIcon from 'assets/icons/incode.svg';
+import FooterLogo from 'components/common/FooterLogo';
 import Socials from './Socials';
-import { DescStyled, LogoStyled } from './Footer.styled';
 
 const Footer = () => {
   return (
@@ -17,15 +16,20 @@ const Footer = () => {
           flexDirection: 'column',
         }}
       >
-        <DescStyled>
-          performed as part of a test case for the company
-        </DescStyled>
+        <Typography
+          variant="body1"
+          component="p"
+          color="text.secondary"
+          mb={4.25}
+          fontSize={14}
+          fontWeight={700}
+          textAlign="center"
+          textTransform="uppercase"
+        >
+          performed as part of a test <br /> case for the company
+        </Typography>
 
-        <LogoStyled>
-          <span></span>
-          <img src={InCodeIcon} alt="logo" width={40} height={40} />
-        </LogoStyled>
-
+        <FooterLogo />
         <Socials />
 
         <Typography component="span" fontSize={12} color="text.secondary">

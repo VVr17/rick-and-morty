@@ -1,3 +1,4 @@
+import { getPropertyState } from './getPropertyState';
 import { UseFormSetValue } from 'react-hook-form';
 import { IFilterFields } from 'types/filterForm';
 
@@ -5,9 +6,8 @@ export const resetFields = (
   chosenProperties: string[],
   setValue: UseFormSetValue<IFilterFields>
 ): void => {
-  const characterChosen = chosenProperties.includes('character');
-  const locationChosen = chosenProperties.includes('location');
-  const episodeChosen = chosenProperties.includes('episode');
+  const { characterChosen, locationChosen, episodeChosen } =
+    getPropertyState(chosenProperties);
   const fieldsToReset: (keyof IFilterFields)[] = [];
 
   if (chosenProperties.length) {

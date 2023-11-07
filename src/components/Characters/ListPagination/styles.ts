@@ -5,10 +5,10 @@ export const navButtonStyles = {
     '0px 1px 5px 0px rgba(0, 0, 0, 0.12), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 1px 0px rgba(0, 0, 0, 0.20)',
 
   '&:hover': {
-    backgroundColor: 'text.secondary',
+    backgroundColor: 'action.hover',
   },
   '&:focus': {
-    backgroundColor: 'text.secondary',
+    backgroundColor: 'action.hover',
   },
   '&:disabled': {
     backgroundColor: 'text.secondary',
@@ -23,11 +23,11 @@ export const buttonStyles = {
     '0px 1px 5px 0px rgba(0, 0, 0, 0.12), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 1px 0px rgba(0, 0, 0, 0.20)',
 
   '&:hover': {
-    backgroundColor: 'text.secondary',
+    backgroundColor: 'action.hover',
     color: 'primary.dark',
   },
   '&:focus': {
-    backgroundColor: 'text.secondary',
+    backgroundColor: 'action.hover',
     color: 'primary.dark',
   },
 
@@ -38,11 +38,11 @@ export const buttonStyles = {
     color: 'primary.dark',
   },
   '&.Mui-selected:hover': {
-    backgroundColor: 'text.secondary',
+    backgroundColor: 'action.hover',
     color: 'primary.dark',
   },
   '&.Mui-selected:focus': {
-    backgroundColor: 'text.secondary',
+    backgroundColor: 'action.hover',
     color: 'primary.dark',
   },
 };

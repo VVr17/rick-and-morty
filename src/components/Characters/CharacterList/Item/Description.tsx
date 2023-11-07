@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import { Box } from '@mui/system';
+import { Link, Typography } from '@mui/material';
 
 import { CharacterType } from 'types/character';
-import { setHistoryItem } from 'app/redux/history/historySlice';
+import { getDescriptionFields } from 'utils/character';
+import { setHistoryItem } from 'app/redux/history';
 import { useAppDispatch } from 'app/redux/hooks';
-
 import {
   CharacterStatus,
   DescriptionTitle,
   Details,
 } from 'components/common/character';
-import { LinkStyled } from './Item.styled';
+import { linkStyles } from './styles';
 
 interface IProps {
   character: CharacterType;
@@ -19,6 +21,7 @@ interface IProps {
 const Description: React.FC<IProps> = ({ character }) => {
   const dispatch = useAppDispatch();
   const { id, name, episode, species, location, status, gender } = character;
+  const descriptionFields = getDescriptionFields(location, episode[0]);
 
   // Add character page visit to history
   const addToHistory = () => {
@@ -26,10 +29,19 @@ const Description: React.FC<IProps> = ({ character }) => {
   };
 
   return (
-    <Box pt={1.5} pl={1.5}>
-      <LinkStyled to={`${id}`} onClick={addToHistory}>
-        {name}
-      </LinkStyled>
+    <Box p={1.5} width="100%">
+      <Link
+        component={RouterLink}
+        to={`${id}`}
+        onClick={addToHistory}
+        color="secondary.main"
+        underline="none"
+        sx={linkStyles}
+      >
+        <Typography fontWeight={800} variant="h5" component="span">
+          {name}
+        </Typography>
+      </Link>
 
       {species && status && gender && (
         <CharacterStatus
@@ -40,11 +52,12 @@ const Description: React.FC<IProps> = ({ character }) => {
         />
       )}
 
-      <DescriptionTitle message="Last known location:" />
-      <Details content={`Name: ${location?.name || '---'}`} mb={1.75} />
-
-      <DescriptionTitle message="First seen in:" />
-      <Details content={episode[0]?.name || '---'} />
+      {descriptionFields.map(({ title, value }, index) => (
+        <Fragment key={index}>
+          <DescriptionTitle message={title} />
+          <Details content={value} mb={1.75} />
+        </Fragment>
+      ))}
     </Box>
   );
 };

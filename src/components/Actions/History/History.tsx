@@ -9,7 +9,7 @@ import {
   Button,
 } from '@mui/material';
 import { useAppSelector } from 'app/redux/hooks';
-import { selectHistory } from 'app/redux/history/selectors';
+import { selectHistory } from 'app/redux/history';
 
 interface IProps {
   isOpen: boolean;
