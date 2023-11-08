@@ -6,13 +6,13 @@ import React, {
   useState,
 } from 'react';
 
-import Fab from 'components/common/buttons/Fab';
-import ActionMenu from './ActionMenu';
-import History from './History';
-
-import { useAppSelector } from 'app/redux/hooks';
+import { downloadCharacters } from 'utils';
 import { selectCharacters } from 'app/redux/characters';
-import { downloadCharacters } from 'utils/downloadCharacters';
+import { useAppSelector } from 'app/redux/hooks';
+
+import ActionMenu from './ActionMenu';
+import { Fab } from 'components/common/buttons';
+import History from './History';
 
 interface IProps {
   type: 'filter' | 'details';

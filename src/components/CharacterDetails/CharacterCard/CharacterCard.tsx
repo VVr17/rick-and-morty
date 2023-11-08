@@ -2,12 +2,13 @@ import React from 'react';
 import { Box } from '@mui/system';
 import { Avatar } from '@mui/material';
 
-import { FetchCharacterById_character } from 'services/characterService/__generated__/FetchCharacterById';
+import { CharacterType } from 'types';
+
 import Actions from 'components/Actions';
 import Description from './Description';
 
 interface IProps {
-  character: FetchCharacterById_character;
+  character: CharacterType;
 }
 
 const CharacterCard: React.FC<IProps> = ({ character }) => {

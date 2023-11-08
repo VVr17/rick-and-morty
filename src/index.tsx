@@ -9,7 +9,7 @@ import { ThemeProvider } from '@mui/material';
 
 import App from 'components/App';
 import { apolloClient } from 'app/graphql';
-import { globalStyles } from 'styles/styles';
+import { globalStyles } from 'styles';
 import { store, persistor } from 'app/redux/store';
 import { theme } from './constants/theme';
 

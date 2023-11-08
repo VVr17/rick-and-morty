@@ -2,14 +2,14 @@ import React from 'react';
 import { useNavigate } from 'react-router';
 import { Box } from '@mui/system';
 
-import { FetchCharacterById_character } from 'services/characterService/__generated__/FetchCharacterById';
+import { CharacterType } from 'types';
 
-import BackButton from 'components/common/buttons/BackButton';
+import { BackButton } from 'components/common/buttons';
 import CharacterCard from './CharacterCard';
 import Container from 'components/Container';
 
 interface IProps {
-  character: FetchCharacterById_character;
+  character: CharacterType;
 }
 
 const CharacterDetails: React.FC<IProps> = ({ character }) => {

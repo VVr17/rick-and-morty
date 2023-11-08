@@ -6,13 +6,17 @@ import {
   ListItemText,
   MenuItem,
   Select,
+  SelectChangeEvent,
 } from '@mui/material';
+import SelectValue from '../SelectValue';
+import { checkboxStyles, selectStyles } from './styles';
 
 interface IProp {
   control: Control<any>;
   name: string;
   placeholder: string;
   options: string[];
+  handlePropertyChange?: (event: SelectChangeEvent<any>) => void;
 }
 
 const MultipleSelect: React.FC<IProp> = ({
@@ -20,6 +24,7 @@ const MultipleSelect: React.FC<IProp> = ({
   name,
   placeholder,
   options,
+  handlePropertyChange,
 }) => {
   return (
     <Controller
@@ -31,18 +36,30 @@ const MultipleSelect: React.FC<IProp> = ({
             {...field}
             multiple
             displayEmpty
-            renderValue={selected =>
-              !selected.length ? placeholder : selected.join(', ')
-            }
-            sx={{
-              backgroundColor: 'secondary.main',
-              color: 'primary.dark',
+            renderValue={selected => (
+              <SelectValue
+                selected={selected.join(', ')}
+                placeholder={placeholder}
+              />
+            )}
+            sx={selectStyles}
+            onChange={event => {
+              field.onChange(event);
+              if (handlePropertyChange) {
+                handlePropertyChange(event);
+              }
             }}
           >
             {options.map(option => (
               <MenuItem key={option} value={option}>
-                <Checkbox checked={field.value.indexOf(option) > -1} />
-                <ListItemText primary={option} sx={{ color: 'primary.dark' }} />
+                <ListItemText
+                  primary={option}
+                  sx={{ color: 'primary.dark', textTransform: 'capitalize' }}
+                />
+                <Checkbox
+                  checked={field.value.indexOf(option) > -1}
+                  sx={checkboxStyles}
+                />
               </MenuItem>
             ))}
           </Select>

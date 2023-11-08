@@ -1,9 +1,13 @@
-import { filterDefaultValues } from 'constants/filter/filterDefaultValues';
-import { filterFields } from 'constants/filter/filterFields';
+import { filterDefaultValues, filterFields } from 'constants/filter';
 import { FIRST_PAGE } from 'constants/listConstants';
-import { ISearchQuery } from 'types/searchQuery';
-import { PropertyType } from 'types/filterFields';
+import { ISearchQuery, PropertyType } from 'types';
 
+/**
+ * Retrieve search parameters from a URLSearchParams object and return an search query object.
+ *
+ * @param searchParams - A URLSearchParams object containing query parameters from the URL.
+ * @returns - Object representing the search query parameters for filter form.
+ */
 export const retrieveSearchParams = (
   searchParams: URLSearchParams
 ): ISearchQuery => {

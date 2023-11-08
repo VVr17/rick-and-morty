@@ -1,14 +1,19 @@
-import { CharacterType } from 'types/character';
-import { PropertyType } from 'types/filterFields';
-import { LocationType } from 'types/location';
-import { ISearchQuery } from 'types/searchQuery';
+import { CharacterType, ISearchQuery, LocationType, PropertyType } from 'types';
 
+/**
+ * Filter an array of characters based on a search query and property type.
+ *
+ * @param characters - An array of characters to filter.
+ * @param query - The search query containing filter parameters.
+ * @param propertyType - The type of property for filtering ('location', 'episode').
+ * @returns An array of character IDs that match the search criteria.
+ */
 export const filterCharacters = (
   characters: CharacterType[],
   query: ISearchQuery,
   propertyType: PropertyType
 ): number[] => {
-  const filteredCharacters = characters
+  return characters
     .filter(character => {
       if (propertyType === 'location') {
         return getCharacterMatch(character, query);
@@ -21,49 +26,75 @@ export const filterCharacters = (
     })
     .map(({ id }) => Number(id))
     .filter(id => !isNaN(id));
-
-  return filteredCharacters;
 };
 
+/**
+ * Perform a case-insensitive inclusion match between a query value and a character value.
+ *
+ * @param queryValue - The query value to match.
+ * @param characterValue - The character value to match.
+ * @returns true if the query value is included in the character value, false otherwise.
+ */
+const matchQuery = (
+  queryValue: string | null,
+  characterValue: string | null
+) => {
+  return (
+    !queryValue ||
+    characterValue?.toLowerCase().includes(queryValue.toLowerCase())
+  );
+};
+
+/**
+ * Perform a case-insensitive equality match between a query value and a character value.
+ *
+ * @param queryValue - The query value to match.
+ * @param characterValue - The character value to match.
+ * @returns true if the query value is equal to the character value, false otherwise.
+ */
+const isEqual = (queryValue: string | null, characterValue: string | null) => {
+  return (
+    !queryValue || characterValue?.toLowerCase() === queryValue.toLowerCase()
+  );
+};
+
+/**
+ * Check if a character matches the search query for character-related fields.
+ *
+ * @param character - The character to check.
+ * @param query - The search query containing filter parameters.
+ * @returns true if the character matches the search criteria, false otherwise.
+ */
 const getCharacterMatch = (character: CharacterType, query: ISearchQuery) => {
   const { name, type, gender, status, species } = query;
-  const nameMatch =
-    !name || character.name?.toLowerCase().includes(name.toLowerCase());
-  const statusMatch =
-    !status || character.status?.toLowerCase() === status.toLowerCase();
-  const genderMatch =
-    !gender || character.gender?.toLowerCase() === gender.toLowerCase();
-  const speciesMatch =
-    !species ||
-    character.species?.toLowerCase().includes(species.toLowerCase());
-  const typeMatch =
-    !type || character.type?.toLowerCase().includes(type.toLowerCase());
 
-  return nameMatch && statusMatch && genderMatch && speciesMatch && typeMatch;
+  return (
+    matchQuery(name, character.name) &&
+    isEqual(status, character.status) &&
+    isEqual(gender, character.gender) &&
+    matchQuery(species, character.species) &&
+    matchQuery(type, character.type)
+  );
 };
 
+/**
+ * Check if a character's location matches the search query for location-related fields.
+ *
+ * @param characterLocation - The location of the character.
+ * @param query - The search query containing location filter parameters.
+ * @returns true if the character's location matches the search criteria, false otherwise.
+ */
 const getLocationMatch = (
   characterLocation: LocationType,
   query: ISearchQuery
 ) => {
-  if (!characterLocation) {
-    return !characterLocation;
-  }
+  if (!characterLocation) return false;
 
   const { locationName, locationType, dimension } = query;
-  const nameMatch =
-    !locationName ||
-    characterLocation.name?.toLowerCase().includes(locationName.toLowerCase());
 
-  const typeMatch =
-    !locationType ||
-    characterLocation.type?.toLowerCase().includes(locationType.toLowerCase());
-
-  const dimensionMatch =
-    !dimension ||
-    characterLocation.dimension
-      ?.toLowerCase()
-      .includes(dimension.toLowerCase());
-
-  return nameMatch && typeMatch && dimensionMatch;
+  return (
+    matchQuery(locationName, characterLocation.name) &&
+    matchQuery(locationType, characterLocation.type) &&
+    matchQuery(dimension, characterLocation.dimension)
+  );
 };

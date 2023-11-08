@@ -2,16 +2,16 @@ import React from 'react';
 import { Box } from '@mui/system';
 import { Typography } from '@mui/material';
 
-import { FetchCharacterById_character } from 'services/characterService/__generated__/FetchCharacterById';
-import Episodes from './Episodes';
+import { CharacterType } from 'types';
 import {
   CharacterStatus,
   DescriptionTitle,
   Details,
 } from 'components/common/character';
+import Episodes from './Episodes';
 
 interface IProps {
-  character: FetchCharacterById_character;
+  character: CharacterType;
 }
 
 const Description: React.FC<IProps> = ({ character }) => {

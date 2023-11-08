@@ -27,12 +27,9 @@ let theme = createTheme({
 
     action: {
       hover: '#4cb5c3',
-      focus: '#4cb5c3',
+      focus: '#87d1db',
       disabledOpacity: 0.8,
-
-      // selected: '#a9f3fd',
-      // active: '#87d1db', light
-      active: '#02afc5',
+      selected: '#1976D2',
     },
   },
   breakpoints: {

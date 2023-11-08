@@ -1,10 +1,10 @@
 import React, { MouseEventHandler } from 'react';
-import SaveAltIcon from '@mui/icons-material/SaveAlt';
+import { Menu, MenuItem } from '@mui/material';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import SaveAltIcon from '@mui/icons-material/SaveAlt';
 
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import MenuIconButton from 'components/common/buttons/MenuIconButton';
+import { styles, itemStyles } from './styles';
 
 interface IProps {
   type: 'filter' | 'details';
@@ -37,24 +37,16 @@ const ActionMenu: React.FC<IProps> = ({
         vertical: 'bottom',
         horizontal: 'center',
       }}
-      sx={{
-        top: -76,
-        '& div': {
-          boxShadow: 'none',
-          backgroundColor: 'transparent',
-        },
-      }}
+      sx={styles}
     >
-      <MenuItem sx={{ mb: '16px', borderRadius: '50%', width: 40, padding: 0 }}>
+      <MenuItem sx={{ ...itemStyles, mb: '16px' }}>
         <MenuIconButton handleClick={handleHistory} disabled={false}>
           <ErrorOutlineIcon />
         </MenuIconButton>
       </MenuItem>
       <MenuItem
         sx={{
-          borderRadius: '50%',
-          width: 40,
-          padding: 0,
+          ...itemStyles,
           cursor: type === 'details' ? 'default' : 'pointer',
         }}
       >

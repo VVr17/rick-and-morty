@@ -1,15 +1,24 @@
 import { FilterField } from 'types/filterFields';
 
-export const filterFields: FilterField[] = [
+export const characterFields: FilterField[] = [
   'name',
   'status',
   'species',
   'type',
   'gender',
+];
+
+export const locationFields: FilterField[] = [
   'locationName',
   'locationType',
   'dimension',
-  'episodeName',
-  'episode',
+];
+
+export const episodeFields: FilterField[] = ['episodeName', 'episode'];
+
+export const filterFields: FilterField[] = [
+  ...characterFields,
+  ...locationFields,
+  ...episodeFields,
   'search',
 ];

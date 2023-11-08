@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { HISTORY_KEY } from 'constants/storageKey';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { HISTORY_KEY } from 'constants/storageKey';
 
 interface IHistory {
   history: string[];

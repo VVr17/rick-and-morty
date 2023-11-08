@@ -3,10 +3,11 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Box } from '@mui/system';
 import { Link, Typography } from '@mui/material';
 
-import { CharacterType } from 'types/character';
+import { CharacterType } from 'types';
 import { getDescriptionFields } from 'utils/character';
 import { setHistoryItem } from 'app/redux/history';
 import { useAppDispatch } from 'app/redux/hooks';
+
 import {
   CharacterStatus,
   DescriptionTitle,

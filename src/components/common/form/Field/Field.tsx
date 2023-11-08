@@ -2,6 +2,7 @@ import React from 'react';
 import { Control, Controller } from 'react-hook-form';
 import { FormControl, TextField } from '@mui/material';
 import ErrorMessage from '../ErrorMessage';
+import { styles } from './styles';
 
 interface IProp {
   control: Control<any>;
@@ -24,17 +25,7 @@ const Field: React.FC<IProp> = ({ control, name, placeholder }) => {
             {...field}
             placeholder={placeholder}
             variant="outlined"
-            sx={{
-              '& input': {
-                color: 'primary.dark',
-                backgroundColor: 'secondary.main',
-                borderRadius: '4px',
-              },
-              '& input::placeholder': {
-                color: 'primary.main',
-                opacity: 0.8,
-              },
-            }}
+            sx={styles}
           />
           {fieldState.error?.message && (
             <ErrorMessage message={fieldState.error.message} />

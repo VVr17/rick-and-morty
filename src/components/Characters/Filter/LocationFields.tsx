@@ -1,6 +1,7 @@
 import React from 'react';
 import { Control } from 'react-hook-form';
 import { Field } from 'components/common/form';
+import { locationFormFields } from 'constants/filter';
 
 interface IProp {
   control: Control<any>;
@@ -9,17 +10,14 @@ interface IProp {
 const LocationFields: React.FC<IProp> = ({ control }) => {
   return (
     <>
-      <Field
-        name="locationName"
-        control={control}
-        placeholder="Add location name"
-      />
-      <Field
-        name="locationType"
-        control={control}
-        placeholder="Add location type"
-      />
-      <Field name="dimension" control={control} placeholder="Add dimension" />
+      {locationFormFields.map(({ name, placeholder }) => (
+        <Field
+          key={name}
+          name={name}
+          control={control}
+          placeholder={placeholder}
+        />
+      ))}
     </>
   );
 };

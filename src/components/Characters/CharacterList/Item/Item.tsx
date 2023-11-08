@@ -2,7 +2,7 @@ import React from 'react';
 import { Avatar, Grid, useMediaQuery, useTheme } from '@mui/material';
 import { Box } from '@mui/system';
 
-import { CharacterType } from 'types/character';
+import { CharacterType } from 'types';
 import Description from './Description';
 
 interface IProps {

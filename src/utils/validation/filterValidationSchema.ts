@@ -1,11 +1,15 @@
 import * as yup from 'yup';
 import { episodeRegEx } from './RegEx';
-import { filterFields } from 'constants/filter/filterFields';
 import {
+  characterFields,
+  episodeFields,
   genders,
+  locationFields,
   properties,
   statuses,
-} from 'constants/filter/filterSelectValues';
+} from 'constants/filter';
+
+const MIN_LENGTH = 3;
 
 export const filterSchema = yup
   .object()
@@ -22,6 +26,7 @@ export const filterSchema = yup
       .min(3)
       .transform(value => (value ? value : null))
       .nullable(),
+
     status: yup
       .string()
       .oneOf(statuses)
@@ -75,9 +80,6 @@ export const filterSchema = yup
     exclusive: true, // Ensure the following test doesn't interfere with other field validation
     test: function (values) {
       const chosenProperties = values.property || [];
-      const characterFields = filterFields.slice(0, 5);
-      const locationFields = filterFields.slice(5, 8);
-      const episodeFields = filterFields.slice(8, 10);
 
       if (!chosenProperties.length && !values.search) {
         return this.createError({

@@ -1,41 +1,39 @@
 import React, { useState, useEffect } from 'react';
-import {
-  useForm,
-  Resolver,
-  SubmitHandler,
-  ValidationMode,
-} from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { yupResolver } from '@hookform/resolvers/yup';
 
 import { Box } from '@mui/system';
-import { Fade, useMediaQuery, useTheme } from '@mui/material';
+import {
+  Fade,
+  SelectChangeEvent,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 
 import { filterDefaultValues, properties } from 'constants/filter';
-import { filterSchema } from 'utils/validation';
-import { getHistoryMessage } from 'utils/getHistoryMessage';
-import { IFilterFields } from 'types/filterForm';
-
 import {
   formConfig,
+  getFilterIsChanged,
+  getPropertyState,
   resetFields,
   retrieveSearchParams,
   updateSearchParams,
 } from 'utils/filter';
+import { getHistoryMessage } from 'utils';
+import { IFilterFields } from 'types';
 import { setHistoryItem } from 'app/redux/history';
 import { useAppDispatch } from 'app/redux/hooks';
 
 import { ButtonMain } from 'components/common/buttons';
+import { CharacterFields, EpisodeFields, LocationFields } from './fields';
 import { Field, MultipleSelect } from 'components/common/form';
-import CharacterFields from './CharacterFields';
-import EpisodeFields from './EpisodeFields';
-import LocationFields from './LocationFields';
-import { getPropertyState } from 'utils/filter/getPropertyState';
+import ToastMessage from 'components/common/ToastMessage';
 import { formStyles } from './styles';
 
 const Filter = () => {
   const dispatch = useAppDispatch();
   const [filterIsOpen, setFilterIsOpen] = useState<boolean>(false);
+  const [toastIsOpen, setToastIsOpen] = useState(false);
 
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -45,8 +43,14 @@ const Filter = () => {
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 
   // Form control using React Hook Form
-  const { handleSubmit, control, reset, setValue, watch } =
-    useForm<IFilterFields>(formConfig);
+  const {
+    handleSubmit,
+    control,
+    reset,
+    setValue,
+    watch,
+    formState: { defaultValues },
+  } = useForm<IFilterFields>(formConfig);
 
   // Properties select status
   const chosenProperties = watch('property');
@@ -58,17 +62,22 @@ const Filter = () => {
   useEffect(() => {
     const { page, ...filterFields } = retrieveSearchParams(searchParams);
     reset(filterFields);
+
+    // Open form menu if there are chosen properties
+    setMenuIsOpen(!!filterFields?.property?.length);
   }, [searchParams]);
 
-  useEffect(() => {
-    // Open / close menu with filter fields according to chosen properties
-    setMenuIsOpen(propertyIsChosen);
+  // Properties select handler
+  const handlePropertyChange = (event: SelectChangeEvent<any>) => {
+    const selectedProperties = event.target.value;
+    const isChosen = !!selectedProperties.length;
 
-    //Reset fields for unchecked property to default empty values
-    if (propertyIsChosen) {
-      resetFields(chosenProperties, setValue);
-    }
-  }, [chosenProperties]);
+    // Open / close menu with filter fields according to chosen properties
+    setMenuIsOpen(isChosen);
+
+    //Reset fields for unchecked properties to default empty values
+    resetFields(selectedProperties, setValue);
+  };
 
   // Open / close filter.
   const toggleFilter = () => {
@@ -83,6 +92,16 @@ const Filter = () => {
 
   // Handle form submission
   const onSubmit: SubmitHandler<IFilterFields> = dataToUpdate => {
+    const isFilterChanged = getFilterIsChanged(
+      dataToUpdate,
+      defaultValues as IFilterFields
+    );
+
+    if (!isFilterChanged) {
+      setToastIsOpen(true);
+      return;
+    }
+
     // Update query params according to the chosen filter fields
     const updatedSearchQuery = updateSearchParams({
       searchParams,
@@ -123,6 +142,7 @@ const Filter = () => {
                 name="property"
                 placeholder="Select item"
                 options={properties}
+                handlePropertyChange={handlePropertyChange}
               />
 
               <Box position="relative" width="300px">
@@ -144,6 +164,14 @@ const Filter = () => {
           </Fade>
         )}
       </Box>
+      <ToastMessage
+        type="warning"
+        message="At least one field should be changed"
+        isOpen={toastIsOpen}
+        handleClose={() => {
+          setToastIsOpen(false);
+        }}
+      />
     </>
   );
 };

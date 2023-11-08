@@ -1,3 +1,1 @@
-import { filterSchema } from './filterValidationSchema';
-
-export { filterSchema };
+export { filterSchema } from './filterValidationSchema';

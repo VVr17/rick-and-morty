@@ -1,6 +1,7 @@
 import React from 'react';
 import { Control } from 'react-hook-form';
 import { Field } from 'components/common/form';
+import { episodeFormFields } from 'constants/filter';
 
 interface IProp {
   control: Control<any>;
@@ -9,12 +10,14 @@ interface IProp {
 const EpisodeFields: React.FC<IProp> = ({ control }) => {
   return (
     <>
-      <Field
-        name="episodeName"
-        control={control}
-        placeholder="Add episode name"
-      />
-      <Field name="episode" control={control} placeholder="Add episode code" />
+      {episodeFormFields.map(({ name, placeholder }, index) => (
+        <Field
+          key={index}
+          name={name}
+          control={control}
+          placeholder={placeholder}
+        />
+      ))}
     </>
   );
 };

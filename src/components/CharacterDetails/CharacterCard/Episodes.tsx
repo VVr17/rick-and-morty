@@ -1,9 +1,9 @@
 import React from 'react';
 import { Grid } from '@mui/material';
-import { FetchCharacterById_character_episode } from 'services/characterService/__generated__/FetchCharacterById';
+import { EpisodeType } from 'types';
 
 interface IProps {
-  episodes: (FetchCharacterById_character_episode | null)[];
+  episodes: (EpisodeType | null)[];
 }
 
 const Episodes: React.FC<IProps> = ({ episodes }) => {

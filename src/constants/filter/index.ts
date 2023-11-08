@@ -1,5 +1,13 @@
-import { filterDefaultValues } from './filterDefaultValues';
-import { filterFields } from './filterFields';
-import { properties, statuses, genders } from './filterSelectValues';
-
-export { filterDefaultValues, filterFields, properties, statuses, genders };
+export { filterDefaultValues } from './filterDefaultValues';
+export {
+  filterFields,
+  characterFields,
+  locationFields,
+  episodeFields,
+} from './filterFields';
+export { properties, statuses, genders } from './filterSelectValues';
+export {
+  characterFormFields,
+  locationFormFields,
+  episodeFormFields,
+} from './formFields';

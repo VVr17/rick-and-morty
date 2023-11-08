@@ -8,12 +8,12 @@ import {
   selectCharacters,
 } from 'app/redux/characters';
 import { retrieveSearchParams } from 'utils/filter';
+import { topScroll } from 'utils';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
 
 import Characters from 'components/Characters';
 import Hero from 'components/Hero';
 import Loader from 'components/common/Loader';
-import { topScroll } from 'utils/topScroll';
 
 const Home = () => {
   const dispatch = useAppDispatch();
@@ -23,12 +23,15 @@ const Home = () => {
   useEffect(() => {
     const query = retrieveSearchParams(searchParams);
 
-    if (query.property.includes('episode')) {
+    const episodeIsChosen = query.property.includes('episode');
+    const locationIsChosen = query.property.includes('location');
+
+    if (episodeIsChosen) {
       dispatch(fetchCharactersByEpisode(query));
       return;
     }
 
-    if (query.property.includes('location')) {
+    if (locationIsChosen) {
       dispatch(fetchCharactersByLocation(query));
       return;
     }

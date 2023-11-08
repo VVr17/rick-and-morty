@@ -3,7 +3,7 @@ import { Box } from '@mui/system';
 import CircleIcon from '@mui/icons-material/Circle';
 import { Typography } from '@mui/material';
 
-import { getStatusColor } from 'utils/character/getStatusColor';
+import { getStatusColor } from 'utils/character';
 
 interface IProps {
   type: 'list' | 'details';

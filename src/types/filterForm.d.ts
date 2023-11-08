@@ -1,6 +1,6 @@
 import { GenderType, PropertyType, StatusType } from './filterFields';
 
-export interface IFilterFields {
+interface IFilterFields {
   search: string;
   property: Array<PropertyType>;
   name: string;

@@ -5,7 +5,7 @@ import {
   fetchCharactersByEpisode,
   fetchCharactersByLocation,
 } from './charactersOperations';
-import { ICharactersState } from 'types/characterListState';
+import { ICharactersState } from 'types';
 
 const initialState: ICharactersState = {
   characterList: [],

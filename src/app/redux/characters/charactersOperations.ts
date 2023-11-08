@@ -1,14 +1,16 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { apolloClient } from 'app/graphql';
-import { CharacterType } from 'types/character';
+import { CharacterType, ISearchQuery } from 'types';
 import {
   FETCH_CHARACTERS_BY_IDS,
   FETCH_CHARACTER_LIST,
-} from 'services/characterService/queries';
-import { FETCH_EPISODES } from 'services/episodeService/queries';
-import { FetchEpisodes_episodes_results } from 'services/episodeService/__generated__/FetchEpisodes';
-import { FETCH_LOCATIONS } from 'services/locationService/queries';
+} from 'services/characterService';
+import {
+  FETCH_EPISODES,
+  FetchEpisodes_episodes_results,
+} from 'services/episodeService';
+import { FETCH_LOCATIONS } from 'services/locationService';
 import { FIRST_PAGE } from 'constants/listConstants';
 import {
   getCharactersByEpisodes,
@@ -16,7 +18,6 @@ import {
   getCharactersByLocations,
   getGraphqlVariables,
 } from 'utils/fetchUtils';
-import { ISearchQuery } from 'types/searchQuery';
 
 interface ICharactersResponse {
   characters: CharacterType[];

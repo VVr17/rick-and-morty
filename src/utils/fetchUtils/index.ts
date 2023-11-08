@@ -1,15 +1,6 @@
-import { filterCharacters } from './filterByProperty';
-import { getCharactersByEpisodes } from './getCharactersByEpisodes';
-import { getCharacterIdsByPage } from './getCharacterIdsByPage';
-import { getCharactersByLocations } from './getCharactersBylocations';
-import { getGraphqlVariables } from './getGraphqlVariables';
-import { getTotalPages } from './getTotalPages';
-
-export {
-  filterCharacters,
-  getCharactersByEpisodes,
-  getCharacterIdsByPage,
-  getCharactersByLocations,
-  getGraphqlVariables,
-  getTotalPages,
-};
+export { filterCharacters } from './filterByProperty';
+export { getCharactersByEpisodes } from './getCharactersByEpisodes';
+export { getCharacterIdsByPage } from './getCharacterIdsByPage';
+export { getCharactersByLocations } from './getCharactersBylocations';
+export { getGraphqlVariables } from './getGraphqlVariables';
+export { getTotalPages } from './getTotalPages';

@@ -1,12 +1,13 @@
 import React from 'react';
 import { useParams } from 'react-router';
 import { useQuery } from '@apollo/client';
-import { FETCH_SINGLE_CHARACTER } from 'services/characterService/queries';
+
+import { FETCH_SINGLE_CHARACTER } from 'services/characterService';
+import { topScroll } from 'utils';
 
 import CharacterDetails from 'components/CharacterDetails';
 import Hero from 'components/Hero';
 import Loader from 'components/common/Loader';
-import { topScroll } from 'utils/topScroll';
 
 const Character = () => {
   const { characterId } = useParams();

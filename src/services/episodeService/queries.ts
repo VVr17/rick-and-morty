@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { characterFragment } from 'services/fragments/characterFragment';
+import { characterFragment } from 'services/fragments';
 
 export const FETCH_EPISODES = gql`
   query FetchEpisodes($name: String, $episode: String) {

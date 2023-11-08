@@ -12,7 +12,10 @@ const SelectValue: React.FC<IProp> = ({ selected, placeholder }) => {
       {!selected ? (
         <ListItemText primary={placeholder} sx={{ opacity: 0.8 }} />
       ) : (
-        <ListItemText primary={selected} sx={{ textTransform: 'capitalize' }} />
+        <ListItemText
+          primary={selected}
+          sx={{ textTransform: 'capitalize', overflow: 'hidden' }}
+        />
       )}
     </>
   );
