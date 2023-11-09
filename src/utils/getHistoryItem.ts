@@ -4,15 +4,22 @@ import { filterFields } from 'constants/filter';
  * Generate a user-friendly history message based on filter criteria.
  *
  * @param data - An object containing filter criteria.
+ * @param href - An URL query string or character ID.
  * @returns A message summarizing the applied filter criteria.
  */
 
-export const getHistoryMessage = (data: IFilterFields) => {
+export const getHistoryItemByFilter = (
+  data: IFilterFields,
+  href: string
+): IHistoryItem => {
   const { search, property } = data;
 
   // If no property is chosen, generate a message for keyword filtering.
   if (!property.length) {
-    return `Фільтр за ключовим словом: ${search}`;
+    return {
+      message: `Фільтр за ключовим словом: ${search}`,
+      href,
+    };
   }
 
   // Generate a message for filter criteria based on selected fields.
@@ -21,7 +28,25 @@ export const getHistoryMessage = (data: IFilterFields) => {
     .map(field => `${splitCamelCase(field)}: ${data[field]}`) // Get Field:Value string
     .join(', ');
 
-  return `Фільтр за критеріями: ${chosenFilter}`;
+  return {
+    message: `Фільтр за критеріями: ${chosenFilter}`,
+    href,
+  };
+};
+
+/**
+ * Generate a user-friendly history message based on filter criteria.
+ *
+ * @param name - A name of a character.
+ * @param id - A Character ID.
+ * @returns A message summarizing the applied filter criteria.
+ */
+
+export const getHistoryItemById = (name: string, id: string): IHistoryItem => {
+  return {
+    message: `Передивився інформацію що до ${name}`,
+    href: id,
+  };
 };
 
 /**

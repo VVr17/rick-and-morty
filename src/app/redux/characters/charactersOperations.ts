@@ -12,7 +12,7 @@ import {
   getCharactersByLocations,
   getInfoMessage,
 } from 'utils/fetchUtils';
-import { defaultCharacters } from 'constants/initialCharactersState';
+import { defaultCharacters } from 'constants/states';
 import { ICharacters } from 'types';
 
 export const fetchCharacters = createAsyncThunk(

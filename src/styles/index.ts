@@ -3,10 +3,23 @@ import { theme } from 'constants/theme';
 
 export const globalStyles = css`
   body {
+    height: 100vh;
     margin: 0;
     font-family: 'Roboto';
     font-size: 18px;
     color: ${theme.palette.secondary.main};
+  }
+
+  #root {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
   }
 
   h1,

@@ -20,7 +20,7 @@ export const getDescriptionFields = (
       value:
         type === 'list'
           ? `${location?.name || FALLBACK}`
-          : `Name: ${location?.name || '---'}`,
+          : `Name: ${location?.name || FALLBACK}`,
       option: type === 'list' ? null : `Type: ${location?.type || FALLBACK}`,
     },
     {

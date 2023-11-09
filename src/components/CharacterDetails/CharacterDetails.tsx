@@ -19,7 +19,13 @@ const CharacterDetails: React.FC<IProps> = ({ character }) => {
   };
 
   return (
-    <Box component="section" pt="30px" pb="252px" bgcolor="primary.main">
+    <Box
+      component="section"
+      flexGrow={1}
+      pt="30px"
+      pb="252px"
+      bgcolor="primary.main"
+    >
       <Container>
         <BackButton goBack={goBack} />
         <CharacterCard character={character} />

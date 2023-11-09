@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { HISTORY_KEY } from 'constants/storageKey';
-import { initialHistoryState } from 'constants/initialHistoryState';
+import { initialHistoryState } from 'constants/states';
 
 export const history = createSlice({
   name: 'history',

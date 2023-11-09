@@ -7,7 +7,7 @@ export const styles = {
 };
 
 export const itemStyles = {
-  borderRadius: '50%',
   width: 40,
   padding: 0,
+  borderRadius: '50%',
 };

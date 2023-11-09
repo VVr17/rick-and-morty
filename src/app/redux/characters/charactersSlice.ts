@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { initialCharactersState } from 'constants/initialCharactersState';
+import { initialCharactersState } from 'constants/states';
 import {
   fetchCharacters,
   fetchCharactersByEpisode,
