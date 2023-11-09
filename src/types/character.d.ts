@@ -3,6 +3,6 @@ import {
   FetchCharactersById_charactersByIds,
 } from 'services/characterService';
 
-type CharacterType =
+export type CharacterType =
   | FetchCharacterList_characters_results
   | FetchCharactersById_charactersByIds;

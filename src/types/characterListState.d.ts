@@ -1,8 +1,6 @@
-import { CharacterType } from './character';
+import { ICharacters } from './charactersResponse';
 
-interface ICharactersState {
-  characterList: (CharacterType | null)[];
-  totalPages: number;
+export interface ICharactersState extends ICharacters {
   isLoading: boolean;
   error: string | null;
 }

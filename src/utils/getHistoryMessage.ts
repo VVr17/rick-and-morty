@@ -1,5 +1,4 @@
-import { filterFields } from 'constants/filter/filterFields';
-import { IFilterFields } from 'types/filterForm';
+import { filterFields } from 'constants/filter';
 
 /**
  * Generate a user-friendly history message based on filter criteria.

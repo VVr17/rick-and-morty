@@ -1,5 +1,5 @@
 import Papa from 'papaparse';
-import { CharacterType } from 'types/character';
+import { CharacterType } from 'types';
 
 /**
  *   Convert the character data to CSV format.

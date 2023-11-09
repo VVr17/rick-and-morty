@@ -1,62 +1,32 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
+import { initialCharactersState } from 'constants/initialCharactersState';
 import {
   fetchCharacters,
   fetchCharactersByEpisode,
   fetchCharactersByLocation,
 } from './charactersOperations';
-import { ICharactersState } from 'types';
-
-const initialState: ICharactersState = {
-  characterList: [],
-  totalPages: 1,
-  isLoading: false,
-  error: null,
-};
-
-const handlePending = (state: ICharactersState) => {
-  state.isLoading = true;
-};
+import {
+  handleFulfilled,
+  handlePending,
+  handleRejected,
+} from './reducerHandlers';
 
 const charactersSlice = createSlice({
   name: 'characters',
-  initialState,
+  initialState: initialCharactersState,
   reducers: {},
   extraReducers: builder => {
     builder
-      .addCase(fetchCharacters.fulfilled, (state, { payload }) => {
-        state.characterList = payload.characters;
-        state.totalPages = payload.totalPages;
-        state.isLoading = false;
-        state.error = null;
-      })
+      .addCase(fetchCharacters.fulfilled, handleFulfilled)
       .addCase(fetchCharacters.pending, handlePending)
-      .addCase(fetchCharacters.rejected, (state, { payload }) => {
-        state.error = 'Error during fetch data';
-        state.isLoading = false;
-      })
-      .addCase(fetchCharactersByEpisode.fulfilled, (state, { payload }) => {
-        state.characterList = payload.characters;
-        state.totalPages = payload.totalPages;
-        state.isLoading = false;
-        state.error = null;
-      })
+      .addCase(fetchCharacters.rejected, handleRejected)
+      .addCase(fetchCharactersByEpisode.fulfilled, handleFulfilled)
       .addCase(fetchCharactersByEpisode.pending, handlePending)
-      .addCase(fetchCharactersByEpisode.rejected, (state, { payload }) => {
-        state.error = 'Error during fetch data';
-        state.isLoading = false;
-      })
-      .addCase(fetchCharactersByLocation.fulfilled, (state, { payload }) => {
-        state.characterList = payload.characters;
-        state.totalPages = payload.totalPages;
-        state.isLoading = false;
-        state.error = null;
-      })
+      .addCase(fetchCharactersByEpisode.rejected, handleRejected)
+      .addCase(fetchCharactersByLocation.fulfilled, handleFulfilled)
       .addCase(fetchCharactersByLocation.pending, handlePending)
-      .addCase(fetchCharactersByLocation.rejected, (state, { payload }) => {
-        state.error = 'Error during fetch data';
-        state.isLoading = false;
-      });
+      .addCase(fetchCharactersByLocation.rejected, handleRejected);
   },
 });
 

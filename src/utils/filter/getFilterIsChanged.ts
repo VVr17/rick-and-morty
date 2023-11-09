@@ -1,5 +1,4 @@
 import { filterFields } from 'constants/filter';
-import { IFilterFields } from 'types';
 
 /**
  * Compare form field changes with default values and return whether the filter has been changed.

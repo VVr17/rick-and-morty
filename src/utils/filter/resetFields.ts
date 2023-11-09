@@ -6,7 +6,6 @@ import {
   locationFields,
 } from 'constants/filter';
 import { getPropertyState } from './getPropertyState';
-import { IFilterFields } from 'types';
 
 /**
  * Reset specific form fields based on the chosen properties and their states.

@@ -1,0 +1,3 @@
+interface IHistory {
+  history: string[];
+}

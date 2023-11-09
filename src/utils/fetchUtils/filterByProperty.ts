@@ -1,4 +1,4 @@
-import { CharacterType, ISearchQuery, LocationType, PropertyType } from 'types';
+import { CharacterType, LocationType } from 'types';
 
 /**
  * Filter an array of characters based on a search query and property type.

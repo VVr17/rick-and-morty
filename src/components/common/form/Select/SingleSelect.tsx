@@ -8,8 +8,8 @@ import {
   Select,
 } from '@mui/material';
 import ErrorMessage from '../ErrorMessage';
-import SelectValue from '../SelectValue';
-import { radioStyles, selectStyles } from './styles';
+import SelectValue from './SelectValue';
+import { checkedStyles, optionStyles, selectStyles } from './styles';
 
 interface IProp {
   control: Control<any>;
@@ -46,12 +46,12 @@ const SingleSelect: React.FC<IProp> = ({
               <MenuItem key={option} value={option}>
                 <ListItemText
                   primary={option ? option : 'none'}
-                  sx={{ color: 'primary.dark', textTransform: 'capitalize' }}
+                  sx={optionStyles}
                 />
                 <Radio
                   checked={field.value === option}
                   color="primary"
-                  sx={radioStyles}
+                  sx={checkedStyles}
                 />
               </MenuItem>
             ))}

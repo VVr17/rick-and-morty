@@ -1,6 +1,5 @@
 import { filterDefaultValues, filterFields } from 'constants/filter';
 import { FIRST_PAGE } from 'constants/listConstants';
-import { ISearchQuery, PropertyType } from 'types';
 
 /**
  * Retrieve search parameters from a URLSearchParams object and return an search query object.

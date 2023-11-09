@@ -8,7 +8,7 @@
 // ====================================================
 
 export interface FetchCharacterById_character_location {
-  __typename: 'Location';
+  __typename: "Location";
   /**
    * The id of the location.
    */
@@ -28,7 +28,7 @@ export interface FetchCharacterById_character_location {
 }
 
 export interface FetchCharacterById_character_episode {
-  __typename: 'Episode';
+  __typename: "Episode";
   /**
    * The id of the episode.
    */
@@ -44,7 +44,7 @@ export interface FetchCharacterById_character_episode {
 }
 
 export interface FetchCharacterById_character {
-  __typename: 'Character';
+  __typename: "Character";
   /**
    * Link to the character's image.
    * All images are 300x300px and most are medium shots or portraits since they are intended to be used as avatars.

@@ -1,11 +1,6 @@
 export const selectStyles = {
   backgroundColor: 'secondary.main',
   color: 'primary.dark',
-  padding: '12px 32px 12px 14px',
-
-  '& div': {
-    padding: 0,
-  },
 
   '&:hover': {
     backgroundColor: 'action.hover',
@@ -15,7 +10,21 @@ export const selectStyles = {
   },
 };
 
-export const checkboxStyles = {
+export const multipleSelectStyles = {
+  ...selectStyles,
+  padding: '12px 32px 12px 14px',
+
+  '& div': {
+    padding: 0,
+  },
+};
+
+export const optionStyles = {
+  color: 'primary.dark',
+  textTransform: 'capitalize',
+};
+
+export const checkedStyles = {
   '&.Mui-checked': {
     color: 'action.selected',
   },

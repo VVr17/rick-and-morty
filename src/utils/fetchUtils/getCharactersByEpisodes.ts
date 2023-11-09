@@ -1,5 +1,5 @@
-import { CharacterType } from 'types/character';
 import { FetchEpisodes_episodes_results } from 'services/episodeService';
+import { CharacterType } from 'types';
 
 /**
  * Get a list of unique characters from an array of chosen episodes.

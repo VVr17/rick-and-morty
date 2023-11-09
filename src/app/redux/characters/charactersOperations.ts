@@ -1,55 +1,38 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { apolloClient } from 'app/graphql';
-import { CharacterType, ISearchQuery } from 'types';
 import {
-  FETCH_CHARACTERS_BY_IDS,
-  FETCH_CHARACTER_LIST,
-} from 'services/characterService';
-import {
-  FETCH_EPISODES,
-  FetchEpisodes_episodes_results,
-} from 'services/episodeService';
-import { FETCH_LOCATIONS } from 'services/locationService';
-import { FIRST_PAGE } from 'constants/listConstants';
+  fetchEpisodes,
+  fetchCharactersList,
+  fetchCharacterListByIds,
+  fetchLocations,
+} from 'app/api';
 import {
   getCharactersByEpisodes,
   getCharacterIdsByPage,
   getCharactersByLocations,
-  getGraphqlVariables,
+  getInfoMessage,
 } from 'utils/fetchUtils';
-
-interface ICharactersResponse {
-  characters: CharacterType[];
-  totalPages: number;
-}
+import { defaultCharacters } from 'constants/initialCharactersState';
+import { ICharacters } from 'types';
 
 export const fetchCharacters = createAsyncThunk(
   'characters/fetch',
-  async (
-    query: ISearchQuery,
-    { rejectWithValue }
-  ): Promise<ICharactersResponse> => {
+  async (query: ISearchQuery, { rejectWithValue }): Promise<ICharacters> => {
     try {
-      const variables = query.property.includes('character')
-        ? getGraphqlVariables(query, 'character')
-        : getGraphqlVariables(query);
-
-      const response = await apolloClient.query({
-        query: FETCH_CHARACTER_LIST,
-        variables,
-      });
+      const response = await fetchCharactersList(query);
 
       if (!response || !response.data) {
         throw new Error('Something went wrong');
       }
 
+      const { results, info } = response.data.characters;
+
       return {
-        characters: response.data.characters.results,
-        totalPages: response.data.characters.info.pages,
+        characterList: results,
+        totalPages: info.pages,
+        info: null,
       };
     } catch (error) {
-      console.log('Error during fetch', error);
       throw error;
     }
   }
@@ -57,32 +40,21 @@ export const fetchCharacters = createAsyncThunk(
 
 export const fetchCharactersByEpisode = createAsyncThunk(
   'charactersByEpisode/fetch',
-  async (
-    query: ISearchQuery,
-    { rejectWithValue }
-  ): Promise<ICharactersResponse> => {
+  async (query: ISearchQuery, { rejectWithValue }): Promise<ICharacters> => {
     try {
       const { page } = query;
-      const variables = getGraphqlVariables(query, 'episode');
-
-      const response = await apolloClient.query({
-        query: FETCH_EPISODES,
-        variables,
-      });
+      const response = await fetchEpisodes(query);
 
       if (!response || !response.data) {
         throw new Error('Something went wrong');
       }
 
-      const episodes = response.data.episodes
-        .results as FetchEpisodes_episodes_results[];
+      const {
+        results: episodes,
+        info: { pages: totalEpisodePages },
+      } = response.data.episodes;
 
-      if (!episodes || !episodes.length) {
-        return {
-          characters: [],
-          totalPages: FIRST_PAGE,
-        };
-      }
+      if (!episodes || !episodes.length) return defaultCharacters;
 
       const characters = getCharactersByEpisodes(episodes);
       const { currentCharacterIds, totalPages } = getCharacterIdsByPage(
@@ -92,24 +64,17 @@ export const fetchCharactersByEpisode = createAsyncThunk(
         page
       );
 
-      if (!currentCharacterIds.length) {
-        return {
-          characters: [],
-          totalPages,
-        };
-      }
+      if (!currentCharacterIds.length) return defaultCharacters;
 
-      const responseByIds = await apolloClient.query({
-        query: FETCH_CHARACTERS_BY_IDS,
-        variables: { ids: currentCharacterIds },
-      });
+      const { data } = await fetchCharacterListByIds(currentCharacterIds);
+      const info = getInfoMessage('episode', totalEpisodePages);
 
       return {
-        characters: responseByIds.data.charactersByIds,
+        characterList: data.charactersByIds,
         totalPages,
+        info,
       };
     } catch (error) {
-      console.log('Error during fetch', error);
       throw error;
     }
   }
@@ -117,33 +82,23 @@ export const fetchCharactersByEpisode = createAsyncThunk(
 
 export const fetchCharactersByLocation = createAsyncThunk(
   'charactersByLocation/fetch',
-  async (
-    query: ISearchQuery,
-    { rejectWithValue }
-  ): Promise<ICharactersResponse> => {
+  async (query: ISearchQuery, { rejectWithValue }): Promise<ICharacters> => {
     try {
       const { page } = query;
-      const variables = getGraphqlVariables(query, 'location');
-
-      const response = await apolloClient.query({
-        query: FETCH_LOCATIONS,
-        variables,
-      });
+      const response = await fetchLocations(query);
 
       if (!response || !response.data) {
         throw new Error('Something went wrong');
       }
 
-      if (!response.data.locations.results) {
-        return {
-          totalPages: 1,
-          characters: [],
-        };
-      }
+      const {
+        results: locations,
+        info: { pages: totalLocationPages },
+      } = response.data.locations;
 
-      const characters = getCharactersByLocations(
-        response.data.locations.results
-      );
+      if (!locations || !locations.length) return defaultCharacters;
+
+      const characters = getCharactersByLocations(locations);
       const { currentCharacterIds, totalPages } = getCharacterIdsByPage(
         characters,
         query,
@@ -151,21 +106,15 @@ export const fetchCharactersByLocation = createAsyncThunk(
         page
       );
 
-      if (!currentCharacterIds.length) {
-        return {
-          characters: [],
-          totalPages,
-        };
-      }
+      if (!currentCharacterIds.length) return defaultCharacters;
 
-      const responseByIds = await apolloClient.query({
-        query: FETCH_CHARACTERS_BY_IDS,
-        variables: { ids: currentCharacterIds },
-      });
+      const { data } = await fetchCharacterListByIds(currentCharacterIds);
+      const info = getInfoMessage('location', totalLocationPages);
 
       return {
-        characters: responseByIds.data.charactersByIds,
+        characterList: data.charactersByIds,
         totalPages,
+        info,
       };
     } catch (error) {
       throw error;

@@ -22,7 +22,7 @@ interface IProps {
 const Description: React.FC<IProps> = ({ character }) => {
   const dispatch = useAppDispatch();
   const { id, name, episode, species, location, status, gender } = character;
-  const descriptionFields = getDescriptionFields(location, episode[0]);
+  const descriptionFields = getDescriptionFields('list', location, episode[0]);
 
   // Add character page visit to history
   const addToHistory = () => {
@@ -53,10 +53,10 @@ const Description: React.FC<IProps> = ({ character }) => {
         />
       )}
 
-      {descriptionFields.map(({ title, value }, index) => (
+      {descriptionFields.map(({ title, value }, index, array) => (
         <Fragment key={index}>
           <DescriptionTitle message={title} />
-          <Details content={value} mb={1.75} />
+          <Details content={value} mb={index !== array.length - 1 ? 1.75 : 0} />
         </Fragment>
       ))}
     </Box>

@@ -1,5 +1,4 @@
 import { filterFields } from 'constants/filter';
-import { ISearchParams } from 'types';
 
 /**
  * Update search parameters based on the provided search type, data to update and page number.

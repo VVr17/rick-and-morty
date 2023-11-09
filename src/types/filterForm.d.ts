@@ -1,5 +1,3 @@
-import { GenderType, PropertyType, StatusType } from './filterFields';
-
 interface IFilterFields {
   search: string;
   property: Array<PropertyType>;

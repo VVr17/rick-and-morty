@@ -2,11 +2,10 @@ import React from 'react';
 import { useNavigate } from 'react-router';
 import { Box } from '@mui/system';
 
-import { CharacterType } from 'types';
-
 import { BackButton } from 'components/common/buttons';
 import CharacterCard from './CharacterCard';
 import Container from 'components/Container';
+import { CharacterType } from 'types';
 
 interface IProps {
   character: CharacterType;

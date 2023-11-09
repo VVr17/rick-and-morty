@@ -2,18 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { HISTORY_KEY } from 'constants/storageKey';
-
-interface IHistory {
-  history: string[];
-}
-
-const initialState: IHistory = {
-  history: [],
-};
+import { initialHistoryState } from 'constants/initialHistoryState';
 
 export const history = createSlice({
   name: 'history',
-  initialState,
+  initialState: initialHistoryState,
   reducers: {
     setHistoryItem: (state, { payload }) => {
       state.history.unshift(payload);

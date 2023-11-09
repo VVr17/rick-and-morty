@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import {
@@ -22,6 +22,7 @@ const Home = () => {
 
   useEffect(() => {
     const query = retrieveSearchParams(searchParams);
+    topScroll();
 
     const episodeIsChosen = query.property.includes('episode');
     const locationIsChosen = query.property.includes('location');
@@ -37,14 +38,13 @@ const Home = () => {
     }
 
     dispatch(fetchCharacters(query));
-    topScroll();
   }, [searchParams]);
 
   return (
     <>
       <Loader isLoading={isLoading} />
       <Hero />
-      <Characters />
+      {!isLoading && <Characters />}
     </>
   );
 };

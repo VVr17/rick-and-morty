@@ -27,7 +27,7 @@ const ToastMessage: React.FC<IProps> = ({
       <Snackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         open={isOpen}
-        autoHideDuration={3000}
+        autoHideDuration={4000}
         onClose={handleClose}
       >
         <Alert onClose={handleClose} severity={type} sx={{ width: '100%' }}>

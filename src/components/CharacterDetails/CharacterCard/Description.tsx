@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Box } from '@mui/system';
 import { Typography } from '@mui/material';
 
@@ -9,6 +9,7 @@ import {
   Details,
 } from 'components/common/character';
 import Episodes from './Episodes';
+import { getDescriptionFields } from 'utils/character';
 
 interface IProps {
   character: CharacterType;
@@ -16,6 +17,11 @@ interface IProps {
 
 const Description: React.FC<IProps> = ({ character }) => {
   const { name, gender, episode, species, location, status } = character;
+  const descriptionFields = getDescriptionFields(
+    'details',
+    location,
+    episode[0]
+  );
 
   return (
     <Box pt={1.5} pl={5}>
@@ -25,18 +31,23 @@ const Description: React.FC<IProps> = ({ character }) => {
 
       {species && status && gender && (
         <CharacterStatus
-          type="list"
+          type="details"
           species={species}
           status={status}
           gender={gender}
         />
       )}
-      <DescriptionTitle message="Last known location:" />
-      <Details content={`Name: ${location?.name || '---'}`} />
-      <Details content={`Type: ${location?.type || '---'}`} mb={1.75} />
 
-      <DescriptionTitle message="First seen in:" />
-      <Details content={episode[0]?.name || '---'} mb={4} />
+      {descriptionFields.map(({ title, value, option }, index, array) => (
+        <Fragment key={index}>
+          <DescriptionTitle message={title} />
+          <Details
+            content={value}
+            mb={option ? 0 : index === array.length - 1 ? 4 : 1.75}
+          />
+          {option && <Details content={option} mb={1.75} />}
+        </Fragment>
+      ))}
 
       <DescriptionTitle message="Other Info - episodes:" />
       {episode.length && <Episodes episodes={episode} />}

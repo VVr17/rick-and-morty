@@ -2,10 +2,18 @@ import { genders, statuses } from './filterSelectValues';
 
 export const characterFormFields = [
   { name: 'name', placeholder: 'Add character name' },
-  { name: 'status', placeholder: 'Add character status', options: statuses },
+  {
+    name: 'status',
+    placeholder: 'Add character status',
+    options: ['', ...statuses],
+  },
   { name: 'species', placeholder: 'Add character species' },
   { name: 'type', placeholder: 'Add character type' },
-  { name: 'gender', placeholder: 'Add character gender', options: genders },
+  {
+    name: 'gender',
+    placeholder: 'Add character gender',
+    options: ['', ...genders],
+  },
 ];
 
 export const locationFormFields = [

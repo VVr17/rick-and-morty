@@ -1,4 +1,4 @@
-import { CharacterType, ISearchQuery, PropertyType } from 'types';
+import { CharacterType } from 'types';
 import { filterCharacters } from './filterByProperty';
 import { getTotalPages } from './getTotalPages';
 import { FIRST_PAGE, ITEMS_PER_PAGE } from 'constants/listConstants';

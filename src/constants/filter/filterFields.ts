@@ -1,5 +1,3 @@
-import { FilterField } from 'types/filterFields';
-
 export const characterFields: FilterField[] = [
   'name',
   'status',

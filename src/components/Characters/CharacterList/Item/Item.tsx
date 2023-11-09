@@ -4,6 +4,7 @@ import { Box } from '@mui/system';
 
 import { CharacterType } from 'types';
 import Description from './Description';
+import { avatarStyles } from './styles';
 
 interface IProps {
   character: CharacterType;
@@ -29,12 +30,8 @@ const Item: React.FC<IProps> = ({ character }) => {
           alt={name || 'Avatar'}
           variant="square"
           sx={{
+            ...avatarStyles,
             width: isMobile ? 180 : 229,
-            height: 'auto',
-            marginTop: 'auto',
-            marginBottom: 'auto',
-            borderBottomLeftRadius: 14,
-            borderTopLeftRadius: 14,
           }}
         />
         <Description character={character} />

@@ -20,13 +20,12 @@ import {
   updateSearchParams,
 } from 'utils/filter';
 import { getHistoryMessage } from 'utils';
-import { IFilterFields } from 'types';
 import { setHistoryItem } from 'app/redux/history';
 import { useAppDispatch } from 'app/redux/hooks';
 
 import { ButtonMain } from 'components/common/buttons';
 import { CharacterFields, EpisodeFields, LocationFields } from './fields';
-import { Field, MultipleSelect } from 'components/common/form';
+import { Field, FormSelect } from 'components/common/form';
 import ToastMessage from 'components/common/ToastMessage';
 import { formStyles } from './styles';
 
@@ -137,12 +136,14 @@ const Filter = () => {
               onSubmit={handleSubmit(onSubmit)}
               sx={formStyles}
             >
-              <MultipleSelect
+              <FormSelect
                 control={control}
                 name="property"
+                type="checkbox"
                 placeholder="Select item"
                 options={properties}
                 handlePropertyChange={handlePropertyChange}
+                width="200px"
               />
 
               <Box position="relative" width="300px">

@@ -8,7 +8,7 @@
 // ====================================================
 
 export interface FetchCharacterList_characters_info {
-  __typename: 'Info';
+  __typename: "Info";
   /**
    * The length of the response.
    */
@@ -20,7 +20,7 @@ export interface FetchCharacterList_characters_info {
 }
 
 export interface FetchCharacterList_characters_results_location {
-  __typename: 'Location';
+  __typename: "Location";
   /**
    * The id of the location.
    */
@@ -40,7 +40,7 @@ export interface FetchCharacterList_characters_results_location {
 }
 
 export interface FetchCharacterList_characters_results_episode {
-  __typename: 'Episode';
+  __typename: "Episode";
   /**
    * The id of the episode.
    */
@@ -56,7 +56,7 @@ export interface FetchCharacterList_characters_results_episode {
 }
 
 export interface FetchCharacterList_characters_results {
-  __typename: 'Character';
+  __typename: "Character";
   /**
    * Link to the character's image.
    * All images are 300x300px and most are medium shots or portraits since they are intended to be used as avatars.
@@ -97,7 +97,7 @@ export interface FetchCharacterList_characters_results {
 }
 
 export interface FetchCharacterList_characters {
-  __typename: 'Characters';
+  __typename: "Characters";
   info: FetchCharacterList_characters_info | null;
   results: (FetchCharacterList_characters_results | null)[] | null;
 }

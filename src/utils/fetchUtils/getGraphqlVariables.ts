@@ -1,5 +1,3 @@
-import { ISearchQuery, PropertyType } from 'types';
-
 /**
  * Generate GraphQL variables based on a search query and property type.
  *
@@ -53,7 +51,7 @@ export const getGraphqlVariables = (
     default:
       return {
         page,
-        name: search,
+        ...(search && { name: search }),
       };
   }
 };
