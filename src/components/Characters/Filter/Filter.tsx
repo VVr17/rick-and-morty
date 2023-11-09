@@ -19,7 +19,7 @@ import {
   retrieveSearchParams,
   updateSearchParams,
 } from 'utils/filter';
-import { getHistoryMessage } from 'utils';
+import { getHistoryItemByFilter } from 'utils';
 import { setHistoryItem } from 'app/redux/history';
 import { useAppDispatch } from 'app/redux/hooks';
 
@@ -109,7 +109,11 @@ const Filter = () => {
     });
 
     navigate(updatedSearchQuery); // Apply the updated search parameters to the URL
-    dispatch(setHistoryItem(getHistoryMessage(dataToUpdate))); // Add filter to history
+    const historyItem = getHistoryItemByFilter(
+      dataToUpdate,
+      updatedSearchQuery
+    );
+    dispatch(setHistoryItem(historyItem)); // Add filter to history
     setFilterIsOpen(false); // Close filter
   };
 

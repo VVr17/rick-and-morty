@@ -1,3 +1,3 @@
 export { downloadCharacters } from './downloadCharacters';
-export { getHistoryMessage } from './getHistoryMessage';
+export { getHistoryItemByFilter, getHistoryItemById } from './getHistoryItem';
 export { topScroll } from './topScroll';

@@ -3,7 +3,7 @@ import { Box } from '@mui/system';
 import CircleIcon from '@mui/icons-material/Circle';
 import { Typography } from '@mui/material';
 
-import { getStatusColor } from 'utils/character';
+import { getStatusColor, getStatusDescription } from 'utils/character';
 
 interface IProps {
   type: 'list' | 'details';
@@ -19,6 +19,8 @@ const CharacterStatus: React.FC<IProps> = ({
   gender,
 }) => {
   const statusColor = getStatusColor(status.toLowerCase());
+  const description = getStatusDescription(type, status, species, gender);
+
   return (
     <Box
       display="flex"
@@ -33,9 +35,7 @@ const CharacterStatus: React.FC<IProps> = ({
         textTransform="capitalize"
         fontWeight={type === 'details' ? 500 : 400}
       >
-        {`${status && status} - ${species && species} ${
-          type === 'details' && gender ? `- ${gender}` : ''
-        }`}
+        {description}
       </Typography>
     </Box>
   );

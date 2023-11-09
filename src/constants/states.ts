@@ -12,3 +12,7 @@ export const initialCharactersState: ICharactersState = {
   isLoading: false,
   error: null,
 };
+
+export const initialHistoryState: IHistory = {
+  history: [],
+};

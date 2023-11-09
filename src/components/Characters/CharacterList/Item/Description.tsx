@@ -5,6 +5,7 @@ import { Link, Typography } from '@mui/material';
 
 import { CharacterType } from 'types';
 import { getDescriptionFields } from 'utils/character';
+import { getHistoryItemById } from 'utils';
 import { setHistoryItem } from 'app/redux/history';
 import { useAppDispatch } from 'app/redux/hooks';
 
@@ -26,7 +27,10 @@ const Description: React.FC<IProps> = ({ character }) => {
 
   // Add character page visit to history
   const addToHistory = () => {
-    dispatch(setHistoryItem(`Передивився інформацію що до ${name}`));
+    if (name && id) {
+      const historyItem = getHistoryItemById(name, id);
+      dispatch(setHistoryItem(historyItem));
+    }
   };
 
   return (

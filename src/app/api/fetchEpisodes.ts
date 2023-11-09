@@ -1,5 +1,5 @@
 import { apolloClient } from 'app/graphql';
-import { FIRST_PAGE, SECOND_PAGE } from 'constants/listConstants';
+import { FIRST_PAGE } from 'constants/listConstants';
 import { FETCH_EPISODES } from 'services/episodeService';
 import { getGraphqlVariables } from 'utils/fetchUtils';
 

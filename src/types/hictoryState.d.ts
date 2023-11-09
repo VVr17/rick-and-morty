@@ -1,3 +1,3 @@
 interface IHistory {
-  history: string[];
+  history: IHistoryItem[];
 }
