@@ -6,7 +6,9 @@ interface IProps {
 }
 
 const Container: React.FC<IProps> = ({ children }) => {
-  return <ContainerUI maxWidth="xl">{children}</ContainerUI>;
+  return (
+    <ContainerUI sx={{ maxWidth: '1228px !important' }}>{children}</ContainerUI>
+  );
 };
 
 export default Container;

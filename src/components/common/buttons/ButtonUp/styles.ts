@@ -1,7 +1,7 @@
 export const styles = {
   position: 'fixed',
-  bottom: 20,
-  right: 20,
+  bottom: 30,
+  right: 30,
   width: 56,
   height: 56,
 
