@@ -3,18 +3,13 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { Box } from '@mui/system';
-import {
-  Fade,
-  SelectChangeEvent,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material';
+import { Fade, SelectChangeEvent } from '@mui/material';
 
 import { filterDefaultValues, properties } from 'constants/filter';
 import {
   formConfig,
+  getFilterFields,
   getFilterIsChanged,
-  getPropertyState,
   resetFields,
   retrieveSearchParams,
   updateSearchParams,
@@ -22,10 +17,11 @@ import {
 import { getHistoryItemByFilter } from 'utils';
 import { setHistoryItem } from 'app/redux/history';
 import { useAppDispatch } from 'app/redux/hooks';
+import { useMedia } from 'utils/hooks';
 
 import { ButtonMain } from 'components/common/buttons';
-import { CharacterFields, EpisodeFields, LocationFields } from './fields';
 import { Field, FormSelect } from 'components/common/form';
+import FilterFields from './FilterFields';
 import ToastMessage from 'components/common/ToastMessage';
 import { formStyles } from './styles';
 
@@ -33,13 +29,10 @@ const Filter = () => {
   const dispatch = useAppDispatch();
   const [filterIsOpen, setFilterIsOpen] = useState<boolean>(false);
   const [toastIsOpen, setToastIsOpen] = useState(false);
+  const { isSm, isMd, isLg } = useMedia(); // Styles
 
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-
-  // Styles
-  const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 
   // Form control using React Hook Form
   const {
@@ -53,8 +46,8 @@ const Filter = () => {
 
   // Properties select status
   const chosenProperties = watch('property');
-  const { propertyIsChosen, characterChosen, locationChosen, episodeChosen } =
-    getPropertyState(chosenProperties);
+  const propertyIsChosen = !!chosenProperties.length;
+  const filterFields = getFilterFields(chosenProperties);
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(propertyIsChosen);
 
   // Get current URL search params and set to Filter default values
@@ -98,6 +91,7 @@ const Filter = () => {
 
     if (!isFilterChanged) {
       setToastIsOpen(true);
+      setFilterIsOpen(false); // Close filter
       return;
     }
 
@@ -124,8 +118,8 @@ const Filter = () => {
         display="flex"
         position="relative"
         zIndex={50}
-        flexDirection={isDesktop ? 'row' : 'column'}
-        gap={isDesktop ? 20 : 4}
+        flexDirection={isMd ? 'row' : 'column'}
+        gap={isLg ? 20 : isMd ? 10 : 4}
       >
         <ButtonMain
           handleClick={toggleFilter}
@@ -138,7 +132,10 @@ const Filter = () => {
             <Box
               component="form"
               onSubmit={handleSubmit(onSubmit)}
-              sx={formStyles}
+              sx={{
+                ...formStyles,
+                flexDirection: isSm ? 'row' : 'column',
+              }}
             >
               <FormSelect
                 control={control}
@@ -157,10 +154,13 @@ const Filter = () => {
                   placeholder="Add key word to find"
                 />
                 <Fade in={menuIsOpen}>
-                  <Box position="absolute" top={0} left={0} zIndex={50}>
-                    {characterChosen && <CharacterFields control={control} />}
-                    {locationChosen && <LocationFields control={control} />}
-                    {episodeChosen && <EpisodeFields control={control} />}
+                  <Box
+                    position={isSm ? 'absolute' : 'static'}
+                    top={0}
+                    left={0}
+                    zIndex={50}
+                  >
+                    <FilterFields control={control} formFields={filterFields} />
                   </Box>
                 </Fade>
               </Box>
@@ -170,8 +170,8 @@ const Filter = () => {
         )}
       </Box>
       <ToastMessage
-        type="warning"
-        message="At least one field should be changed"
+        type="info"
+        message="At least one field should be changed for new search"
         isOpen={toastIsOpen}
         handleClose={() => {
           setToastIsOpen(false);

@@ -34,7 +34,7 @@ export const LogoStyled = styled.a`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 50;
+    z-index: 10;
 
     width: 50px;
     height: 50px;

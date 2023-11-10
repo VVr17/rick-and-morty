@@ -1,17 +1,16 @@
 import React from 'react';
 import { Control } from 'react-hook-form';
 
-import { characterFormFields } from 'constants/filter';
 import { Field, FormSelect } from 'components/common/form';
 
-interface IProp {
+interface IProps {
   control: Control<any>;
+  formFields: IFormField[];
 }
-
-const CharacterFields: React.FC<IProp> = ({ control }) => {
+const FilterFields: React.FC<IProps> = ({ formFields, control }) => {
   return (
     <>
-      {characterFormFields.map(({ name, options, placeholder }) =>
+      {formFields.map(({ name, options, placeholder }) =>
         options ? (
           <FormSelect
             key={name}
@@ -34,4 +33,4 @@ const CharacterFields: React.FC<IProp> = ({ control }) => {
   );
 };
 
-export default CharacterFields;
+export default FilterFields;

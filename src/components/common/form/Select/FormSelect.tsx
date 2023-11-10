@@ -14,6 +14,7 @@ import ErrorMessage from '../ErrorMessage';
 import SelectValue from './SelectValue';
 import {
   checkedStyles,
+  menuStyles,
   multipleSelectStyles,
   optionStyles,
   selectStyles,
@@ -58,13 +59,14 @@ const FormSelect: React.FC<IProp> = ({
                 placeholder={placeholder}
               />
             )}
-            sx={type === 'checkbox' ? multipleSelectStyles : selectStyles}
             onChange={event => {
               field.onChange(event);
               if (handlePropertyChange) {
                 handlePropertyChange(event);
               }
             }}
+            sx={type === 'checkbox' ? multipleSelectStyles : selectStyles}
+            MenuProps={menuStyles}
           >
             {options.map(option => (
               <MenuItem key={option} value={option}>

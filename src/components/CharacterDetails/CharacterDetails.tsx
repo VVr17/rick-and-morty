@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router';
 import { Box } from '@mui/system';
 
 import { BackButton } from 'components/common/buttons';
+import { CharacterType } from 'types';
 import CharacterCard from './CharacterCard';
 import Container from 'components/Container';
-import { CharacterType } from 'types';
 
 interface IProps {
   character: CharacterType;

@@ -1,4 +1,9 @@
-import { genders, statuses } from './filterSelectValues';
+import {
+  genders,
+  locationTypes,
+  specieses,
+  statuses,
+} from './filterSelectValues';
 
 export const characterFormFields = [
   { name: 'name', placeholder: 'Add character name' },
@@ -7,7 +12,11 @@ export const characterFormFields = [
     placeholder: 'Add character status',
     options: ['', ...statuses],
   },
-  { name: 'species', placeholder: 'Add character species' },
+  {
+    name: 'species',
+    placeholder: 'Add character species',
+    options: ['', ...specieses],
+  },
   { name: 'type', placeholder: 'Add character type' },
   {
     name: 'gender',
@@ -18,7 +27,11 @@ export const characterFormFields = [
 
 export const locationFormFields = [
   { name: 'locationName', placeholder: 'Add location name' },
-  { name: 'locationType', placeholder: 'Add location type' },
+  {
+    name: 'locationType',
+    placeholder: 'Add location type',
+    options: ['', ...locationTypes],
+  },
   { name: 'dimension', placeholder: 'Add dimension' },
 ];
 

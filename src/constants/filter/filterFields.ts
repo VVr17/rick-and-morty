@@ -1,4 +1,4 @@
-export const characterFields: FilterField[] = [
+export const characterFields: FilterFieldName[] = [
   'name',
   'status',
   'species',
@@ -6,15 +6,15 @@ export const characterFields: FilterField[] = [
   'gender',
 ];
 
-export const locationFields: FilterField[] = [
+export const locationFields: FilterFieldName[] = [
   'locationName',
   'locationType',
   'dimension',
 ];
 
-export const episodeFields: FilterField[] = ['episodeName', 'episode'];
+export const episodeFields: FilterFieldName[] = ['episodeName', 'episode'];
 
-export const filterFields: FilterField[] = [
+export const filterFields: FilterFieldName[] = [
   ...characterFields,
   ...locationFields,
   ...episodeFields,

@@ -2,12 +2,18 @@ export { filterDefaultValues } from './filterDefaultValues';
 export {
   filterFields,
   characterFields,
-  locationFields,
   episodeFields,
+  locationFields,
 } from './filterFields';
-export { properties, statuses, genders } from './filterSelectValues';
+export {
+  genders,
+  locationTypes,
+  properties,
+  specieses,
+  statuses,
+} from './filterSelectValues';
 export {
   characterFormFields,
-  locationFormFields,
   episodeFormFields,
+  locationFormFields,
 } from './formFields';

@@ -9,6 +9,7 @@ import { selectCharacters } from 'app/redux/characters';
 import { updateSearchParams } from 'utils/filter';
 import { useAppSelector } from 'app/redux/hooks';
 
+import Actions from 'components/Actions';
 import CharacterList from './CharacterList';
 import Container from 'components/Container';
 import Filter from './Filter';
@@ -56,9 +57,12 @@ const Characters = () => {
         <Container>
           <Filter />
           {!characterList.length ? (
-            <Typography component="p" variant="h3">
-              There are no characters found on your request
-            </Typography>
+            <Box position="relative">
+              <Typography component="p" variant="h3">
+                Sorry, no characters were found based on your request.
+              </Typography>
+              <Actions type="filter" />
+            </Box>
           ) : (
             <CharacterList />
           )}

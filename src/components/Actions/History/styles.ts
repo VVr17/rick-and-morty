@@ -1,7 +1,7 @@
 export const styles = {
   style: {
     top: '24px',
-    height: '580px',
+    maxHeight: '580px',
     padding: '16px',
   },
 };

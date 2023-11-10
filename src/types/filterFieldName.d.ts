@@ -1,4 +1,4 @@
-type FilterField =
+type FilterFieldName =
   | 'name'
   | 'status'
   | 'species'

@@ -3,13 +3,15 @@ import { Box } from '@mui/system';
 import { Typography } from '@mui/material';
 
 import { CharacterType } from 'types';
+import { getDescriptionFields } from 'utils/character';
+import { useMedia } from 'utils/hooks';
+
 import {
   CharacterStatus,
   DescriptionTitle,
   Details,
 } from 'components/common/character';
 import Episodes from './Episodes';
-import { getDescriptionFields } from 'utils/character';
 
 interface IProps {
   character: CharacterType;
@@ -17,6 +19,8 @@ interface IProps {
 
 const Description: React.FC<IProps> = ({ character }) => {
   const { name, gender, episode, species, location, status } = character;
+  const { isMd } = useMedia(); // Styles
+
   const descriptionFields = getDescriptionFields(
     'details',
     location,
@@ -24,7 +28,7 @@ const Description: React.FC<IProps> = ({ character }) => {
   );
 
   return (
-    <Box pt={1.5} pl={5}>
+    <Box py={1.5} pl={isMd ? 5 : 1.5} pr={1.5}>
       <Typography fontSize={27} fontWeight={800}>
         {name}
       </Typography>

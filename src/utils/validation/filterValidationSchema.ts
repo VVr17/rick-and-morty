@@ -1,5 +1,10 @@
 import * as yup from 'yup';
-import { episodeRegEx } from './RegEx';
+import {
+  episodeNameRegEx,
+  episodeRegEx,
+  nameRegEx,
+  stringRegEx,
+} from './RegEx';
 import {
   characterFields,
   episodeFields,
@@ -7,72 +12,83 @@ import {
   locationFields,
   properties,
   statuses,
+  locationTypes,
+  specieses,
 } from 'constants/filter';
-
-const MIN_LENGTH = 3;
 
 export const filterSchema = yup
   .object()
   .shape({
     search: yup
       .string()
-      .min(3)
-      .transform(value => (value ? value : null))
+      .min(3, 'Should be at least 3 characters')
+      .max(50, 'Should be at most 50 characters')
+      .transform(value => (value ? value.trim() : null))
       .nullable(),
     property: yup.array().of(yup.string().oneOf(properties)),
 
     name: yup
       .string()
-      .min(3)
-      .transform(value => (value ? value : null))
+      .min(3, 'Name must be at least 3 characters')
+      .max(50, 'Name must be at most 50 characters')
+      .matches(nameRegEx, 'Can contain Latin letters and special symbols')
+      .transform(value => (value ? value.trim() : null))
       .nullable(),
 
     status: yup
       .string()
       .oneOf(statuses)
-      .transform(value => (value ? value : null))
+      .transform(value => (value ? value.trim() : null))
       .nullable(),
     species: yup
       .string()
-      .min(3)
-      .transform(value => (value ? value : null))
+      .oneOf(specieses)
+      .transform(value => (value ? value.trim() : null))
       .nullable(),
     type: yup
       .string()
-      .min(3)
-      .transform(value => (value ? value : null))
+      .min(3, 'Type must be at least 3 characters')
+      .max(50, 'Type must be at most 50 characters')
+      .matches(stringRegEx, 'Can contain Latin letters and special symbols')
+      .transform(value => (value ? value.trim() : null))
       .nullable(),
     gender: yup
       .string()
       .oneOf(genders)
-      .transform(value => (value ? value : null))
+      .transform(value => (value ? value.trim() : null))
       .nullable(),
 
     locationName: yup
       .string()
-      .min(3)
-      .transform(value => (value ? value : null))
+      .min(3, 'Location must be at least 3 characters')
+      .max(50, 'Location must be at most 50 characters')
+      .matches(stringRegEx, 'Can contain Latin letters and special symbols')
+      .transform(value => (value ? value.trim() : null))
       .nullable(),
     locationType: yup
       .string()
-      .min(3)
-      .transform(value => (value ? value : null))
+      .oneOf(locationTypes)
+      .transform(value => (value ? value.trim() : null))
       .nullable(),
     dimension: yup
       .string()
-      .min(3)
-      .transform(value => (value ? value : null))
+      .min(3, 'Dimension must be at least 3 characters')
+      .max(50, 'Dimension must be at most 50 characters')
+      .matches(stringRegEx, 'Can contain Latin letters and special symbols')
+      .transform(value => (value ? value.trim() : null))
       .nullable(),
 
     episodeName: yup
       .string()
-      .min(3)
-      .transform(value => (value ? value : null))
+      .min(2, 'Name must be at least 2 characters')
+      .max(50, 'Name must be at most 50 characters')
+      .matches(episodeNameRegEx, 'Can contain only Latin letters')
+      .transform(value => (value ? value.trim() : null))
       .nullable(),
     episode: yup
       .string()
-      .matches(episodeRegEx, 'Episode S01E01, 5 seasons, 11 episodes')
-      .transform(value => (value ? value : null))
+      .matches(episodeRegEx, 'Episode type: S01E01, 5 seasons, 11 episodes')
+      .transform(value => (value ? value.trim() : null))
       .nullable(),
   })
   .test({

@@ -19,6 +19,8 @@ export const multipleSelectStyles = {
   },
 };
 
+export const menuStyles = { PaperProps: { sx: { maxHeight: 300 } } };
+
 export const optionStyles = {
   color: 'primary.dark',
   textTransform: 'capitalize',

@@ -1,64 +1,86 @@
-🚀 Завдання Головним завданням є створення сторінки з можливістю переглядати
-інформацію про створіння з серіалу Рік та Морті. Як користувач я повинен мати
-можливість перегляду всіх створінь, детальну інформацію про обраного персонажа,
-мати можливість використовувати фільтр, аби швидше знайти конкретного персонажа
-з усього списку запропонованих. Також мої дії на сайті повинні бути записані в
-історію, яку я згодом можу переглядати.
+**Read in other languages: [Українська](README.uk.md).**
 
-API документація: https://rickandmortyapi.com/documentation/
+## 🚀 "Rick and Morty Viewer"
 
-🛠 Технології ⚡️ Основа: TypeScript, React
+![Rick and Morty Viewer](https://rickandmortyapi.com/api/character/avatar/11.jpeg)
 
-⚡️ State менеджер та middleware: Redux Toolkit, Redux Thunk
+is a web application that allows you to explore information about characters
+from the popular TV series "Rick and Morty." This application provides a
+user-friendly interface to view characters, search for detailed information
+about them, and use filters to find specific characters from a vast list. It
+also includes a history feature to track your interactions.
 
-⚡️ Роутінг: React Router
+## 🚀 Features
 
-⚡️ Робота із запитами: GraphQL
+- Character List: View a comprehensive list of characters from the "Rick and
+  Morty" series.
+- Character Details: Access detailed information about a specific character by
+  clicking on their name.
+- Filter Characters: Use filters to quickly locate a particular character based
+  on specific criteria.
+- History Tracking: The application tracks your interactions and allows you to
+  view your search history.
 
-⚡️ Обробка форм: React Hook Form
+API Documentation:
+[Rick and Morty API Documentation](https://rickandmortyapi.com/documentation/)
 
-⚡️ UI бібліотеки: Material UI
+## 🛠 Technologies
 
-⚡️ Стилізація: styled-component, Стилізація методами вибраної UI бібліотеки
+The "Rick and Morty Viewer" is built using the following technologies:
 
-⚡️ Валідація та форматування коду: ESLint, Prettier
+- TypeScript
+- React
+- Redux Toolkit and Redux Thunk (for state management and middleware)
+- React Router (for routing)
+- GraphQL (for making API requests)
+- React Hook Form and Yup (for form handling and validation)
+- Material UI (for UI components)
+- ESLint and Prettier (for code validation and formatting)
 
-👩‍💻 Технічні аспекти Сайт повинен мати 2 сторінки: Home - якиа містить контент,
-який буде описаний нижче(та промальований в Фігмі), та сторінку детального
-огляду, на яку ми потрапляємо при натисканні на ім'я створіння. На основній
-сторінці особливу увагу треба приділити списку всіх створінь, фільтру, пагінації
-та fab. У правій нижній частині екрану завжди повинен бути Fab, у якому будуть 2
-опції: History - відкриває Drawer у якому записана історія пошуку с фільтра
-(записується вона сюди с параметрами, за якими був здійснений пошук), після
-перезавантаження сторінки данні не повинні зникнути. Download - звантажувати
-.csv файл зі створіннями(лише ті, що знаходяться на конкретній сторінці в
-пагінації), що потрапили під параметри пошуку фільтру.
+## 👩‍💻 Technical Aspects
 
-Блок з фільтром повинен мати select з параметрами: Character, Location, Episode.
-Обираючи один із них(або декілька) під блоком з'являються відповідні поля, за
-якими можемо робити фільтрацію, параметри для кожного з розділів select можна
-побачити у документації. Та наприкінці повинна знаходитися кнопка пошуку, яка
-розпочне запит на отримання створінь, та запише критерії пошуку(лише ті, які
-були заповнені) в історію:
+### Pages
 
-Поведінка полів вводу для обраних селектів: Важливо зазначити, що в разі обрання
-більше ніж одного селетка к-сть полів вводу пропорційно збільшується, але їх
-логіка і поведінака зберігаєтсья. Для того аби покинути режим селекту, закрийте
-селект, або клікніть на область.
+1. **Home Page**: Contains the following elements:
 
-При натисканні на ім'я створіння повинен бути перехід на іншу сторінку з
-детальним описом цього персонажу, яку саме інформацію про нього виводити ви
-можете обрати самі. Також ця дія повинна бути записана до історії. Буде
-достатньо "Передивився інформацію що до ім'я персонажу". Також на сторінці
-детального виду кнопка Download, що знаходиться в Fab повинна бути неактивна.
+   - List of all characters from the series.
+   - Filter, pagination, and a floating action button (FAB) in the bottom right
+     corner.
+   - The FAB provides two options: "History" and "Download."
+   - The "History" option opens a drawer displaying the search history
+     (parameters used for filtering).
+   - The "Download" option allows you to download a .csv file containing
+     characters that match the current filter criteria.
 
-Всі запити роблять через Rest api документації, та обов'язково з використанням
-redux.
+2. **Character Details Page**: Accessed by clicking on a character's name. The
+   page displays detailed information about the character.
 
-📌 Порядок виконання завдання Виконайте завдання з використанням технологій та
-дотриманням усіх пунктів описаних вище. Розмістить виконанне тестове завдання у
-своєму git репозиторії (є гарною практикою робити комміти частіше, ніж один за
-все виконання 😉). Зробіть деплой виконаного проекту. Можна використати GitHub
-або Firebase, але список цим не обмежений. (Цей пункт не обовʼязковий, але буде
-плюсом). Повідомте про виконання завдання, та надайте посилання на git
-репозиторій та лінку на задеплоєний проект (якщо цей пункт було виконано) 🖥
+### Filtering
+
+- The filter block contains a select element with options: "Character,"
+  "Location," and "Episode."
+- When selecting an option, corresponding input fields appear for filtering.
+
+### Search History
+
+- All search actions are recorded in the history.
+- By click on history item you can go to the specified page.
+
+## Getting Started
+
+To use "Rick and Morty Viewer", you must have Node.js and npm installed on your
+computer.
+
+- Clone the repository and install the dependencies:
+
+       git clone https://github.com/VVr17/rick-and-morty
+       cd rick-and-morty
+       npm install
+
+- After installing the dependencies, start the development server:
+
+        npm start
+
+- To build the production-ready version of the application, run: npm run build
+
+# Enjoy using "Rick and Morty Viewer"!

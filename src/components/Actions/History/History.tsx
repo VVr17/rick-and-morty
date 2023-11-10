@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import { Typography, SwipeableDrawer, Button } from '@mui/material';
+import { useMedia } from 'utils/hooks';
 
 import HistoryList from './HistoryList';
 import { closeButtonStyles, styles } from './styles';
@@ -11,6 +12,8 @@ interface IProps {
 }
 
 const History: React.FC<IProps> = ({ isOpen, toggleDrawer }) => {
+  const { isSm } = useMedia();
+
   return (
     <SwipeableDrawer
       anchor="right"
@@ -20,7 +23,7 @@ const History: React.FC<IProps> = ({ isOpen, toggleDrawer }) => {
       PaperProps={styles}
     >
       <Box
-        width={420}
+        width={isSm ? 420 : '100%'}
         role="history"
         height="100%"
         display="flex"

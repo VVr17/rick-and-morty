@@ -1,11 +1,10 @@
 import { UseFormSetValue } from 'react-hook-form';
-
 import {
   characterFields,
   episodeFields,
   locationFields,
+  properties,
 } from 'constants/filter';
-import { getPropertyState } from './getPropertyState';
 
 /**
  * Reset specific form fields based on the chosen properties and their states.
@@ -17,14 +16,25 @@ export const resetFields = (
   chosenProperties: string[],
   setValue: UseFormSetValue<IFilterFields>
 ): void => {
-  const { characterChosen, locationChosen, episodeChosen } =
-    getPropertyState(chosenProperties);
-  const fieldsToReset: (keyof IFilterFields)[] = [];
+  const fieldsMap: Record<string, (keyof IFilterFields)[]> = {
+    character: characterFields,
+    location: locationFields,
+    episode: episodeFields,
+  };
 
-  if (chosenProperties.length) fieldsToReset.push('search');
-  if (!characterChosen) fieldsToReset.push(...characterFields);
-  if (!locationChosen) fieldsToReset.push(...locationFields);
-  if (!episodeChosen) fieldsToReset.push(...episodeFields);
+  const fieldsToReset: (keyof IFilterFields)[] = properties.reduce(
+    (fields: (keyof IFilterFields)[], property) => {
+      if (!chosenProperties.includes(property)) {
+        fields.push(...fieldsMap[property]);
+      }
+      return fields;
+    },
+    []
+  );
+
+  if (chosenProperties.length) {
+    fieldsToReset.push('search');
+  }
 
   if (fieldsToReset.length) {
     fieldsToReset.forEach(fieldName => {
