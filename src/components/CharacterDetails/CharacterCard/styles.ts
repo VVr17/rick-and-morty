@@ -1,6 +1,6 @@
 export const avatarStyles = {
-  marginLeft: 'auto',
-  marginRight: 'auto',
+  marginTop: 'auto',
+  marginBottom: 'auto',
   borderTopLeftRadius: 'inherit',
   borderBottomLeftRadius: 'inherit',
 };
