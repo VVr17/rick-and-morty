@@ -11,6 +11,7 @@ import { retrieveSearchParams } from 'utils/filter';
 import { topScroll } from 'utils';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
 
+import { ButtonUp } from 'components/common/buttons';
 import Characters from 'components/Characters';
 import Hero from 'components/Hero';
 import Loader from 'components/common/Loader';
@@ -45,6 +46,7 @@ const Home = () => {
       <Loader isLoading={isLoading} />
       <Hero />
       {!isLoading && <Characters />}
+      <ButtonUp />
     </>
   );
 };
