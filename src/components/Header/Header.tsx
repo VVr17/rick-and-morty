@@ -1,16 +1,26 @@
 import React from 'react';
-import { Box } from '@mui/system';
+import { AppBar, Toolbar } from '@mui/material';
 
-import Container from 'components/Container';
+import BurgerMenu from './BurgerMenu';
+import Container from 'components/common/Container';
 import Logo from 'components/common/Logo';
+import Navigation from './Navigation';
 
 const Header = () => {
   return (
-    <Box component="header" py={1.25}>
+    <AppBar position="fixed">
       <Container>
-        <Logo />
+        <Toolbar disableGutters>
+          <Logo />
+
+          {/* Mobile App */}
+          <BurgerMenu />
+
+          {/* Desktop App */}
+          <Navigation />
+        </Toolbar>
       </Container>
-    </Box>
+    </AppBar>
   );
 };
 

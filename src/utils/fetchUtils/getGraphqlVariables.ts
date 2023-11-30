@@ -37,6 +37,7 @@ export const getGraphqlVariables = (
 
     case 'location':
       return {
+        page,
         ...(locationName && { name: locationName }),
         ...(locationType && { type: locationType }),
         ...(dimension && { dimension }),
@@ -44,6 +45,7 @@ export const getGraphqlVariables = (
 
     case 'episode':
       return {
+        page,
         ...(episode && { episode }),
         ...(episodeName && { name: episodeName }),
       };

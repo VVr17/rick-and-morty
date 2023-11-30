@@ -11,8 +11,8 @@ import { EpisodeType, LocationType } from 'types';
  */
 export const getDescriptionFields = (
   type: 'list' | 'details',
-  location: LocationType,
-  episode: EpisodeType
+  location: LocationType | null,
+  episode: EpisodeType | null
 ) => {
   return [
     {

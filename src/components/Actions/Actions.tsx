@@ -19,7 +19,7 @@ interface IProps {
 }
 
 const Actions: React.FC<IProps> = ({ type }) => {
-  const { characterList } = useAppSelector(selectCharacters);
+  const { data } = useAppSelector(selectCharacters);
   const fabRef = useRef(null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [historyIsOpen, setHistoryIsOpen] = useState<boolean>(false);
@@ -54,7 +54,7 @@ const Actions: React.FC<IProps> = ({ type }) => {
   };
 
   const downloadFile = () => {
-    downloadCharacters(characterList);
+    downloadCharacters(data);
     toggleActionsMenu();
   };
 

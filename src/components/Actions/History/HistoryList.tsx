@@ -16,7 +16,7 @@ const HistoryList = () => {
         <ListItem key={index} disablePadding divider>
           <Link
             component={RouterLink}
-            to={`/${href}`}
+            to={href}
             color="primary.main"
             underline="none"
             sx={linkStyles}

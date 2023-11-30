@@ -85,7 +85,7 @@ const getCharacterMatch = (character: CharacterType, query: ISearchQuery) => {
  * @returns true if the character's location matches the search criteria, false otherwise.
  */
 const getLocationMatch = (
-  characterLocation: LocationType,
+  characterLocation: LocationType | null,
   query: ISearchQuery
 ) => {
   if (!characterLocation) return false;

@@ -9,11 +9,15 @@ import {
   REGISTER,
 } from 'redux-persist';
 import charactersReducer from 'app/redux/characters/charactersSlice';
+import episodesReducer from 'app/redux/episodes/episodesSlice';
+import locationsReducer from 'app/redux/locations/locationsSlice';
 import persistedHistoryReducer from 'app/redux/history/historySlice';
 
 export const store = configureStore({
   reducer: {
     characters: charactersReducer,
+    episodes: episodesReducer,
+    locations: locationsReducer,
     history: persistedHistoryReducer,
   },
   middleware: getDefaultMiddleware =>

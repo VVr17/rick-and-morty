@@ -82,6 +82,10 @@ export interface FetchEpisodes_episodes_results {
    */
   name: string | null;
   /**
+   * The code of the episode.
+   */
+  episode: string | null;
+  /**
    * List of characters who have been seen in the episode.
    */
   characters: (FetchEpisodes_episodes_results_characters | null)[];
@@ -101,6 +105,7 @@ export interface FetchEpisodes {
 }
 
 export interface FetchEpisodesVariables {
+  page: number;
   name?: string | null;
   episode?: string | null;
 }

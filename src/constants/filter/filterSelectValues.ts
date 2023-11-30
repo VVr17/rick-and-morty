@@ -1,5 +1,34 @@
-export const properties: PropertyType[] = ['character', 'location', 'episode'];
-export const statuses: StatusType[] = ['alive', 'dead', 'unknown'];
+export const PROPERTY: {
+  character: PropertyType;
+  location: PropertyType;
+  episode: PropertyType;
+} = {
+  character: 'character',
+  location: 'location',
+  episode: 'episode',
+};
+
+export const properties: PropertyType[] = [
+  PROPERTY.character,
+  PROPERTY.location,
+  PROPERTY.episode,
+];
+
+export const STATUS: {
+  alive: StatusType;
+  dead: StatusType;
+  unknown: StatusType;
+} = {
+  alive: 'alive',
+  dead: 'dead',
+  unknown: 'unknown',
+};
+
+export const statuses: StatusType[] = [
+  STATUS.alive,
+  STATUS.dead,
+  STATUS.unknown,
+];
 export const genders: GenderType[] = [
   'female',
   'male',
@@ -19,7 +48,7 @@ export const specieses: SpeciesTypes[] = [
   'unknown',
 ];
 
-export const locationTypes: LocationType[] = [
+export const locationTypes: LocationNameType[] = [
   'Artificially generated world',
   'Acid Plant',
   'Asteroid',

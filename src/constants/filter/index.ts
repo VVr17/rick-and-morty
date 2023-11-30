@@ -8,8 +8,10 @@ export {
 export {
   genders,
   locationTypes,
+  PROPERTY,
   properties,
   specieses,
+  STATUS,
   statuses,
 } from './filterSelectValues';
 export {

@@ -8,6 +8,7 @@ export const globalStyles = css`
     font-family: 'Roboto';
     font-size: 18px;
     color: ${theme.palette.secondary.main};
+    background-color: ${theme.palette.primary.main};
   }
 
   #root {

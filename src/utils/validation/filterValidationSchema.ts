@@ -10,9 +10,10 @@ import {
   episodeFields,
   genders,
   locationFields,
+  locationTypes,
+  PROPERTY,
   properties,
   statuses,
-  locationTypes,
   specieses,
 } from 'constants/filter';
 
@@ -105,15 +106,15 @@ export const filterSchema = yup
       }
 
       const characterFieldsAreEmpty =
-        chosenProperties.includes(properties[0]) &&
+        chosenProperties.includes(PROPERTY.character) &&
         characterFields.every(field => !values[field]);
 
       const locationFieldsAreEmpty =
-        chosenProperties.includes(properties[1]) &&
+        chosenProperties.includes(PROPERTY.location) &&
         locationFields.every(field => !values[field]);
 
       const episodeFieldsAreEmpty =
-        chosenProperties.includes(properties[2]) &&
+        chosenProperties.includes(PROPERTY.episode) &&
         episodeFields.every(field => !values[field]);
 
       if (characterFieldsAreEmpty) {

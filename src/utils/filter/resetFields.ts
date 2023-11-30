@@ -7,15 +7,14 @@ import {
 } from 'constants/filter';
 
 /**
- * Reset specific form fields based on the chosen properties and their states.
+ * Get specific form fields based on the chosen properties and their states to be reset.
  *
  * @param chosenProperties - An array of chosen properties (e.g., 'character', 'location', 'episode').
- * @param setValue - A function from react-hook-form to set form field values.
+//  * @param setValue - A function from react-hook-form to set form field values.
  */
-export const resetFields = (
-  chosenProperties: string[],
-  setValue: UseFormSetValue<IFilterFields>
-): void => {
+export const getFieldsToReset = (
+  chosenProperties: string[]
+): (keyof IFilterFields)[] => {
   const fieldsMap: Record<string, (keyof IFilterFields)[]> = {
     character: characterFields,
     location: locationFields,
@@ -36,9 +35,20 @@ export const resetFields = (
     fieldsToReset.push('search');
   }
 
-  if (fieldsToReset.length) {
-    fieldsToReset.forEach(fieldName => {
-      setValue(fieldName, '');
-    });
-  }
+  return fieldsToReset;
+};
+
+/**
+ * Reset specific form fields.
+ *
+ * @param fieldsToReset - Specific form fields to be reset.
+ * @param setValue - A function from react-hook-form to set form field values.
+ */
+export const resetFilter = (
+  fieldsToReset: (keyof IFilterFields)[],
+  setValue: UseFormSetValue<IFilterFields>
+) => {
+  fieldsToReset.forEach(fieldName => {
+    setValue(fieldName, '');
+  });
 };

@@ -1,10 +1,10 @@
-import React, { ReactNode } from 'react';
+import React, { MouseEventHandler, ReactNode } from 'react';
 import { IconButton } from '@mui/material';
 import { styles } from './styles';
 
 interface IProps {
   children: ReactNode;
-  handleClick: React.MouseEventHandler<HTMLButtonElement>;
+  handleClick: MouseEventHandler<HTMLButtonElement>;
   disabled: boolean;
 }
 

@@ -4,13 +4,15 @@ import { filterFields } from 'constants/filter';
  * Generate a user-friendly history message based on filter criteria.
  *
  * @param data - An object containing filter criteria.
- * @param href - An URL query string or character ID.
+ * @param query - An URL query string.
+ * @param filterType - Type of the filter, e.g. 'characters', 'episodes'
  * @returns A message summarizing the applied filter criteria.
  */
 
 export const getHistoryItemByFilter = (
   data: IFilterFields,
-  href: string
+  query: string,
+  filterType: FilterType
 ): IHistoryItem => {
   const { search, property } = data;
 
@@ -18,7 +20,8 @@ export const getHistoryItemByFilter = (
   if (!property.length) {
     return {
       message: `Фільтр за ключовим словом: ${search}`,
-      href,
+      href: `/${filterType}${query}`,
+      type: filterType,
     };
   }
 
@@ -29,8 +32,15 @@ export const getHistoryItemByFilter = (
     .join(', ');
 
   return {
-    message: `Фільтр за критеріями: ${chosenFilter}`,
-    href,
+    message: `Фільтр ${
+      filterType === 'characters'
+        ? `персонажів`
+        : filterType === 'episodes'
+        ? `епізодів`
+        : `локацій`
+    } за критеріями: ${chosenFilter}`,
+    href: `/${filterType}${query}`,
+    type: filterType,
   };
 };
 
@@ -39,13 +49,19 @@ export const getHistoryItemByFilter = (
  *
  * @param name - A name of a character.
  * @param id - A Character ID.
+ * @param filterType - Type of the filter, e.g. 'characters', 'episodes'
  * @returns A message summarizing the applied filter criteria.
  */
 
-export const getHistoryItemById = (name: string, id: string): IHistoryItem => {
+export const getHistoryItemById = (
+  name: string,
+  id: string,
+  filterType: FilterType
+): IHistoryItem => {
   return {
     message: `Передивився інформацію що до ${name}`,
-    href: id,
+    href: `/${filterType}/${id}`,
+    type: filterType,
   };
 };
 
