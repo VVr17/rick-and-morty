@@ -85,6 +85,7 @@ export interface FetchLocations {
 }
 
 export interface FetchLocationsVariables {
+  page: number;
   name?: string | null;
   type?: string | null;
   dimension?: string | null;

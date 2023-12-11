@@ -7,7 +7,7 @@ import Socials from './Socials';
 
 const Footer = () => {
   return (
-    <Box component="footer" pt={6} pb={10.25} bgcolor="primary.dark">
+    <Box component="footer" py={4} bgcolor="primary.dark">
       <Container
         maxWidth="xl"
         sx={{
@@ -26,7 +26,7 @@ const Footer = () => {
           textAlign="center"
           textTransform="uppercase"
         >
-          performed as part of a test <br /> case for the company
+          performed as part of a pet project <br /> case for the company
         </Typography>
 
         <FooterLogo />

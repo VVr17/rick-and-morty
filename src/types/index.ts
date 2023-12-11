@@ -3,3 +3,7 @@ export type { EpisodeType } from './episode';
 export type { ICharactersState } from './characterListState';
 export type { ICharacters } from './charactersResponse';
 export type { LocationType } from './location';
+export type { IEpisodes } from './episodes';
+export type { IEpisodesState } from './EpisodesListState';
+export type { ILocations } from './locations';
+export type { ILocationsState } from './LocationsListState';

@@ -14,6 +14,7 @@ import {
 } from 'utils/fetchUtils';
 import { defaultCharacters } from 'constants/states';
 import { ICharacters } from 'types';
+import { FIRST_PAGE } from 'constants/listConstants';
 
 export const fetchCharacters = createAsyncThunk(
   'characters/fetch',
@@ -28,7 +29,7 @@ export const fetchCharacters = createAsyncThunk(
       const { results, info } = response.data.characters;
 
       return {
-        characterList: results,
+        data: results,
         totalPages: info.pages,
         info: null,
       };
@@ -43,7 +44,7 @@ export const fetchCharactersByEpisode = createAsyncThunk(
   async (query: ISearchQuery, { rejectWithValue }): Promise<ICharacters> => {
     try {
       const { page } = query;
-      const response = await fetchEpisodes(query);
+      const response = await fetchEpisodes({ ...query, page: FIRST_PAGE });
 
       if (!response || !response.data) {
         throw new Error('Something went wrong');
@@ -70,7 +71,7 @@ export const fetchCharactersByEpisode = createAsyncThunk(
       const info = getInfoMessage('episode', totalEpisodePages);
 
       return {
-        characterList: data.charactersByIds,
+        data: data.charactersByIds,
         totalPages,
         info,
       };
@@ -85,7 +86,7 @@ export const fetchCharactersByLocation = createAsyncThunk(
   async (query: ISearchQuery, { rejectWithValue }): Promise<ICharacters> => {
     try {
       const { page } = query;
-      const response = await fetchLocations(query);
+      const response = await fetchLocations({ ...query, page: FIRST_PAGE });
 
       if (!response || !response.data) {
         throw new Error('Something went wrong');
@@ -112,7 +113,7 @@ export const fetchCharactersByLocation = createAsyncThunk(
       const info = getInfoMessage('location', totalLocationPages);
 
       return {
-        characterList: data.charactersByIds,
+        data: data.charactersByIds,
         totalPages,
         info,
       };

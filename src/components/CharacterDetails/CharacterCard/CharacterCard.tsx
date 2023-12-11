@@ -1,6 +1,6 @@
 import React from 'react';
-import { Box } from '@mui/system';
 import { Avatar } from '@mui/material';
+import { Box } from '@mui/system';
 
 import { CharacterType } from 'types';
 import { useMedia } from 'utils/hooks';
@@ -14,7 +14,7 @@ interface IProps {
 }
 
 const CharacterCard: React.FC<IProps> = ({ character }) => {
-  const { image } = character;
+  const { image, name } = character;
   const { isXs, isSm, isLgDown } = useMedia(); // Styles
 
   return (
@@ -26,8 +26,8 @@ const CharacterCard: React.FC<IProps> = ({ character }) => {
       borderRadius={9}
     >
       <Avatar
-        alt="name"
         src={image ? image : '/assets/images/fallback.jpeg'}
+        alt={name || 'avatar'}
         variant="square"
         sx={{
           ...avatarStyles,

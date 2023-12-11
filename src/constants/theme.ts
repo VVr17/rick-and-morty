@@ -29,7 +29,7 @@ let theme = createTheme({
       hover: '#4cb5c3',
       focus: '#87d1db',
       disabledOpacity: 0.8,
-      selected: '#1976D2',
+      // selected: '#1976D2',
     },
   },
   breakpoints: {

@@ -10,7 +10,7 @@ import {
   CharacterStatus,
   DescriptionTitle,
   Details,
-} from 'components/common/character';
+} from 'components/common/entityCard';
 import Episodes from './Episodes';
 
 interface IProps {

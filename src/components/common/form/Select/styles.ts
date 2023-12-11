@@ -28,6 +28,6 @@ export const optionStyles = {
 
 export const checkedStyles = {
   '&.Mui-checked': {
-    color: 'action.selected',
+    color: 'action.hover',
   },
 };

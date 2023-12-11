@@ -5,5 +5,4 @@ import {
 
 type LocationType =
   | FetchCharacterList_characters_results_location
-  | FetchCharactersById_charactersByIds_location
-  | null;
+  | FetchCharactersById_charactersByIds_location;

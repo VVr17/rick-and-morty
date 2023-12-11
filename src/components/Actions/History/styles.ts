@@ -7,20 +7,14 @@ export const styles = {
 };
 
 export const closeButtonStyles = {
-  width: 80,
   mt: 'auto',
-
-  boxShadow: 'none',
-  backgroundColor: 'transparent',
-  color: 'action.selected',
+  backgroundColor: 'action.focus',
 
   ':hover': {
     backgroundColor: 'action.hover',
-    color: 'primary.light',
   },
   ':focus': {
     backgroundColor: 'action.hover',
-    color: 'primary.light',
   },
 };
 

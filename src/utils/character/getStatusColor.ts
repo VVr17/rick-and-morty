@@ -1,4 +1,4 @@
-import { statuses } from 'constants/filter/filterSelectValues';
+import { STATUS } from 'constants/filter';
 
 /**
  * Get the color for a character status based on the provided status.
@@ -7,9 +7,6 @@ import { statuses } from 'constants/filter/filterSelectValues';
  * @returns A string representing the color ('success', 'error', or 'inherit').
  */
 export const getStatusColor = (status: string) => {
-  return status === statuses[0]
-    ? 'success'
-    : status === statuses[1]
-    ? 'error'
-    : 'inherit';
+  const { alive, dead } = STATUS;
+  return status === alive ? 'success' : status === dead ? 'error' : 'inherit';
 };

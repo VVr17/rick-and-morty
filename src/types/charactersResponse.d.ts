@@ -1,7 +1,7 @@
 import { CharacterType } from './character';
 
 export interface ICharacters {
-  characterList: CharacterType[];
+  data: CharacterType[];
   totalPages: number;
   info: string | null;
 }

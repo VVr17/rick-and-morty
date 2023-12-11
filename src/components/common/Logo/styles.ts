@@ -1,6 +1,6 @@
 export const styles = {
   fontSize: 0,
-  color: 'primary.main',
+  color: 'primary.light',
 
   '&:hover': {
     color: 'action.hover',

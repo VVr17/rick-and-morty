@@ -1,13 +1,16 @@
 import React from 'react';
+import { useNavigate } from 'react-router';
 import { Button } from '@mui/material';
 import UndoIcon from '@mui/icons-material/Undo';
 import { styles } from './styles';
 
-interface IProps {
-  goBack: () => void;
-}
+const BackButton = () => {
+  const navigate = useNavigate();
 
-const BackButton: React.FC<IProps> = ({ goBack }) => {
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <Button
       variant="contained"

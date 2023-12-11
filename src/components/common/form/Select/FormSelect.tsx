@@ -28,6 +28,7 @@ interface IProp {
   options: string[];
   handlePropertyChange?: (event: SelectChangeEvent<any>) => void;
   width?: string;
+  disabled?: boolean;
 }
 
 const FormSelect: React.FC<IProp> = ({
@@ -38,6 +39,7 @@ const FormSelect: React.FC<IProp> = ({
   options,
   handlePropertyChange,
   width = '100%',
+  disabled = false,
 }) => {
   return (
     <Controller
@@ -53,6 +55,7 @@ const FormSelect: React.FC<IProp> = ({
             {...field}
             multiple={type === 'checkbox'} // check if works
             displayEmpty
+            disabled={disabled}
             renderValue={selected => (
               <SelectValue
                 selected={type === 'checkbox' ? selected.join(', ') : selected}
