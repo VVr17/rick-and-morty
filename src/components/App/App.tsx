@@ -13,6 +13,7 @@ import {
 } from './lazyexports';
 import Loader from 'components/common/Loader';
 import { PATHNAME } from 'constants/pathname';
+import GridTest from 'pages/GridTest';
 
 const App = () => {
   return (
@@ -35,6 +36,10 @@ const App = () => {
           <Route
             path={`${PATHNAME.locations}/:locationId`}
             element={<LocationDetailsPage />}
+          />
+          <Route
+            path={`/grid`}
+            element={<GridTest />}
           />
         </Route>
       </Routes>

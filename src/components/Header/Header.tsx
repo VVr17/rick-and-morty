@@ -1,10 +1,10 @@
 import React from 'react';
 import { AppBar, Toolbar } from '@mui/material';
 
-import BurgerMenu from './BurgerMenu';
+import BurgerMenu from './BurgerMenu/BurgerMenu';
 import Container from 'components/common/Container';
 import Logo from 'components/common/Logo';
-import Navigation from './Navigation';
+import Navigation from './Navigation/Navigation';
 
 const Header = () => {
   return (

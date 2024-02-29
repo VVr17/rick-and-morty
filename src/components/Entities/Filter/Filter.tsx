@@ -52,9 +52,10 @@ const Filter: React.FC<IProps> = ({ type }) => {
     reset,
     setValue,
     watch,
-    formState: { defaultValues },
+    formState: { defaultValues,touchedFields },
   } = useForm<IFilterFields>(formConfig);
 
+  console.log('touchedFields', touchedFields)
   // Properties select status
   const chosenProperties = watch('property');
   const propertyIsChosen = !!chosenProperties.length;
